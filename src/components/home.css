@@ -1,0 +1,156 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.App-logo {
+    margin-left: 40px;
+    margin-right: 10px;
+}
+.home-header {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 12vh;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+}
+
+.search-input {
+    width: 200px;
+    height: 35px;
+    margin-right: 10px;
+    text-indent: 33px;
+    font-size: 14px;
+    color: rgb(168, 168, 168);
+    border: #E9ECEB solid .2px;
+
+}
+.header-search-box {
+    position: relative;
+
+}
+.icon {
+    position: absolute;
+    left: 5px;
+    top: 7px;
+}
+.link-container {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    margin-left: 600px;
+}
+.business {
+    background-color: #343737;
+    color: white;
+    width: 140px;
+    font-weight: bold;
+    font-size: 13px;
+}
+.link {
+    margin: 15px;
+    color: gray;
+    
+}
+.top-box{
+    display: flex;
+    width: 80vw;
+    height: auto;
+    margin-top: 10%;
+
+    color: white;
+    font-weight: bold;
+
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 75%;
+    height: 400px;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/woman.jpg');
+    background-repeat: no-repeat;
+background-position-y: -600px;
+background-position-x: -50px;
+    background-size: 1100px;
+    
+}
+.right-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 400px;
+    width: 30%;
+    background-color: #343737;
+    font-size: 25px;
+
+}
+.booking-text, .trial-text {
+   font-size: 15px;
+   font-weight: lighter;
+   padding: 20px;
+}
+.bold-text {
+    font-size: 36px;
+    padding: 20px;
+}
+.name, .location {
+    height: 45px;
+    width: 280px;
+    text-indent: 35px;
+    font-size: 14px;
+
+}
+.search {
+    background-color: rgb(100, 209, 195);
+    color: white;
+height: 50px;
+width: 120px;
+    border-color: rgb(100, 209, 195);
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: -120px;
+    top: 8.5px;
+
+
+}
+span.motto {
+    margin-bottom: 30px;
+    width: 70%;
+    font-weight: bolder;
+    margin-right: 15%;
+
+}
+.input-container{
+    position: relative;
+ 
+}
+.icon2 {
+    position: absolute;
+    left: 5px; 
+    top: 15px;
+}
+.setup {
+    background-color: rgb(100, 209, 195);
+    border-color: rgb(100, 209, 195);
+    width: 75%;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.input-button {
+    display: flex;
+    position: relative;
+    margin-right: 15%;
+}
