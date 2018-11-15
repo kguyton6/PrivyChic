@@ -1,0 +1,57 @@
+app.post('/api/login', async (req, res) => {
+  const dbInstance = req.app.get('db')
+  const {username, password} = req.body
+  var hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+  let foundUser = await dbInstance.find_user(username, password)
+  const match = await bcrypt.compare(password, hash);
+  if (match) {
+    console.log(match)
+    req.session.user = foundUser[0]
+  }
+  else {
+    bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
+      dbInstance.create_user(username, hash)
+        .then((data) => {
+          req.session.user = data[0]
+          console.log(req.session, username, password)
+          res.status(200).send('success')
+        })
+    })
+  }
+})
+
+// app.post('/api/login', async, ctrl.login)
+
+// app.get('/api/find_user', async (req, res) => {
+//   const dbInstance = req.app.get('db')
+//   const {username, password} = req.body
+//   let foundUser = await dbInstance.find_user(username, password)
+
+//   const match = await bcrypt.compare(password, user.passwordHash);
+
+//   if(match) {
+//       req.session.user = foundUser[0]
+//   } else {
+//     bcrypt.hash(myPlaintextPassword, saltRounds)
+//     .then(function(hash) {
+//    dbInstance.create_user(username, hash)
+//       .then((data) => {
+//         if(res.data){
+//           req.session.user = data[0]
+//         }
+//        res.status(200).send(data)
+
+//   })
+//   console.log(err => console.log(err, 'create error'))
+
+//     })
+//   }
+//   })
+
+
+login(){
+  axios.post('/api/login', { username: this.state.username, password: this.state.password })
+  .then((res) => {
+    console.log(res.data)
+  })
+}

@@ -35,3 +35,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.help {
+  margin-top: 6%;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/Screen+Shot+2018-11-13+at+11.36.17+AM.png');
+  background-repeat: no-repeat;
+}
+

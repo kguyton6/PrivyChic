@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="614px" height="325px" viewBox="0 0 614 325" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Triangle" stroke="#5AF8FA" fill-opacity="0.86" fill="#75FCE6" points="250.5 20 405 272 96 272"></polygon>
+        <text id="Privy" font-family="LaoMN, Lao MN" font-size="90" font-weight="normal" letter-spacing="6.84000015" fill="#000000">
+            <tspan x="51" y="170">PRIVY</tspan>
+        </text>
+        <text id="Chic" font-family="Apple-Chancery, Apple Chancery" font-size="90" font-weight="normal" letter-spacing="7.46181774" fill="#000000">
+            <tspan x="235" y="247">Chic</tspan>
+        </text>
+        <polygon id="Star" stroke="#979797" fill="#000000" points="212.643489 211 202.357247 216.562306 204.321745 204.781153 196 196.437694 207.500368 194.718847 212.643489 184 217.78661 194.718847 229.286978 196.437694 220.965234 204.781153 222.929731 216.562306"></polygon>
+    </g>
+</svg>

@@ -1,0 +1,288 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+@media(min-width: 400px), (max-width: 700px){
+.App-logo {
+    margin-left: 45px;
+    margin-right: 20px;
+    position: absolute;
+    top: 15px;
+ 
+ }  
+}
+
+@media(min-width: 400px){
+.home-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    top: 0px;
+ }
+}
+.search-input {
+    width: 200px;
+    height: 35px;
+    text-indent: 33px;
+    font-size: 14px;
+    color: rgb(168, 168, 168);
+    border: #E9ECEB solid .2px;
+
+}
+.header-search-box {
+    position: relative;
+margin-left: 240px;
+}
+.icon {
+    position: absolute;
+    left: 5px;
+    top: 7px;
+}
+.link-container, .link {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 540px;
+    text-decoration: none;
+}
+.business {
+    background-color: #343737;
+    color: white;
+    width: 140px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 15px;
+}
+.link {
+    color: rgb(110, 110, 110);
+    margin: 20px;
+   text-decoration: none;
+   border-style: none;
+   background-color: transparent;
+   font-size: 13px;
+}
+.top-box{
+    display: flex;
+    width: 80vw;
+    height: auto;
+
+    color: white;
+    font-weight: bold;
+
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 75%;
+    height: 400px;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/woman.jpg');
+    background-repeat: no-repeat;
+background-position-y: -600px;
+background-position-x: -50px;
+    background-size: 1100px;
+    
+}
+.search-links{
+    display: flex;
+    background-color: rgba(65, 65, 65, 0.596);
+    font-size: 14px;
+    text-decoration-color: white;
+    text-decoration: none;
+    margin-top: 45px;
+    justify-content: space-between;
+    margin-right: 15px;
+    align-items: center;
+    padding: 10px;
+    width: 80%;
+    height: 10px;
+}
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: lighter;
+}
+.right-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 400px;
+    width: 30%;
+    background-color: #343737;
+    font-size: 25px;
+
+}
+.trial-text {
+   font-size: 15px;
+   font-weight: lighter;
+   padding: 20px;
+
+}
+.booking-text {
+    font-size: 15px;
+    font-weight: lighter;
+    padding: 20px;
+    margin-left: 25px;
+}
+.bold-text {
+    font-size: 32px;
+    padding: 30px;
+}
+.name, .location {
+    height: 45px;
+    width: 280px;
+    text-indent: 35px;
+    font-size: 14px;
+
+}
+.icons-container {
+    display: flex;
+    margin-left: 700px;
+
+}
+.profile-img {
+    width: 35px;
+    height: 35px;
+    background-color: #F2F5F5;
+    color: #BCB6B1;
+    border-radius: 30px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.bell {
+    margin-top: 5px;
+}
+.search {
+    background-color: rgb(100, 209, 195);
+    color: white;
+height: 50px;
+width: 120px;
+    border-color: rgb(100, 209, 195);
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: -120px;
+    top: 8.5px;
+
+
+}
+span.motto {
+    margin-bottom: 30px;
+    width: 70%;
+    font-weight: bolder;
+    margin-right: 15%;
+
+}
+.input-container{
+    position: relative;
+ 
+}
+.icon2 {
+    position: absolute;
+    left: 5px; 
+    top: 15px;
+}
+.setup {
+    background-color: rgb(100, 209, 195);
+    border-color: rgb(100, 209, 195);
+    width: 75%;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.input-button {
+    display: flex;
+    position: relative;
+    margin-right: 15%;
+}
+.location-icon {
+    position: absolute;
+    left: 52%;
+    top: 30%;
+}
+
+h1 {
+    color: rgb(71, 71, 71);
+    font-weight: lighter;
+    font-size: 40px;
+}
+.discover-box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 50vh;
+    justify-content: space-evenly;
+    
+}
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 320px;
+    height: 310px;
+    margin-bottom: 40px;
+  
+    
+}
+.box:hover {
+    opacity: .5;
+    transition-delay: 0s;
+}
+
+.img-container {
+   position: relative;
+   background-color: rgb(51, 51, 51);
+   width: 320px;
+   height: 310px;
+   margin: 30px;
+
+}
+.float-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.float1 {
+    width: 215px;
+    height: 120px;
+    background-color: rgba(255, 255, 255, 0.705);
+    position: absolute;
+    top: 26%;
+    right: 17%;
+    font-size: 17px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+
+}
+
+span.float1:hover {
+    width:250px;
+    height: 150px;
+    transition-delay: 0s;
+    top: 24%;
+    right: 10%;
+    background-color: rgba(255, 255, 255, 0.911);
+}
