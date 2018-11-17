@@ -14,8 +14,31 @@ module.exports = {
     .then((data) => {
         res.status(200).send(data)
     }).catch(err => console.log(err, 'getuser error'))
-    }
+    },
    
+    stylist_zip: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+
+        dbInstance.stylist_zip(req.params.zip)
+        .then((data) => res.status(200).send(data))
+        .catch(err => console.log(err,'getstylist error'))
+    },
+    stylist_name: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+
+        dbInstance.stylist_name(req.params.name)
+        .then((data) => res.status(200).send(data))
+        .catch(err => console.log(err,'getstylist error'))
+    },
+
+    getStylist: (req, res) => {
+        const dbInstance = req.app.get('db')
+
+
+        dbInstance.getStylist(req.params.id) 
+        .then((profile) => res.status(200).send(profile))
+        .catch(err => console.log(err, 'profile error in controller'))
+    }
     
 
 

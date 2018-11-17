@@ -1,2 +1,2 @@
-select * from clients
-where user_id = $1
+select * from priv_users
+where user_id = $1 

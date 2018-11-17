@@ -1,0 +1,186 @@
+
+.form-modal{
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.671);
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.form-forgot-pw {
+    font-size: 12px;
+    color: rgb(28, 118, 173);
+    text-align: center;
+    font-weight: lighter;
+    margin-top: 5px;
+}
+
+.form-login-button {
+    background-color: #5CD3CA;
+    /* width: 100%; */
+    height: 60px;
+    color: white;
+    font-size: 18px;
+    margin-top: 30px;
+
+
+}
+.form-img-close {
+   margin-right: 5px;
+   position: absolute;
+
+}
+.form-login-input {
+    height: 45px;
+    /* width: 80%; */
+    text-indent: 5px;
+    margin-bottom: 25px;
+}
+.form-signup-input {
+        height: 45px;
+        width: 85%;
+        text-indent: 5px; 
+        margin-bottom: 10px; 
+       
+}
+.signup {
+    margin-left: 45px;
+
+}
+.form-name-container {
+    display: flex;
+    flex-direction: row;
+    /* width: 87%; */
+}
+.signup:hover {
+    cursor: pointer;
+}
+
+
+
+.form-modal-setup, {
+    text-decoration-line: blue;
+    color: rgb(44, 44, 44);
+    margin-right: 20px;
+
+}
+.form-header {
+    height: 50px;
+    border-bottom-color: rgb(122, 122, 122);
+    border-top-color: transparent;
+    border-right-color: transparent ;
+    border-left-color: transparent;
+    border-style: solid;
+    border-width: thin;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+.form-save {
+    color: #4CB7C5;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.form-cancel {
+    color: rgb(146, 146, 146);
+    font-size: 13px;
+    font-weight: bold;
+}
+.form-top-span {
+    color: rgb(177, 177, 177);
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    font-weight: lighter;
+    position: relative;
+    margin-left: 20px;
+    text-decoration: blue;
+    margin-top: 5px;
+}
+.x-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.form-top-spanActive {
+    position: relative;
+    color: rgb(177, 177, 177);
+    display: flex;
+    text-decoration-line: blue;
+    justify-content: space-between;
+    /* width: 90%; */
+    font-weight: lighter;
+    margin-top: 15px;
+    line-height: 2em;
+}
+ .form-input-container1 {
+     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+    width: 90%;
+    margin-bottom: 50px; 
+ }
+.form-login-inputs {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+.email-input, .password-input {
+    width: 220px;
+    height: 20px;
+    margin: 5px;
+}
+
+ .business-address, .city-input, .state-input, .zip-input {
+    height: 20px;
+    width: 200px;
+    margin: 5px;
+
+}
+
+.business-name {
+    width: 417px;
+    margin: 5px;
+    height: 20px;
+}
+.business-inputs {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.description {
+   margin-top: 30px;
+   height: 50px;
+}
+.form {
+    width: 500px;
+    height: 550px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+ 
+

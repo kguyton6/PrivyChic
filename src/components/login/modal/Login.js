@@ -9,40 +9,62 @@ class Login extends Component {
     super(props)
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      firstname: '',
-      lastname: '',
+      first_name: '',
+      last_name: '',
+      fullName: '',
       login: true,
       signup: false
     }
-    this.login = this.login.bind(this)
-    this.signup = this.signup.bind(this)
+  
   }
-password(value){
+password = (value) => {
   this.setState({password: value})
 }
-username(value){
-  this.setState({
-    username: value
-  })
+email = (value) => {
+  this.setState({ email: value })
 }
+
+first_name = (value) => {
+  this.setState({first_name: value})
+}
+
+last_name = (value) => {
+  this.setState({last_name: value }, () => {
+    let concatName = this.state.first_name +  ' ' + this.state.last_name
+    this.setState({fullName: concatName})
+  }
+  )
+  console.log(this.state.fullName)
+}
+
 signup = () => {
-  axios.post('/auth/signup', { username: this.state.username, password: this.state.password })
+  axios.post('/auth/signup', { 
+    first_name: this.state.first_name,
+    last_name: this.state.last_name,
+    email: this.state.email, 
+    password: this.state.password })
   .then((res) => {
     if(res.status === 200){
-      this.setState({signup: true})
-      console.log('Create Success')
+      
+    return (
+       this.props.onClose
+    )
+      
+    } else {
+      alert('Pick a new username')
     }
   })
 }
 
-login(){
-  axios.post('/auth/login', { username: this.state.username, password: this.state.password })
+
+login = () => {
+  axios.post('/auth/login', { email: this.state.email, password: this.state.password })
   .then((res) => {
     if(res.status === 200){
       return(
-        this.props.onClose()
+        this.props.onClose
       )
     } else {
       console.log(res)
@@ -67,17 +89,19 @@ handleLogin = () => {
       <div className='modal'>
       <div className='top-spanActive'>
       <span onClick={this.handleSignup}className='signup'>Sign Up</span>
-      <span onClick={this.handleLogin} className='modal-login'>Login</span>   <img src={close} onClick={this.props.onClose} width='5%' height='5%'/> </div>
+      <span onClick={this.handleLogin} className='modal-login'>Login</span>   <img src={close} onMouseEnter={this.props.onClose} width='5%' height='5%'/> </div>
       {this.state.login === true ? 
       <div className='input-container1'>
-      <input placeholder='Email' className='login-input' onChange={(e) => this.username(e.target.value)}/>
+      <input placeholder='Email' className='login-input' onChange={(e) => this.email(e.target.value)}/>
       <input placeholder='Password' type='password' className='login-input' onChange={(e) => this.password(e.target.value)}/>
       <span className='forgot-pw'>Forgot your password?</span>
-      <button className='login-button'onClick={this.login}>Login</button></div> :
+      <button className='login-button' onClick={this.login}>Login</button></div> :
       <div className='input-container1'>
-         <input placeholder='First Name' className='signup-input' onChange={(e) => this.username(e.target.value)}/>
-      <input placeholder='Last Name'  className='signup-input' onChange={(e) => this.password(e.target.value)}/>
-      <input placeholder='Email' className='signup-input' onChange={(e) => this.username(e.target.value)}/>
+      <div className='name-container'>
+         <input placeholder='First Name' className='signup-input' onChange={(e) => this.first_name(e.target.value)}/>
+      <input placeholder='Last Name'  className='signup-input' onChange={(e) => this.last_name(e.target.value)}/>
+      </div>
+      <input placeholder='Email' className='signup-input' onChange={(e) => this.email(e.target.value)}/>
       <input placeholder='Password' type='password' className='signup-input' onChange={(e) => this.password(e.target.value)}/>
       <button className='login-button'onClick={this.signup}>Sign Up</button> </div>}
       </div> 

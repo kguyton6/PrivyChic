@@ -5,11 +5,13 @@ import icon from '../assets/icon.svg'
 import location from '../assets/location.png'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import hi from '../assets/Hi.svg'
 import { searchField } from '../../ducks/reducer';
 import { connect } from 'react-redux'
 import bell from '../assets/bell.png'
 import Login from './modal/Login'
+import down from '../assets/down-arrow.png'
+import DropDownMenu from '../login/dropdown/DropDown';
+import Setup from './modal/Setup'
 
 class Home extends Component {
   constructor(props) {
@@ -17,28 +19,33 @@ class Home extends Component {
 
     this.state = {
       user: [],
-      firstNameSplit: '',
-      lastNameSplit: '',
+      firstName: '',
+      lastName: '',
       password: '',
-      username: '',
+      email: '',
       showUser: false,
       showLoginModal: false,
-      // prevState
-    }
+      showMenu: false,
+      input: ''
 
+    }
   }
-  // componentDidMount() {
-  //   axios.get('/api/getuser')
-  //     .then((res) => {
-  //       if(res.data){
-  //       console.log(res.data)
-  //       this.setState({ user: res.data, showUser: true, usernameSplit: res.data[0].email.toUpperCase().split('') })
-  //       } else {
-  //         this.setState({disbaled: true})
-  //       }
-  //       console.log(this.state.username)
-  //     })
-  // }
+ 
+  componentDidMount = () => {
+    axios.get('/api/getuser')
+    .then((res) => {
+      if(res.data) {
+      console.log(res.data)
+      this.setState({user: res.data, showUser: true, firstName: res.data[0].first_name, lastName: res.data[0].last_name})
+    } else {
+      console.log('no users')
+    }
+  }) 
+  }
+
+searchField = (value) => {
+  this.setState({input: value})
+}
 
 toggleModal = () => {
   this.setState(prevState => {
@@ -48,25 +55,45 @@ toggleModal = () => {
   })
 }
 
+
 showModal = () => {
   if(this.state.showLoginModal){
     return (
-      <Login onClose={this.toggleModal}/>
+      <Login onClose={this.toggleModal} onSignUp={this.componentDidMount}/>
     )
   }
-  axios.get('/api/getuser')
-  .then((res) => {
-    this.setState({user: res.data, showUser: true, firstNameSplit: res.data[0].first_name.toUpperCase().split(''), lastNameSplit: res.data[0].last_name.toUpperCase().split('')})
+  
+}
+
+showSetupModal = () => {
+  if(this.state.showLoginModal){
+    return (
+      <Setup onClose={this.toggleModal} />
+    )
+  }
+  
+}
+
+toggleMenu = () => {
+  this.setState(prevState => {
+    this.state.showMenu = !prevState.showMenu
   })
 }
 
+showDropDown = () => {
+  if(this.state.showMenu) {
+    return (
+      <DropDownMenu onClose={this.toggleMenu}/>
+    )
+  }
+}
   render() {
-       
-    
+      
     
     const {searchField} = this.props
     return (
       <div className="App">
+      <div className='home'>
         {this.state.showUser === true ?
           <header className="home-header">
 
@@ -78,10 +105,18 @@ showModal = () => {
 
             <div className='icons-container'>
             <img className='bell'src={bell} width='30px' height='30px' />
-              <a href='http://localhost:4000/api/logout'><div className='profile-img' ><span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span>
+            <div className='nav-dropdown' >
+       <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px'/>
+       <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
+          <div className='dropdown-container' >
+          {this.showDropDown()}
+          </div>
+</div>
+</div>
+              {/* <span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span> */}
              
-              </div>
-              </a></div>
+              {/* </div> */}
+
           </header> :
           <header className="home-header">
 
@@ -91,11 +126,11 @@ showModal = () => {
               <img src={icon} alt='icon' className='icon' width='25px' />
             </div>
 
-            <div className='link-container'>
-              <button onClick={this.toggleModal}className='link' >Login</button>
-              <a onClick={this.login}><span className='link' >Sign Up</span></a>
-              <button className='business'>For Business</button>
-              <Link to='/help' className='help-link'><span className='link'>Help</span></Link>
+            <div className='nav-link-container'>
+              <span onClick={this.toggleModal} className='nav-link' >Sign Up</span>
+              <span onClick={this.toggleModal} className='nav-link' >Login</span>
+              <Link to='/business' ><button className='business'>For Business</button></Link>
+              <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
             </div>
           </header>}
         <div className='home'>
@@ -103,32 +138,33 @@ showModal = () => {
             <div className='search-box'>
               <span className='motto'> {`Discover & book beauty and barber appointments.`}</span>
 
-              <div className='input-button'>
+              <div className='input-search-box'>
                 <div className='input-container'>
-                  <input onChange={(e) => searchField(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
+                  <input onChange={(e) => this.searchField(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
                   <img className='icon2' src={icon} />
-                  <input onChange={(e) => searchField(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
+                  <input onChange={(e) => this.searchField(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
                   <img src={location} className='location-icon' />
                 </div>
 
-                <Link to='/search'><button className='search'>Search</button></Link>
+                <Link to='/search' className='search'><button className='search'>Search</button></Link>
               </div>
 
-              <div className='search-links'>Popular Searches
-        <a href='#'>Haircut</a>
-                <a href='#'>Barber</a>
-                <a href='#'>{`Weaves & Extensions`}</a>
-                <a href='#'>Nails</a>
-                <a href='#'>Makeup</a>
-                <a href='#'>Color</a>
+              <div className='search-link-container'>Popular Searches
+        <a className='search-links' href='#'>Haircut</a>
+                <a className='search-links' href='#'>Barber</a>
+                <a className='search-links'href='#'>{`Weaves & Extensions`}</a>
+                <a className='search-links'href='#'>Nails</a>
+                <a className='search-links'href='#'>Makeup</a>
+                <a className='search-links'href='#'>Color</a>
               </div>
             </div>
             <div className='right-box'>
               <span className='bold-text'>Are you a beauty professional or barber?</span>
               <span className='booking-text'>#1 Appointment booking software for independent professionals</span>
-              <button className='setup'>Set Up My Business</button>
+              <button onClick={this.toggleModal} className='setup'>Set Up My Business</button>
               <span className='trial-text'>30 day free trial, no card required.</span>
               {this.showModal()}
+              {this.showSetupModal()}
             </div>
           </div>
         </div>
@@ -152,7 +188,7 @@ showModal = () => {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/ivan-dodig-361699-unsplash.jpg' width='100%' height='100%' className='box' /></div>
 
           <div className='img-container'><span className='float1'><span className='float-text'>New Stylists</span>This Week</span>
-            <img src='https://s3.us-east-2.amazonaws.com/styleseat/jurica-koletic-317414-unsplash.jpg' width='100%' height='100%' className='box' /> </div>
+            <img src='https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b65afe192a0efba2046ab14531040e06&auto=format&fit=crop&w=634&q=80' width='100%' height='100%' className='box' /> </div>
 
           <div className='img-container'> <span className='float1'><span className='float-text'>Top Nail Artists</span>Near You</span>
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/sharon-mccutcheon-666323-unsplash.jpg' width='100%' height='100%' className='box' /></div>
@@ -163,6 +199,7 @@ showModal = () => {
           <div className='img-container'><span className='float1'><span className='float-text'>Available Today</span>Near You</span>
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
+        </div>
         </div>
       </div>
     );

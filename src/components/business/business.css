@@ -1,0 +1,166 @@
+.App {
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+
+.Business { 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+} 
+
+.business-header {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    background-color: white;
+    top: 0px;
+    position: relative;
+    align-items: center;
+
+
+
+}
+
+.business-logo {
+    margin-left: 40px;
+    top: 2%;
+}
+
+.top-business-box{
+    background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
+    background-repeat: no-repeat;
+    background-size: 1200px;
+    /* background-position-y: -100px; */
+    /* background-position-x: 200px; */
+    width: 80vw;
+    height: 450px;
+
+    display: flex;
+
+    
+}
+
+.business-nav-links {
+   margin: 18px;
+   font-size: 16px;
+   cursor: pointer;
+
+}
+.business-nav {
+    right: 100px;
+   position: absolute;
+
+}
+.business-left-box {
+    font-size: 38px;
+    font-weight: bolder;
+    color: white;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+.small-text {
+    font-size: 16px;
+    color: black;
+    width: 60%;
+    font-weight: lighter;
+    margin: 15px;
+}
+.left-box-button{
+    background-color: #5CD3CA;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 220px;
+    height: 60px;
+    border-style: none;
+    font-size: 16px;
+
+}
+
+.trial-text {
+    color: white;
+    font-size: 14px;
+    text-align: left;
+}
+
+.bold-text1 {
+    text-align: center;
+    font-size: 38px;
+    font-weight: bolder;
+    color: rgb(31, 31, 31);
+    margin-top: 40px;
+    margin-bottom: 10px;
+
+}
+.bold-text2 {
+    text-align: center;
+
+    
+}
+.business-main-box {
+    display: flex;
+    flex-direction: column;
+   justify-content: space-evenly;
+   width: 100%;
+   align-content: center;
+}
+.box1 {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: center;
+    position: absolute;
+    top: -30px;
+    left: 38%;
+    background-color: white;
+}
+
+.outer-box {
+    width: 220px;
+    height: 220px;
+    position: relative;
+    display: flex;
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(226, 226, 226);
+    margin-top: 30px;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.paragraph {
+    padding: 20px;
+    letter-spacing: 1px;
+}
+.box-title {
+    margin-top: 40px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.boxes {
+    display: flex;
+    margin: 60px;
+    justify-content: space-evenly;
+
+
+}
+
+.main-title{
+    display: flex;
+    flex-direction: column;
+}
