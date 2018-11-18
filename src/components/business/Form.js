@@ -1,169 +1,78 @@
-import React, { Component } from 'react'
-import close from '../assets/close.png'
-import './form.css'
-class Form extends Component {
+// import React, { Component } from 'react'
+// import close from '../assets/close.png'
+// import './form.css'
+// import {connect} from 'react-redux'
+// // import {ADD_BUSINESS_NAME, ADD_ADDRESS, ADD_PHONE, ADD_CITY, ADD_ADDRESS, ADD_STATE, ADD_ZIP} from '../../ducks/reducer'
 
 
+// class Form extends Component {
 
+//     render() {
+//         const {addAddress, addZip, addBusinessName,addCity, addPhone, addState} = this.props
+//         return (
+//             <div className='App'>
+//                 <div className='form-modal'>
+//                     <form className='form'>
+//                     <div className='form-header'>
+//                     <span onClick={this.props.onClose}className='form-cancel'>CANCEL</span>
+//                     <span className='form-title'>Add Business Info</span>
+//                     <span className='form-save'>Next</span>
 
-    render() {
-        return (
-            <div className='App'>
-                <div className='form-modal'>
-                    <form className='form'>
-                    <div className='form-header'>
-                    <span onClick={this.props.onClose}className='form-cancel'>CANCEL</span>
-                    <span className='form-title'>Business Info</span>
-                    <span className='form-save'>Save</span>
+//                     </div>
+//                         {/* <img className='x-close' src={close} onClick={this.props.onClose} width='15px' height='15px' /> */}
+//                         <div className='form-input-container1'>
+                
+//                             <div className='business-inputs'>
+//                                 <input placeholder='Business Name' className='business-name' onChange={(e) => addBusinessName(e.target.value)} />
+//                                 <input className='phone' placeholder='Phone Number on Profile' onChange={(e) => addPhone(e.target.value)}/>
+//                                 <span className='business-location'>Business Location</span>
+//                                 <input placeholder='Business Address' className='business-address' onChange={(e) => addAddress(e.target.value)} />
+//                                 <input placeholder='City' className='city-input' onChange={(e) => addCity(e.target.value)} />
+//                                 <input placeholder='State' className='state-input' onChange={(e) => addState(e.target.value)} />
+//                                 <input placeholder='Zip Code' className='zip-input' onChange={(e) => addZip(e.target.value)} />
+//                             </div>
+//                             {/* <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
+//                         <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} /> */}
+//                         {/* <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
+//                         <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} /> */}
+//                         {/* <textarea placeholder='Description' className='description' onChange={(e) => this.email(e.target.value)} /> */}
+//                         {/* <span className='form-forgot-pw'>Forgot your password?</span>
+//                         <button className='form-login-button' onClick={this.login}>Sign Up</button> */}
+//                         </div>
 
-                    </div>
-                        {/* <img className='x-close' src={close} onClick={this.props.onClose} width='15px' height='15px' /> */}
-                        <div className='form-input-container1'>
-                            <div className='form-login-inputs'>
-                                <input placeholder='Email' className='email-input' onChange={(e) => this.email(e.target.value)} />
-                                <input placeholder='Password' type='password' className='password-input' onChange={(e) => this.password(e.target.value)} />
-                            </div>
-                            <div className='business-inputs'>
-                                <input placeholder='Business Name' className='business-name' onChange={(e) => this.email(e.target.value)} />
-                                <input placeholder='Business Address' className='business-address' onChange={(e) => this.email(e.target.value)} />
-                                <input placeholder='City' className='city-input' onChange={(e) => this.email(e.target.value)} />
-                                <input placeholder='State' className='state-input' onChange={(e) => this.email(e.target.value)} />
-                                <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
-                            </div>
-                            <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
-                        <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
-                        <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
-                        <input placeholder='Zip Code' className='zip-input' onChange={(e) => this.email(e.target.value)} />
-                        <textarea placeholder='Description' className='description' onChange={(e) => this.email(e.target.value)} />
-                        <span className='form-forgot-pw'>Forgot your password?</span>
-                        <button className='form-login-button' onClick={this.login}>Sign Up</button>
-                        </div>
+//                     </form>
+//             </div>
 
-                    </form>
-            </div>
+//             </div >
 
-            </div >
-
-        )
-    }
-}
-
-
-export default Form
-
-
-// import React, {Component} from 'react'
-// import axios from 'axios'
-// import './login.css'
-// import close from '../../assets/close.png'
-// import {Link} from 'react-router-dom'
-
-// class Login extends Component {
-//   constructor(props){
-//     super(props)
-
-//     this.state = {
-//       email: '',
-//       password: '',
-//       first_name: '',
-//       last_name: '',
-//       fullName: '',
-//       login: true,
-//       signup: false
+//         )
 //     }
-
-//   }
-// password = (value) => {
-//   this.setState({password: value})
-// }
-// email = (value) => {
-//   this.setState({ email: value })
 // }
 
-// first_name = (value) => {
-//   this.setState({first_name: value})
-// }
+// export function mapStateToProps(state){
+//     const {business_name, phone, address, city, State, zip, description} = state
+//     return {
+//         business_name,
+//         phone, 
+//         address,
+//         city,
+//         State,
+//         zip,
 
-// last_name = (value) => {
-//   this.setState({last_name: value }, () => {
-//     let concatName = this.state.first_name +  ' ' + this.state.last_name
-//     this.setState({fullName: concatName})
-//   }
-//   )
-//   console.log(this.state.fullName)
-// }
 
-// signup = () => {
-//   axios.post('/auth/signup', { 
-//     first_name: this.state.first_name,
-//     last_name: this.state.last_name,
-//     email: this.state.email, 
-//     password: this.state.password })
-//   .then((res) => {
-//     if(res.status === 200){
-
-//     return (
-//        this.props.onClose
-//     )
-
-//     } else {
-//       alert('Pick a new username')
 //     }
-//   })
 // }
-
-
-// login = () => {
-//   axios.post('/auth/login', { email: this.state.email, password: this.state.password })
-//   .then((res) => {
-//     if(res.status === 200){
-//       return(
-//         this.props.onClose
-//       )
-//     } else {
-//       console.log(res)
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         addBusinessName: business => dispatch ({type: 'ADD_BUSINESS_NAME', payload: business }),
+//         addPhone: phone => dispatch ({type: 'ADD_PHONE', payload: phone }),
+//         addAddress: address => dispatch({type: 'ADD_ADDRESS', payload: address}),
+//         addCity: city => dispatch({type: 'ADD_CITY', payload: city}),
+//         addState: State => dispatch({type: 'ADD_STATE', payload: State}),
+//         addZip: zip => dispatch({type: 'ADD_ZIP', payload: zip}),
+   
 //     }
-
-
-//   })
 // }
 
-// handleSignup = () => {
-//   this.setState({login: false, signup: true})
-// }
+// export default connect(mapStateToProps, mapDispatchToProps)(Form)
 
-// handleLogin = () => {
-//   this.setState({login: true, signup: false})
-// }
-
-//   render() {
-//     return (
-//       <div className='App'>
-//       <div className='login-modal'>
-//       <div className='modal'>
-//       <div className='top-spanActive'>
-//       <span onClick={this.handleSignup}className='signup'>Sign Up</span>
-//       <span onClick={this.handleLogin} className='modal-login'>Login</span>   <img src={close} onMouseEnter={this.props.onClose} width='5%' height='5%'/> </div>
-//       {this.state.login === true ? 
-//       <div className='input-container1'>
-//       <input placeholder='Email' className='login-input' onChange={(e) => this.email(e.target.value)}/>
-//       <input placeholder='Password' type='password' className='login-input' onChange={(e) => this.password(e.target.value)}/>
-//       <span className='forgot-pw'>Forgot your password?</span>
-//       <button className='login-button' onClick={this.login}>Login</button></div> :
-//       <div className='input-container1'>
-//       <div className='name-container'>
-//          <input placeholder='First Name' className='signup-input' onChange={(e) => this.first_name(e.target.value)}/>
-//       <input placeholder='Last Name'  className='signup-input' onChange={(e) => this.last_name(e.target.value)}/>
-//       </div>
-//       <input placeholder='Email' className='signup-input' onChange={(e) => this.email(e.target.value)}/>
-//       <input placeholder='Password' type='password' className='signup-input' onChange={(e) => this.password(e.target.value)}/>
-//       <button className='login-button'onClick={this.signup}>Sign Up</button> </div>}
-//       </div> 
-
-//       </div>
-//       </div>
-//     )
-//   }
-// }
-
-// export default Login

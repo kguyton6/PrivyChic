@@ -23,8 +23,8 @@ class App extends Component {
           <Route path='/login' component={Login}/>
           <Route path='/search' component={Search}/>
           <Route path='/profile/:id' component={Profile} />
-          <Route path='/business' component={Business} />
-          <Route path='/business/form' component={Form} />
+          <Route path='/form/business' component={Business} />
+          {/* <Route path='/business/form' component={Business_Form} /> */}
         </Switch>
         </Router>
       </div>

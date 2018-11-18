@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from '../assets/Artboard1.png'
 import './business.css'
 import { Link } from 'react-router-dom'
-import Form from '../business/Form'
+import Business_Form from '../forms/Business_Form'
 
 class Business extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Business extends Component {
     showModal = () => {
         if (this.state.formModal) {
             return (
-                <Form onClose={this.toggleModal}  />
+                <Business_Form onClose={this.toggleModal}  />
             )
         }
 

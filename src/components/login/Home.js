@@ -12,6 +12,8 @@ import Login from './modal/Login'
 import down from '../assets/down-arrow.png'
 import DropDownMenu from '../login/dropdown/DropDown';
 import Setup from './modal/Setup'
+import menu from '../assets/menu.png'
+import search from '../assets/search.png'
 
 class Home extends Component {
   constructor(props) {
@@ -30,106 +32,113 @@ class Home extends Component {
 
     }
   }
- 
+
   componentDidMount = () => {
     axios.get('/api/getuser')
-    .then((res) => {
-      if(res.data) {
-      console.log(res.data)
-      this.setState({user: res.data, showUser: true, firstName: res.data[0].first_name, lastName: res.data[0].last_name})
-    } else {
-      console.log('no users')
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data)
+          this.setState({ user: res.data, showUser: true, firstName: res.data[0].first_name, lastName: res.data[0].last_name })
+        } else {
+          console.log('no users')
+        }
+      })
+  }
+
+  searchField = (value) => {
+    this.setState({ input: value })
+  }
+
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {
+        showLoginModal: !prevState.showLoginModal
+      }
+    })
+  }
+
+
+  showModal = () => {
+    if (this.state.showLoginModal) {
+      return (
+        <Login onClose={this.toggleModal} onSignUp={this.componentDidMount} />
+      )
     }
-  }) 
+
   }
 
-searchField = (value) => {
-  this.setState({input: value})
-}
-
-toggleModal = () => {
-  this.setState(prevState => {
-    return {
-      showLoginModal: !prevState.showLoginModal
+  showSetupModal = () => {
+    if (this.state.showLoginModal) {
+      return (
+        <Setup onClose={this.toggleModal} />
+      )
     }
-  })
-}
 
-
-showModal = () => {
-  if(this.state.showLoginModal){
-    return (
-      <Login onClose={this.toggleModal} onSignUp={this.componentDidMount}/>
-    )
   }
-  
-}
 
-showSetupModal = () => {
-  if(this.state.showLoginModal){
-    return (
-      <Setup onClose={this.toggleModal} />
-    )
+  toggleMenu = () => {
+    this.setState(prevState => {
+      this.state.showMenu = !prevState.showMenu
+    })
   }
-  
-}
 
-toggleMenu = () => {
-  this.setState(prevState => {
-    this.state.showMenu = !prevState.showMenu
-  })
-}
-
-showDropDown = () => {
-  if(this.state.showMenu) {
-    return (
-      <DropDownMenu onClose={this.toggleMenu}/>
-    )
+  showDropDown = () => {
+    if (this.state.showMenu) {
+      return (
+        <DropDownMenu onClose={this.toggleMenu} />
+      )
+    }
   }
-}
   render() {
-      
-    
-    const {searchField} = this.props
+
+
+    const { searchField } = this.props
     return (
       <div className="App">
-      <div className='home'>
+
         {this.state.showUser === true ?
           <header className="home-header">
-
-            <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
+            <img src={menu} className='menu' width='100%' />
+            <span className='responsive-title'>PrivyChic</span>
+            <img src={search} className='search-img' />
             <div className='header-search-box'>
-              <input className='search-input' placeholder='Search' />
-              <img src={icon} alt='icon' className='icon' width='25px' />
+              <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
+              <div className='wrapper'>
+                <input className='search-input' placeholder='Search' />
+                <img src={icon} alt='icon' className='icon' width='25px' />
+              </div>
             </div>
 
             <div className='icons-container'>
-            <img className='bell'src={bell} width='30px' height='30px' />
-            <div className='nav-dropdown' >
-       <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px'/>
-       <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
-          <div className='dropdown-container' >
-          {this.showDropDown()}
-          </div>
-</div>
-</div>
-              {/* <span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span> */}
-             
-              {/* </div> */}
+              <img className='bell' src={bell} width='30px' height='30px' />
+              <div className='nav-dropdown' >
+                <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
+                <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
+                <div className='dropdown-container' >
+                  {this.showDropDown()}
+                </div>
+              </div>
+            </div>
+            {/* <span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span> */}
+
+            {/* </div> */}
 
           </header> :
           <header className="home-header">
+            <img src={menu} className='menu' width='15px' />
+            <span className='responsive-title'>PrivyChic</span>
+            <img src={search} className='search-img' />
 
-            <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
             <div className='header-search-box'>
-              <input className='search-input' placeholder='Search' />
-              <img src={icon} alt='icon' className='icon' width='25px' />
+              <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
+                <input className='search-input' placeholder='Search' />
+                <img src={icon} alt='icon' className='icon' width='25px' />
+              </div>
             </div>
-
             <div className='nav-link-container'>
               <span onClick={this.toggleModal} className='nav-link' >Sign Up</span>
               <span onClick={this.toggleModal} className='nav-link' >Login</span>
-              <Link to='/business' ><button className='business'>For Business</button></Link>
+              <Link to='/form/business' ><button className='business'>For Business</button></Link>
               <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
             </div>
           </header>}
@@ -144,6 +153,7 @@ showDropDown = () => {
                   <img className='icon2' src={icon} />
                   <input onChange={(e) => this.searchField(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
                   <img src={location} className='location-icon' />
+                  <input className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
@@ -152,10 +162,10 @@ showDropDown = () => {
               <div className='search-link-container'>Popular Searches
         <a className='search-links' href='#'>Haircut</a>
                 <a className='search-links' href='#'>Barber</a>
-                <a className='search-links'href='#'>{`Weaves & Extensions`}</a>
-                <a className='search-links'href='#'>Nails</a>
-                <a className='search-links'href='#'>Makeup</a>
-                <a className='search-links'href='#'>Color</a>
+                <a className='search-links' href='#'>{`Weaves & Extensions`}</a>
+                <a className='search-links' href='#'>Nails</a>
+                <a className='search-links' href='#'>Makeup</a>
+                <a className='search-links' href='#'>Color</a>
               </div>
             </div>
             <div className='right-box'>
@@ -200,8 +210,8 @@ showDropDown = () => {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
         </div>
-        </div>
       </div>
+
     );
   }
 }
