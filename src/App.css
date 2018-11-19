@@ -28,18 +28,24 @@
   .App {
     font-size: 24px;
   }
+} */
+
+
+.App {
+  font-family: sans-serif;
+  width: 100%;
 }
 
 
 
-
-
-
-
-@media(min-width: 500px) {
+/* @media(min-width: 350px) {
 .App {
-  font-size: 34px;
-  width: 800px;
+  font-size: 24px;
+ 
+  
+}
+.business-header {
+  font-size: 24px;
 }
 
 }
@@ -62,4 +68,4 @@
 .App {
   font-size: 54px;
 }
-}  */
+}   */

@@ -1,16 +1,494 @@
-.App {
-    justify-content: center;
-    font-family: sans-serif;
+
+
+@media screen and (min-width: 350px) and (max-width: 1100px) {
+    .business-logo, .business-nav, .business-header {
+        display: none;
+    }
+}
+@media screen and (min-width: 350px) and (max-width: 749px) {
+   .business-logo, .business-nav, .business-header {
+       display: none;
+   }
+
+    .responsive-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: rgb(2, 2, 2);
+        top: 0px;
+        color: white;
+        justify-content: space-between;
+        height: 15%;
+    }
+    .business-title {
+        padding-top: 2%;
+    color: white;
+    font-size: 34px;
+    font-family: fantasy;
+    }
+    .business-menu {
+        margin-left: 5%;
+
+    }
+    .search-icon {
+        margin-right: 5%;
+    }
+    
+    .top-business-box{
+        width: 100%;
+        height: 250px;
+        color: white;
+        font-weight: bold;
+        background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
+        background-repeat: no-repeat;
+        background-size: 115%;
+        display: flex;
+        justify-content: center;
+        
+    }
+    .left-box-button{
+        background-color: #5CD3CA;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        width: 30%;
+        height: 40px;
+        border-style: none;
+        font-size: 16px;
+    
+    }
+    .business-left-box {
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 90%;
+        width: 90%;
+    }
+    .small-text {
+        font-size: 14px;
+        font-weight: lighter;
+        color: black;
+    }
+    .main-title {
+        display: flex;
+        flex-direction: column;
+    }
+    .bold-text1 {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: rgb(31, 31, 31);
+        margin-top: 20px;
+        margin-bottom: 10px;
+    
+    }
+    .bold-text2 {
+        text-align: center;    
+    }
+    .business-main-box {
+        display: flex;
+        flex-direction: column;
+       justify-content: space-evenly;
+       width: 100%;
+       align-items: center;
+       font-size: 16px;
+    }
+    .box1 {
+        width: 20%;
+        height: 18%;
+        font-size: 28px;
+        border-style: solid;
+        border-color: black;
+        border-width: 2px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        vertical-align: center;
+        position: absolute;
+        top: -25px;
+        left: 40%;
+        background-color: white;
+    }
+    
+    .outer-box {
+        width: 70%;
+        height: 250px;
+        position: relative;
+        display: flex;
+        border-style: solid;
+        border-width: thin;
+        border-color: rgb(226, 226, 226);
+        margin-top: 5%;
+        font-size: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    
+    }
+    .paragraph {
+        padding: 20px;
+        letter-spacing: 1px;
+    }
+    .box-title {
+        margin-top: 40px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        margin: 60px;
+        justify-content: space-evenly;
+        align-items: center;
+    
+    }
+    
+   
 }
 
+@media screen and (min-width: 550px) and (max-width: 750px) {
+    .top-business-box{
+        width: 100%;
+        height: 350px;
+        color: white;
+        font-weight: bold;
+        background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
+        background-repeat: no-repeat;
+        background-size: 115%;
+    }
+    .business-left-box {
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 90%;
+        width: 90%;
+    }
+    .small-text {
+        font-size: 16px;
+    }
+    .trial-text {
+        font-size: 14px;
+    }
+    .box1 {
+        width: 20%;
+        height: 22%;
+        font-size: 30px;
+        border-style: solid;
+        border-color: black;
+        border-width: 2px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        position: absolute;
+        top: -35px;
+        left: 40%;
+        background-color: white;
+    }
+    
+    .outer-box {
+        width: 70%;
+        height: 300px;
+        position: relative;
+        display: flex;
+        border-style: solid;
+        border-width: thin;
+        border-color: rgb(226, 226, 226);
+        margin-top: 5%;
+        font-size: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    
+    }
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .box-title {
+        font-size: 18px;
+    }
+    .paragraph {
+        font-size: 14px;
+    }
+}
 
-.Business { 
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-} 
+@media screen and (min-width: 749px) and (max-width: 850px) {
+    .responsive-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: rgb(2, 2, 2);
+        top: 0px;
+        color: white;
+        justify-content: space-between;
+        height: 15%;
+    }
+    .business-title {
+        padding-top: 2%;
+    color: white;
+    font-size: 36px;
+    font-family: fantasy;
+    }
+    .business-menu {
+        margin-left: 5%;
 
+    }
+    .search-icon {
+        margin-right: 5%;
+    }
+    
+    .top-business-box{
+        width: 100%;
+        height: 350px;
+        color: white;
+        font-weight: bold;
+        background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
+        background-repeat: no-repeat;
+        background-size: 115%;
+    }
+    .left-box-button{
+        background-color: #5CD3CA;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        width: 30%;
+        height: 40px;
+        border-style: none;
+        font-size: 18px;
+    
+    }
+    .business-left-box {
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 90%;
+        width: 80%;
+        margin-left: 5%;
+    
+    }
+    .small-text {
+        font-size: 18px;
+        font-weight: lighter;
+        color: black;
+    }
+    .trial-text {
+        font-size: 14px;
+    }
+
+    .main-title {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 3%;
+    }
+    .bold-text1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .bold-text2 {
+        margin-bottom: 10%;
+    }
+    .box1 {
+        width: 25%;
+        height: 30%;
+        font-size: 28px;
+        border-style: solid;
+        border-color: black;
+        border-width: 2px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        vertical-align: center;
+        position: absolute;
+        top: -50px;
+        left: 38%;
+        background-color: white;
+    }
+    
+    .outer-box {
+        width: 60%;
+        height: 350px;
+        position: relative;
+        display: flex;
+        border-style: solid;
+        border-width: thin;
+        border-color: rgb(226, 226, 226);
+        margin-top: 5%;
+        font-size: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .paragraph {
+        padding: 20px;
+        letter-spacing: 1px;
+        font-size: 16px;
+    }
+    .box-title {
+        margin-top: 40px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 849px) and (max-width: 1100px) {
+    .responsive-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: rgb(2, 2, 2);
+        top: 0px;
+        color: white;
+        justify-content: space-between;
+        height: 15%;
+    }
+    .business-title {
+        padding-top: 2%;
+    color: white;
+    font-size: 40px;
+    font-family: fantasy;
+    }
+    .business-menu {
+        margin-left: 5%;
+
+    }
+    .search-icon {
+        margin-right: 5%;
+    }
+    
+    .top-business-box{
+        width: 100%;
+        height: 420px;
+        color: white;
+        font-weight: bold;
+        background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
+        background-repeat: no-repeat;
+        background-size: 115%;
+    }
+    .left-box-button{
+        background-color: #5CD3CA;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        width: 30%;
+        height: 45px;
+        border-style: none;
+        font-size: 20px;
+    
+    }
+    .business-left-box {
+        font-size: 34px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 90%;
+        width: 70%;
+        margin-left: 5%;
+    
+    }
+    .small-text {
+        font-size: 18px;
+        font-weight: lighter;
+        color: black;
+    }
+    .trial-text {
+        font-size: 14px;
+    }
+    .main-title {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 3%;
+    }
+    .bold-text1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .bold-text2 {
+        margin-bottom: 10%;
+    }
+    .box1 {
+        width: 25%;
+        height: 30%;
+        font-size: 28px;
+        border-style: solid;
+        border-color: black;
+        border-width: 2px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        vertical-align: center;
+        position: absolute;
+        top: -50px;
+        left: 38%;
+        background-color: white;
+    }
+    
+    .outer-box {
+        width: 60%;
+        height: 400px;
+        position: relative;
+        display: flex;
+        border-style: solid;
+        border-width: thin;
+        border-color: rgb(226, 226, 226);
+        margin-top: 5%;
+        font-size: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .paragraph {
+        padding: 20px;
+        letter-spacing: 1px;
+        font-size: 18px;
+    }
+    .box-title {
+        margin-top: 40px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 1099px) and (max-width: 1600px) {
+
+    .business-title, .search-icon, .business-menu {
+        display: none;
+    }
+
+    .App {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 .business-header {
     display: flex;
     height: 100px;
@@ -27,21 +505,19 @@
 .business-logo {
     margin-left: 40px;
     top: 2%;
+    width: 220px;
 }
 
-.top-business-box{
+ .top-business-box{
     background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
     background-repeat: no-repeat;
-    background-size: 1200px;
-    /* background-position-y: -100px; */
-    /* background-position-x: 200px; */
-    width: 80vw;
-    height: 450px;
-
+    background-size: 100%;
+    height: 500px;
+    width: 90%;
     display: flex;
 
     
-}
+} 
 
 .business-nav-links {
    margin: 18px;
@@ -77,7 +553,7 @@
     color: white;
     font-weight: bold;
     text-align: center;
-    width: 220px;
+    width: 250px;
     height: 60px;
     border-style: none;
     font-size: 16px;
@@ -88,6 +564,11 @@
     color: white;
     font-size: 14px;
     text-align: left;
+}
+.main-title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 .bold-text1 {
@@ -100,9 +581,7 @@
 
 }
 .bold-text2 {
-    text-align: center;
-
-    
+    text-align: center;    
 }
 .business-main-box {
     display: flex;
@@ -157,23 +636,5 @@
     margin: 60px;
     justify-content: space-evenly;
 
-
-}
-
-.main-title{
-    display: flex;
-    flex-direction: column;
-}
-
-@media screen and (min-width: 350px) and (max-width: 700px) {
-    .business-header {
-        display: flex;
-        height: 100px;
-        width: 100%;
-        background-color: white;
-        top: 0px;
-        position: relative;
-        align-items: center;
-    
     }
 }

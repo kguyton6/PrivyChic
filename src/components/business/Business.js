@@ -3,6 +3,8 @@ import logo from '../assets/Artboard1.png'
 import './business.css'
 import { Link } from 'react-router-dom'
 import Business_Form from '../forms/Business_Form'
+import menu from '../assets/menu.png'
+import search from '../assets/search.png'
 
 class Business extends Component {
     constructor(props) {
@@ -34,9 +36,14 @@ class Business extends Component {
 
     render() {
         return (
-            <div className='Business'>
-
-                <div className='business-header'>
+            <div className='App'>
+               
+                    <div className='responsive-header'>
+                    <img src={menu} className='business-menu' width='5%'/>
+                    <span className='business-title'>PrivyChic</span>
+                    <img src={search}  className='search-icon' width='5%'/>
+                    </div>
+                    <div className='business-header'>
                     <Link to='/'><img src={logo} alt='logo' className='business-logo' width='190px' height='70px' /></Link>
                     <nav className='business-nav'>
                         <span className='business-nav-links'>Pricing</span>
@@ -45,6 +52,7 @@ class Business extends Component {
                         <span className='business-nav-links'>Sign Up</span>
                         <span className='business-nav-links'>Help</span>
                     </nav>
+                
                 </div>
                 {this.showModal()}
                 <div className='top-business-box'>
