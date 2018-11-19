@@ -75,6 +75,7 @@
     color: white;
     font-weight: bold;
 
+
 }
 
 .search-box {
@@ -82,15 +83,14 @@
     justify-content: center;
     flex-direction: column;
     width: 75%;
-    height: 400px;
     font-size: 40px;
     color: white;
     font-weight: bold;
     background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/woman.jpg');
     background-repeat: no-repeat;
-background-position-y: -400px;
+background-position-y: -200px;
 background-position-x: -50px;
-    background-size: 1000px;
+    background-size: 100%;
     
 }
 .search-link-container{
@@ -149,6 +149,12 @@ a {
 .icons-container {
     display: flex;
 
+}
+.discover-box {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .profile-img {
     width: 150px;
@@ -247,9 +253,9 @@ span.float1:hover {
    height: 22vw;
 
 }
-.box:hover {
+/* .box {
     opacity: .5;
-}
+} */
 
 .float-text {
     display: flex;
@@ -336,7 +342,7 @@ span.float1:hover {
         background-repeat: no-repeat;
     background-position-y: 100%;
     background-position-x: 0px;
-        background-size: 100%;
+        background-size: 130%;
         
     }
    
@@ -403,7 +409,8 @@ span.float1:hover {
         font-size: 35px;
     background-position-y: 80%;
     background-position-x: 0px;
-        /* background-size: 100%; */
+        background-size: 100%;
+        height: 400px;
     }
     .right-box {
         width: 100%;
@@ -412,14 +419,17 @@ span.float1:hover {
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        text-align: center;
     }
 }
+
 @media screen and (min-width: 706px) and (max-width: 899px) {
     .search-box {
-        font-size: 35px;
-    background-position-y: 75%;
+        font-size: 40px;
+    background-position-y: 85%;
     background-position-x: 0px;
-        background-size: 100%;
+        background-size: 105%;
+        height: 400px;
 
     }
     .right-box {
@@ -429,7 +439,9 @@ span.float1:hover {
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        text-align: center;
     }
+   
 }
 @media screen and (min-width: 900px) and (max-width: 1100px){
     .responsive, .responsive-title, .menu, .search-img {
@@ -485,18 +497,20 @@ span.float1:hover {
     justify-content: center;
 }
 .search-box {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    font-size: 30px;
-    color: white;
-    font-weight: bold;
+    font-size: 35px;
+    background-position-y: 100%;
+    background-position-x: 0px;
+        background-size: 110%;
+        height: 400px;
  
+}
+.motto, .search-link-container, .input-container {
+    margin-left: 5%;
 }
 .bold-text {
     font-size: 24px;
     width: 80%;
+    margin-left: 5%;
 }
 
 .search-link-container {
@@ -544,7 +558,7 @@ span.float1:hover {
         position: relative;
         background-color: rgb(51, 51, 51);
         width: 42%;
-        height: 50%;
+        height: 400px;
         margin: 3%;
      
      }
@@ -560,5 +574,139 @@ span.float1:hover {
 }
 
 @media screen and (min-width: 1099px) and (max-width: 2100px){
-   
+    .responsive, .responsive-title, .menu, .search-img {
+        display: none;
+    }
+   .home-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    justify-content: space-between;
+
+   }
+  
+.search-input {
+    text-indent: 33px;
+    font-size: 14px;
+    color: rgb(168, 168, 168);
+    border: #E9ECEB solid .2px;
+
+
 }
+.header-search-box {
+    display: flex;
+    align-items: center;
+
+}
+.icon {
+    position: absolute;
+    left: 5px;
+    top: 7px;
+}
+.nav-link-container, .nav-link {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 18px;
+    align-items: center;
+}
+.business {
+    background-color: #343737;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.top-box{
+    display: flex;
+    height: auto;
+    width: 90%;
+    color: white;
+    font-weight: bold;
+    justify-content: center;
+
+}
+.search-box {
+    display: flex;
+    height: 400px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    background-position-y: 80%;
+    background-position-x: 0px;
+    background-size: 110%;
+ 
+}
+
+.bold-text {
+    font-size: 30px;
+    width: 80%;
+}
+
+.search-link-container {
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(65, 65, 65, 0.596);
+    font-size: 14px;
+    -webkit-text-decoration-color: white;
+    text-decoration-color: white;
+    text-decoration: none;
+    justify-content: space-between;
+    width: 76%;
+    height: 10px;
+    margin-right: 6.5%;
+}
+    .right-box {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .setup {
+        background-color: rgb(100, 209, 195);
+        border-color: rgb(100, 209, 195);
+        width: 80%;
+        height: 50px;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .trial-text {
+        font-size: 10px;
+    }
+    .booking-text {
+        width: 80%;
+        font-size: 16px;
+    }
+    img.icon2 {
+        top: 10px;
+    }
+    button.search {
+        width: 115px;
+    }
+    .img-container {
+        position: relative;
+        background-color: rgb(51, 51, 51);
+        width: 25%;
+        height: 350px;
+        margin: 3%;
+     
+     }
+
+     .discover-box {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+  
+     
+}
+
+   

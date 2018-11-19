@@ -99,7 +99,7 @@ img.close {
     width: 100%;
     /* margin-bottom: 50px; */
 }
-
+/* 
 .modal {
     width: 350px;
     height: 350px;
@@ -114,5 +114,29 @@ img.close {
     justify-content: center;
     align-items: center;
     justify-content: space-between;
+} */
+
+@media screen and (min-width: 350px) and (max-width: 700px) {
+    .modal {
+        margin-top: 50%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
+
+@media screen and (min-width: 701px) and (max-width: 1100px) {
+    .modal {
+        margin-top: 50%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

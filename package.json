@@ -4,6 +4,7 @@
   "private": true,
   "main": "server/index.js",
   "proxy": "http://localhost:4000/",
+  "homepage" : "http://kguyton6.github.io/cool-app",
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
