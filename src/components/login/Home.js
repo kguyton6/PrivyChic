@@ -3,7 +3,7 @@ import './home.css';
 import logo from '../assets/privy3.svg'
 import icon from '../assets/icon.svg'
 import location from '../assets/location.png'
-import { Link } from 'react-router-dom'
+import { Link, NavLink, Route } from 'react-router-dom'
 import axios from 'axios'
 import { searchField } from '../../ducks/reducer';
 import { connect } from 'react-redux'
@@ -11,9 +11,10 @@ import bell from '../assets/bell.png'
 import Login from './modal/Login'
 import down from '../assets/down-arrow.png'
 import DropDownMenu from '../login/dropdown/DropDown';
-import Setup from './modal/Setup'
+import Setup from './modal/SignUp'
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
+import Search from '../search/Search'
 
 class Home extends Component {
   constructor(props) {
@@ -28,20 +29,18 @@ class Home extends Component {
       showUser: false,
       showLoginModal: false,
       showMenu: false,
-      input: ''
+      input: '',
+      props: {}
 
     }
   }
-
-  componentDidMount = () => {
+  componentDidMount(){
+    this.setState({props: this.props})
+  }
+  componentDidUpdate = () => {
     axios.get('/api/getuser')
       .then((res) => {
-        if (res.data) {
-          console.log(res.data)
           this.setState({ user: res.data, showUser: true, firstName: res.data[0].first_name, lastName: res.data[0].last_name })
-        } else {
-          console.log('no users')
-        }
       })
   }
 
@@ -61,7 +60,7 @@ class Home extends Component {
   showModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Login onClose={this.toggleModal} onSignUp={this.componentDidMount} />
+        <Login onClose={this.toggleModal} />
       )
     }
 
@@ -70,7 +69,7 @@ class Home extends Component {
   showSetupModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Setup onClose={this.toggleModal} />
+        <Setup onClose={this.componentDidMount} />
       )
     }
 
@@ -78,14 +77,24 @@ class Home extends Component {
 
   toggleMenu = () => {
     this.setState(prevState => {
-      this.state.showMenu = !prevState.showMenu
+      return {
+     showMenu: !prevState.showMenu
+      }
     })
   }
 
+  logout = () => {
+    axios.put('/api/logout')
+    .then((res) => {
+      if(res.status === 200) {
+
+      }
+    })
+  }
   showDropDown = () => {
     if (this.state.showMenu) {
       return (
-        <DropDownMenu onClose={this.toggleMenu} />
+        <DropDownMenu logout={this.logout} />
       )
     }
   }
@@ -100,7 +109,7 @@ class Home extends Component {
           <header className="home-header">
             <img src={menu} className='menu' width='100%' />
             <span className='responsive-title'>PrivyChic</span>
-            <img src={search} className='search-img' />
+           <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link> 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
               <div className='wrapper'>
@@ -114,9 +123,10 @@ class Home extends Component {
               <div className='nav-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
                 <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
-                <div className='dropdown-container' >
+
                   {this.showDropDown()}
-                </div>
+
+
               </div>
             </div>
             {/* <span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span> */}
@@ -127,7 +137,7 @@ class Home extends Component {
           <header className="home-header">
             <img src={menu} className='menu' width='15px' />
             <span className='responsive-title'>PrivyChic</span>
-            <img src={search} className='search-img' />
+            <Link to='/search' className='search-link'> <img src={search} className='search-img' /></Link>
 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
@@ -139,7 +149,7 @@ class Home extends Component {
               <span onClick={this.toggleModal} className='nav-link' >Sign Up</span>
               <span onClick={this.toggleModal} className='nav-link' >Login</span>
               <Link to='/form/business' ><button className='business'>For Business</button></Link>
-              <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
+              <NavLink to='/help' className='nav-link'><span className='nav-link'>Help</span></NavLink>
             </div>
           </header>}
         <div className='home'>
@@ -210,6 +220,7 @@ class Home extends Component {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
         </div>
+<Route path='/search'  render={(props) => <Search {...props}/>} />
       </div>
 
     );

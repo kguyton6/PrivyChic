@@ -3,7 +3,7 @@ module.exports = {
     logout: (req, res) => {
         req.session.destroy()
         console.log('session destroyed')
-        res.redirect('https://privychic.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000')
+
     },
 
     getuser: (req, res) => {
@@ -38,6 +38,38 @@ module.exports = {
         dbInstance.getStylist(req.params.id) 
         .then((profile) => res.status(200).send(profile))
         .catch(err => console.log(err, 'profile error in controller'))
+    },
+     
+    create_business: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+        const {business_name, phone_number, streetaddress, city, state, zipcode} = req.body
+
+        dbInstance.create_business(req.session.user.user_id, business_name, phone_number, streetaddress, city, state, zipcode)
+        .then((res) => res.status(200).send('business create successful'))
+        .catch(err => console.log(err, 'error'))
+    },
+
+    create_profile: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+        const {full_name, profession, about, picture} = req.body
+
+        dbInstance.create_profile(req.session.user.user_id, full_name, profession, about, picture)
+        .then(() => res.status(200).send('profile success'))
+        .catch(err => console.log(err, 'profile error'))
+    },
+
+    allServices: (req, res) => {
+        const dbInstance = req.app.get('db')
+        dbInstance.allServices(req.params.id)
+        .then((data) => res.status(200).send(data))
+    },
+
+    get_hours: (req, res) => {
+        const dbInstance = req.app.get('db')
+
+        dbInstance.get_hours(req.params.id)
+        .then((data) => res.status(200).send(data))
+        .catch(err => console.log(err, 'get hours error'))
     }
     
 

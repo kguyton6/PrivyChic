@@ -4,15 +4,7 @@
     display: flex;
     justify-content: center;
  }
-.dropdown-container {
-    display: inline-block;
-    height: auto;
-    width: 160px;
-    background-color: white;
-    font-size: 14px;
 
-
-}
 .home-header {
     display: flex;
     align-items: center;
@@ -173,6 +165,7 @@ a {
 .down-arrow {
     float: right;
     margin-top: 10%;
+    cursor: pointer;
 }
 .search {
     background-color: rgb(100, 209, 195);
@@ -296,11 +289,11 @@ span.float1:hover {
         justify-content: space-between;
         height: 15%;
      }
-     img.menu, .search-img {
+     img.menu, .search-img  {
         margin: 3%;
         width: 5%;
      }
-
+     
     .responsive-title {
         padding-top: 2%;
         color: white;
@@ -582,7 +575,7 @@ span.float1:hover {
     align-items: center;
     width: 100%;
     background-color: white;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 
    }
   
@@ -591,12 +584,12 @@ span.float1:hover {
     font-size: 14px;
     color: rgb(168, 168, 168);
     border: #E9ECEB solid .2px;
-
+    width: 300px;
 
 }
 .header-search-box {
     display: flex;
-    align-items: center;
+    width: 75%;
 
 }
 .icon {
@@ -621,7 +614,6 @@ span.float1:hover {
 
 .top-box{
     display: flex;
-    height: auto;
     width: 90%;
     color: white;
     font-weight: bold;
@@ -630,16 +622,17 @@ span.float1:hover {
 }
 .search-box {
     display: flex;
-    height: 400px;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    font-size: 40px;
+    font-size: 45px;
+    height: 500px;
     color: white;
     font-weight: bold;
-    background-position-y: 80%;
+    background-position-y: 85%;
     background-position-x: 0px;
     background-size: 110%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
  
 }
 
@@ -656,7 +649,7 @@ span.float1:hover {
     -webkit-text-decoration-color: white;
     text-decoration-color: white;
     text-decoration: none;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 76%;
     height: 10px;
     margin-right: 6.5%;
@@ -665,6 +658,7 @@ span.float1:hover {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        height: 500px;
     }
 
     .setup {

@@ -1,0 +1,154 @@
+/* .profile {
+    height: 100%;
+    width: 100%;
+} */
+.profile-logo {
+    font-size: 42px;
+    color: white;
+    font-family: cursive;
+    width: 100px;
+    margin-left: 5%;
+}
+.profile-head {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: transparent;
+    top: 0px;
+    position: fixed;
+    padding-top: 2%;
+    border-bottom-color: transparent;
+    justify-content: space-between;
+
+   }
+
+.profile-link-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-size: 16px;
+    align-items: center;
+    color: white;
+    /* margin-right: 3%; */
+    justify-content: space-evenly;
+    width: 45%;
+
+
+
+
+}
+
+.about {
+    width: 20%;
+    margin-left: 33%;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+.banner {
+    width: 100vw;
+    height: 100%;
+    top: 0px;
+
+}
+img.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    position: absolute;
+    left: 18%;
+    top: 37%;
+    z-index: 10;
+
+
+}
+.business-button {
+    padding: 5px 35px;
+    background-color: transparent;
+    margin-right: 10%;
+    color: white;
+    text-align: center;
+}
+
+.banner-container {
+    height: 25vw;
+}
+/* .profile-top-container {
+    height: 40vh;
+} */
+.profile-top-container {
+    width: 45%;
+    margin-top: 1%;
+
+}
+.profile-fullname {
+    color: white;
+    position: absolute;
+    font-weight: bold;
+    left: 28%;
+    top: 36%;
+}
+.name-title {
+    font-weight: bold;
+    font-size: 15px;
+}
+.services{
+    width: 400px;
+    height:500px;
+    color: black;
+
+}
+.right-profile-box {
+    position: absolute;
+    right: 3%;
+    width: 20%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+.business_hours {
+
+    width: 100%;
+    height: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    line-height: 1.5em;
+    /* text-align: center; */
+}
+.business-address-box  {
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-weight: lighter;
+    color: #9FCAD7;
+    text-align: center;
+    display: flex;
+    margin-left: 20%;
+ 
+
+}
+#number, #business-name-title {
+    color: black;
+}
+#business-name-title, .business-hours-text  {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+li {
+    list-style-type: none;
+
+}
+
+.profile-main-container {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}

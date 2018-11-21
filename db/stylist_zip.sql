@@ -1,4 +1,4 @@
-select * from business
-join priv_users
-on business.user_id = priv_users.user_id
+select * from profile
+join business
+on profile.user_id = business.business_id
 where zipcode = $1

@@ -84,6 +84,12 @@ app.post('/auth/login', async (req, res) => {
 app.get('/api/logout', ctrl.logout)
 app.get('/api/stylist/:zip', ctrl.stylist_zip)
 app.get('/api/profile/:id', ctrl.getStylist)
+app.get('/api/hours/:id', ctrl.get_hours)
+app.get('/api/services/:id', ctrl.allServices)
+app.post('/api/business/signup', ctrl.create_business)
+app.post('/api/addProfile', ctrl.create_profile)
+
+
 
 const PORT = SERVER_PORT || 4800
 

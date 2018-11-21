@@ -7,7 +7,6 @@ phone_number text NOT NULL,
 streetAddress text NOT NULL,
 state text NOT NULL NOT NULL,
 zipcode integer NOT NULL,
-hours text,
 unique (user_id, business_id))
 
 
@@ -43,10 +42,28 @@ unique(user_id))
 
 
 create table calendar (
+id serial primary key,
 user_id integer references priv_users(user_id),
-business_id integer references business(business_id),
-month text,
-day text,
-year integer,
+calendar_month integer,
+calendar_day INTEGER,
+calendar_year INTEGER,
+day_name text,
+month_name text,
 time text
 )
+
+create table business_hours (
+business_id integer references business(business_id),
+monday text,
+tuesday text,
+wednesday text,
+thursday text,
+friday text,
+saturday text,
+sunday text)
+
+create table bookings(
+booking_id serial primary key,
+service_id integer references services(service_id),
+business_id integer references business(business_id),
+client_id integer references priv_users(user_id))
