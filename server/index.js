@@ -80,15 +80,17 @@ app.post('/auth/login', async (req, res) => {
   }
 })
 
-
+app.get('/api/getuser', ctrl.getuser)
 app.get('/api/logout', ctrl.logout)
-app.get('/api/stylist/:zip', ctrl.stylist_zip)
+app.get('/api/name/:id', ctrl.stylist_name)
+app.get('/api/zip/:id', ctrl.stylist_zip)
+app.get('/api/date/:id', ctrl.get_availablility)
 app.get('/api/profile/:id', ctrl.getStylist)
 app.get('/api/hours/:id', ctrl.get_hours)
 app.get('/api/services/:id', ctrl.allServices)
-app.post('/api/business/signup', ctrl.create_business)
+app.post('/api/signup/business', ctrl.create_business)
 app.post('/api/addProfile', ctrl.create_profile)
-
+app.post('/auth/login/business', ctrl.business_login)
 
 
 const PORT = SERVER_PORT || 4800

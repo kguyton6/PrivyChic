@@ -6,6 +6,7 @@ import './profile.css'
 import Services from './Services'
 
 
+
 class Profile extends Component {
     constructor(props) {
         super(props)
@@ -39,17 +40,29 @@ class Profile extends Component {
         let stylist = []
         for (let i in profile) {
 
+            var sectionStyle = {
+                width: "100%",
+                height: "400px",
+                backgroundImage: `url(${profile[i].pictures})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '100%',
+                backgroundPositionY: '-300px',
+                zoom: '-2'
+
+              };
+
+             
+
             stylist.push(
                 <React.Fragment>
-                <div className='banner-container'>
-                <img src={profile[i].pictures} alt='banner' className='banner' />
-                </div>
-                <div key={i} className='profile-top-container'>
-                    <img src={profile[i].picture} alt='profile-pic' className='profile-pic' />
+                <section  style={sectionStyle} className='banner-container'>
+                    <img src={profile[i].picture} alt='profile-pic'  className='profile-pic'/>
                     <h1 className='profile-fullname'>{profile[i].full_name.toUpperCase()}</h1>
+                </section>
+                <div key={i} className='profile-top-container'>
                     <div className='name-title'>
-                        {`${profile[i].full_name} - Hair Stylist`} <br />
-                        {profile[i].profession}
+                        {`${profile[i].full_name} - Hair Stylist`}<br/>
+                       <span id='profession-title'> {profile[i].profession}</span>
 
                     </div>
                 </div>
@@ -129,7 +142,7 @@ class Profile extends Component {
                 {this.showProfile()}
                 <div className='profile-main-container'>
                 <div className='services'>
-                <h5>{`${this.state.full_name} Service Menu`}</h5>
+                <h4 >{`${this.state.full_name} Service Menu`}</h4>
                  <Services id={this.props.match.params.id} />
                  </div>
                  <div className='right-profile-box'>

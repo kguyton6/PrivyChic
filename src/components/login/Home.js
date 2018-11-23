@@ -3,18 +3,20 @@ import './home.css';
 import logo from '../assets/privy3.svg'
 import icon from '../assets/icon.svg'
 import location from '../assets/location.png'
-import { Link, NavLink, Route } from 'react-router-dom'
+import { Link, NavLink} from 'react-router-dom'
+import {withRouter} from 'react-router'
 import axios from 'axios'
-import { searchField } from '../../ducks/reducer';
 import { connect } from 'react-redux'
 import bell from '../assets/bell.png'
 import Login from './modal/Login'
 import down from '../assets/down-arrow.png'
 import DropDownMenu from '../login/dropdown/DropDown';
-import Setup from './modal/SignUp'
+import BusinessSignUp from './modal/BusinessSignUp'
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
-import Search from '../search/Search'
+// import Search from '../search/Search'
+import {addDate, addFullName, addZip} from '../../ducks/reducers/rootReducer'
+
 
 class Home extends Component {
   constructor(props) {
@@ -30,28 +32,29 @@ class Home extends Component {
       showLoginModal: false,
       showMenu: false,
       input: '',
-      props: {}
+      // showSignUp: false
 
     }
   }
-  componentDidMount(){
-    this.setState({props: this.props})
-  }
-  componentDidUpdate = () => {
-    axios.get('/api/getuser')
-      .then((res) => {
-          this.setState({ user: res.data, showUser: true, firstName: res.data[0].first_name, lastName: res.data[0].last_name })
-      })
-  }
-
-  searchField = (value) => {
-    this.setState({ input: value })
-  }
-
+ 
+  // componentDidMount = () => {
+  //    axios.get('/api/check_user', this.props.email).then((res) => {
+  //      console.log(res.data)
+  //      this.setState({user: res.data})
+  //    })
+  // }
+  
   toggleModal = () => {
     this.setState(prevState => {
       return {
         showLoginModal: !prevState.showLoginModal
+      }
+    })
+  }
+  toggleSignUp = () => {
+    this.setState(prevState => {
+      return {
+        showSignUp: !prevState.showSignUp
       }
     })
   }
@@ -60,19 +63,25 @@ class Home extends Component {
   showModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Login onClose={this.toggleModal} />
+        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} />
       )
-    }
-
-  }
-
-  showSetupModal = () => {
-    if (this.state.showLoginModal) {
+    } else if(this.state.showSignUp){
       return (
-        <Setup onClose={this.componentDidMount} />
+        <Login onClose={this.toggleSignUp} />
       )
-    }
+   } else if(this.state.BusinessSignUp) {
+     return (
+     <Login onClose={this.BusinessSignUpModal} business={this.state.BusinessSignUp} />
+     )
+   }
+}
 
+  BusinessSignUpModal = () => {
+    this.setState(prevState => {
+      return {
+        BusinessSignUp: !prevState.BusinessSignUp
+    }
+  })
   }
 
   toggleMenu = () => {
@@ -83,25 +92,20 @@ class Home extends Component {
     })
   }
 
-  logout = () => {
-    axios.put('/api/logout')
-    .then((res) => {
-      if(res.status === 200) {
-
-      }
-    })
-  }
   showDropDown = () => {
     if (this.state.showMenu) {
       return (
-        <DropDownMenu logout={this.logout} />
+        <DropDownMenu onClose={this.toggleMenu} />
       )
     }
   }
+
+ 
+
   render() {
 
 
-    const { searchField } = this.props
+    const { addFullName, addZip } = this.props
     return (
       <div className="App">
 
@@ -123,21 +127,14 @@ class Home extends Component {
               <div className='nav-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
                 <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
-
                   {this.showDropDown()}
-
-
               </div>
             </div>
-            {/* <span>{this.state.firstNameSplit[0]}{this.state.lastNameSplit[0]}</span> */}
-
-            {/* </div> */}
-
           </header> :
           <header className="home-header">
             <img src={menu} className='menu' width='15px' />
             <span className='responsive-title'>PrivyChic</span>
-            <Link to='/search' className='search-link'> <img src={search} className='search-img' /></Link>
+            <Link to='/search' className='search-link'> <img src={search}  className='search-img' /></Link>
 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
@@ -146,9 +143,9 @@ class Home extends Component {
               </div>
             </div>
             <div className='nav-link-container'>
-              <span onClick={this.toggleModal} className='nav-link' >Sign Up</span>
+              <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
               <span onClick={this.toggleModal} className='nav-link' >Login</span>
-              <Link to='/form/business' ><button className='business'>For Business</button></Link>
+              <Link to='/business' ><button className='business'>For Business</button></Link>
               <NavLink to='/help' className='nav-link'><span className='nav-link'>Help</span></NavLink>
             </div>
           </header>}
@@ -159,11 +156,11 @@ class Home extends Component {
 
               <div className='input-search-box'>
                 <div className='input-container'>
-                  <input onChange={(e) => this.searchField(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
+                  <input onChange={(e) => addFullName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
                   <img className='icon2' src={icon} />
-                  <input onChange={(e) => this.searchField(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
+                  <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
                   <img src={location} className='location-icon' />
-                  <input className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
+                  <input onChange={(e) => addFullName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
@@ -181,10 +178,10 @@ class Home extends Component {
             <div className='right-box'>
               <span className='bold-text'>Are you a beauty professional or barber?</span>
               <span className='booking-text'>#1 Appointment booking software for independent professionals</span>
-              <button onClick={this.toggleModal} className='setup'>Set Up My Business</button>
+              <button onClick={this.BusinessSignUpModal} className='setup'>Set Up My Business</button>
               <span className='trial-text'>30 day free trial, no card required.</span>
               {this.showModal()}
-              {this.showSetupModal()}
+              {/* {this.BusinessSignUpModal()} */}
             </div>
           </div>
         </div>
@@ -220,7 +217,7 @@ class Home extends Component {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
         </div>
-<Route path='/search'  render={(props) => <Search {...props}/>} />
+
       </div>
 
     );
@@ -228,13 +225,17 @@ class Home extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    search: state.search
+    zip: state.zip,
+    full_name: state.full_name,
+
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    searchField: search => dispatch({ type: 'SEARCHFIELD', payload: search })
+    addZip: zip => dispatch({ type: 'ADD_ZIP', payload: zip }),
+    addFullName: full_name => dispatch({ type: 'ADD_FULLNAME', payload: full_name}),
+
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home))

@@ -1,2 +1,4 @@
-select * from business
-where lower like(first_name = $1) or upper like(first_name = $1)
+select * from profile
+join business
+on profile.user_id = business.business_id
+where upper(full_name) like $1 

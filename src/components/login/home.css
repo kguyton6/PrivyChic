@@ -36,22 +36,27 @@
     left: 50px;
     top: 7px;
 }
-.nav-link-container, .nav-link {
+.nav-link-container {
     display: flex;
     justify-content: center;
     flex-direction: row;
     text-decoration: none;
-    margin: 10px;
+    
+}
+
+.nav-link-container {
+    width: 45%;
 }
 
 .business {
     background-color: #343737;
     color: white;
-    width: 140px;
+    width: 100%;
     height: 40px;
     font-weight: bold;
     font-size: 13px;
-    /* margin-top: 15px; */
+    margin-right: 10px;
+
 }
 .nav-link {
     color: rgb(110, 110, 110);
@@ -466,6 +471,9 @@ span.float1:hover {
     left: 5px;
     top: 7px;
 }
+.nav-link-container {
+    width: 40%;
+}
 .nav-link-container, .nav-link {
     display: flex;
     justify-content: center;
@@ -479,6 +487,7 @@ span.float1:hover {
     font-weight: bold;
     font-size: 13px;
     margin-top: 15px;
+    margin-right: 10%;
 }
 
 .top-box{
@@ -597,19 +606,28 @@ span.float1:hover {
     left: 5px;
     top: 7px;
 }
+.nav-link-container {
+    width:  45%;
+}
+.nav-link {
+    margin: 5%;
+}
 .nav-link-container, .nav-link {
     display: flex;
     justify-content: center;
     flex-direction: row;
     font-size: 18px;
     align-items: center;
+    cursor: pointer;
 }
 .business {
     background-color: #343737;
     color: white;
     font-weight: bold;
     font-size: 13px;
-    margin-top: 15px;
+    /* margin: 10px; */
+
+
 }
 
 .top-box{

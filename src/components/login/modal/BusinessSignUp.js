@@ -5,7 +5,7 @@ import axios from 'axios'
 import close from '../../assets/close.png'
 import Form from '../../business/Form'
 
-class SignUp extends Component {
+class BusinessSignUp extends Component {
     constructor(props) {
         super(props)
 
@@ -14,7 +14,7 @@ class SignUp extends Component {
         }
     }
 
-    clientSignup = () => {
+    signup = () => {
         let { first_name, last_name, email, password } = this.props
         axios.post('/auth/client/signup', {
           first_name: first_name,
@@ -26,7 +26,7 @@ class SignUp extends Component {
             if (res.status === 200) {
     
               return (
-                this.props.onClose
+                this.props.onClose()
               )
     
             } else {
@@ -41,4 +41,4 @@ class SignUp extends Component {
     }
     }
 
-    export default SignUp
+    export default BusinessSignUp

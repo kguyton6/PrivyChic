@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 import profile from '../assets/profile.png'
 import menu from '../assets/menu.png'
+import {addZip} from '../../ducks/reducers/rootReducer'
 
 const APP_CODE = 'KdE2bd_twT_q-JIYM47NSA'
 const APP_ID = 'kyH657pnAu1U3wljSnsq'
@@ -22,30 +23,52 @@ class Search extends Component {
         this.state = {
             stylists: [],
             acceptsPayment: false,
-            zip: null,
-            name: '',
-            date: '',
             showLoginModal: false,
+            date: this.props.date,
+
 
 
         }
     }
-
    
+    componentDidMount = () => {
+        if(this.props.full_name) {
+        axios.get(`/api/name/${this.props.full_name.toUpperCase()}`)
+        .then((res) => {
+            this.setState({stylists: res.data})
+        })
+    } else if(this.props.zip){
+        axios.get(`/api/zip/${this.props.zip}`)
+        .then((res) => {
+            this.setState({stylists: res.data})
+        })
+    } else {
+        axios.get(`/api/date/${this.props.date}`)
+        .then((res) => {
+            this.setState({stylists: res.data})
+        }) 
+    }
+}
 
-    findStylist = (value) => {
-        axios.get(`/api/stylist/${value}`)
+    findStylist = () => {
+        if(this.props.full_name) {
+            axios.get(`/api/name/${this.props.full_name}`)
             .then((res) => {
-                console.log(res.data)
-                this.setState({ stylists: res.data })
+                this.setState({stylists: res.data})
             })
+        } else if(this.props.zip){
+            axios.get(`/api/zip/${this.props.zip}`)
+            .then((res) => {
+                this.setState({stylists: res.data})
+            })
+        } else {
+            axios.get(`/api/date/${this.props.date}`)
+            .then((res) => {
+                this.setState({stylists: res.data})
+            }) 
+        }
     }
  
-    // viewProfile = (id) => {
-    //     return (
-    //         <Profile business_id={id}/>
-    //     )
-    // }
 
     showStylist = () => {
         let stylists = this.state.stylists
@@ -115,18 +138,6 @@ class Search extends Component {
         })
     }
 
-    handleZip = (value) => {
-        this.setState({ zip: value })
-    }
-
-    handleName(value) {
-        this.setState({ name: value })
-    }
-
-    handleDate(value) {
-        this.setState({ date: value })
-    }
-
     showModal = () => {
         if (this.state.showLoginModal) {
             return (
@@ -135,23 +146,24 @@ class Search extends Component {
         }
     }
     render() {
-        console.log(this.state)
-        const { searchField } = this.props
+        console.log(this.props.full_name)
+        const { addDate, addFullName, addZip, full_name, date, zip } = this.props
+
         return (
             <div className='Search'>
                 <div className='search-header' width='100%'>
                     <Link to='/'><img src={logo} alt='logo' width='100%' height='60px' className='logo' /></Link>
                     <div className='header-inputs'>
                     <img src={menu} className='menu' width='100%' height='100%'/>
-                        <img src={search} onClick={() => this.findStylist(this.state.zip)}className='search-icon1' alt='search' width='27px' />
-                        <input value={searchField} className='name-input' placeholder='Name, Salon, Style Type'
-                            onChange={(e) => this.handleName(e.target.value)} />
-                        <input className='location-input' placeholder='Current Location'
-                            onChange={(e) => this.handleZip(e.target.value)} />
+                        <img src={search} onClick={() => this.findStylist()}className='search-icon1' alt='search' width='27px' />
+                        <input value={full_name} className='name-input' placeholder='Name, Salon, Style Type'
+                            onChange={(e) => addFullName(e.target.value)} />
+                        <input value={this.props.zip}className='location-input' placeholder='Current Location'
+                            onChange={(e) => addZip(e.target.value)} />
                         <img src={marker} alt='marker' className='marker-icon' width='13px' />
-                        <input type='date' id='date'
-                            onChange={(e) => this.handleDate(e.target.value)} />
-                        <button className='search-button' onClick={() => this.findStylist(this.state.zip)}>Search</button>
+                        <input value={date} type='date' id='date'
+                            onChange={(e) => addDate(e.target.value)} />
+                        <button className='search-button' onClick={() => this.findStylist()}>Search</button>
                     </div>
 
                     <div className='nav-links'>
@@ -184,9 +196,18 @@ class Search extends Component {
 const mapStateToProps = (state) => {
 
     return {
-        search: state.search
+        zip: state.zip,
+        full_name: state.full_name,
+        date: state.date
     }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+         addZip: zip => dispatch({type: 'ADD_ZIP', payload: zip}),
+         addFullName: full_name => dispatch({type: 'ADD_FULLNAME', payload: full_name}),
+         addDate: date => dispatch({type: 'ADD_DATE', payload: date})
+    } 
 }
 
 
-export default connect(mapStateToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

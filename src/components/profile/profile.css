@@ -1,7 +1,4 @@
-/* .profile {
-    height: 100%;
-    width: 100%;
-} */
+
 .profile-logo {
     font-size: 42px;
     color: white;
@@ -45,19 +42,14 @@
     font-weight: bold;
 
 }
-.banner {
-    width: 100vw;
-    height: 100%;
-    top: 0px;
 
-}
 img.profile-pic {
     width: 120px;
     height: 120px;
     border-radius: 60px;
     position: absolute;
-    left: 18%;
-    top: 37%;
+    left: 22%;
+    top: 40%;
     z-index: 10;
 
 
@@ -70,23 +62,22 @@ img.profile-pic {
     text-align: center;
 }
 
-.banner-container {
-    height: 25vw;
-}
-/* .profile-top-container {
-    height: 40vh;
-} */
 .profile-top-container {
-    width: 45%;
+    width: 39%;
     margin-top: 1%;
+    margin-bottom: 5%;
 
 }
 .profile-fullname {
     color: white;
     position: absolute;
     font-weight: bold;
-    left: 28%;
-    top: 36%;
+    left: 32%;
+    top: 38%;
+}
+#profession-title {
+    font-weight: lighter;
+    font-size: 13px;
 }
 .name-title {
     font-weight: bold;
@@ -96,6 +87,7 @@ img.profile-pic {
     width: 400px;
     height:500px;
     color: black;
+    margin-left: 5%;
 
 }
 .right-profile-box {

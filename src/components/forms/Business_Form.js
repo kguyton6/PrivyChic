@@ -23,10 +23,10 @@ class Business_Form extends Component {
             }
         })
     }
-    saveForm = () => {
+    showProfileForm = () => {
         if(this.state.profileForm) {
         return (
-            <Profile_Form onClose={this.toggleModal} props={this.props}/> 
+            <Profile_Form onClose={this.toggleModal} id={this.props.id}/> 
             
         )
     }
@@ -39,13 +39,13 @@ class Business_Form extends Component {
                 <div className='form-modal'>
                     <form className='form'>
                     <div className='form-header'>
-                    <span onClick={this.props.onClose}className='form-cancel'>CANCEL</span>
+                    {/* <span onClick={this.props.onClose}className='form-cancel'>CANCEL</span> */}
                     <span className='form-title'>Add Business Info</span>
                    <span onClick={this.toggleModal}className='form-save'>Next</span>
 
                     </div>
 
-                    {this.saveForm()}
+                    {this.showProfileForm()}
                         {/* <img className='x-close' src={close} onClick={this.props.onClose} width='15px' height='15px' /> */}
                         <div className='form-input-container1'>
                 
@@ -80,14 +80,15 @@ class Business_Form extends Component {
 }
 
 export function mapStateToProps(state){
-    const {business_name, phone, address, city, State, zip, description} = state
+    const {business_name, phone, address, city, State, zipcode, description} = state
     return {
         business_name,
         phone, 
         address,
         city,
         State,
-        zip,
+        zipcode,
+        description
 
 
     }
@@ -99,7 +100,7 @@ const mapDispatchToProps = dispatch => {
         addAddress: address => dispatch({type: 'ADD_ADDRESS', payload: address}),
         addCity: city => dispatch({type: 'ADD_CITY', payload: city}),
         addState: State => dispatch({type: 'ADD_STATE', payload: State}),
-        addZip: zip => dispatch({type: 'ADD_ZIP', payload: zip}),
+        addZip: zipcode => dispatch({type: 'ADD_ZIP', payload: zipcode}),
    
     }
 }

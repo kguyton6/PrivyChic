@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import axios from 'axios';
 import './profile.css'
-import Griddle from 'griddle-react';
+import Griddle, { plugins, RowDefinition, ColumnDefinition} from 'griddle-react';
 
-
+const sortProperties = [
+    { id: 'price', sortAscending: true }
+  ];
+  
 
 class Services extends Component {
     constructor(props){
@@ -22,28 +25,23 @@ class Services extends Component {
              })
         }
 
-    // showServices = () => {
-    //     let services = this.state.services
-    //     let service = []
-
-    //     for(let i in services){
-    //         service.push(
-    //             <ul>
-    //                 <li key={i}>{services[i]}</li>
-    //                 <li>{services[i]} and up to {services[i]}</li>
-    //             </ul>
-    //         )
-    //        return service
-    //     }
-
-    // }
     render(){
         var data = this.state.services
         console.log(data)
         return (
 
            <React.Fragment>
-            <Griddle data={data} />
+            <Griddle 
+            data={data} 
+            plugins={[plugins.LocalPlugin]}
+            sortProperties={sortProperties}>
+            <RowDefinition width={500}>
+      <ColumnDefinition id="type" title="Type" />
+      <ColumnDefinition id="service_name" title="Service" order={1} width={300} />
+      <ColumnDefinition id="price" title="Price" width={400}/>
+      <ColumnDefinition id="duration" title="Duration" />
+    </RowDefinition>
+            </Griddle>
            </React.Fragment>
 
 

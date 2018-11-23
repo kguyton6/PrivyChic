@@ -19,17 +19,24 @@ module.exports = {
     stylist_zip: (req, res, next) => {
         const dbInstance = req.app.get('db')
 
-        dbInstance.stylist_zip(req.params.zip)
+        dbInstance.stylist_zip(req.params.id)
         .then((data) => res.status(200).send(data))
         .catch(err => console.log(err,'getstylist error'))
     },
     stylist_name: (req, res, next) => {
         const dbInstance = req.app.get('db')
+        let full_name = `${req.params.id}%`
 
-        dbInstance.stylist_name(req.params.name)
+        dbInstance.stylist_name(full_name)
         .then((data) => res.status(200).send(data))
         .catch(err => console.log(err,'getstylist error'))
     },
+     get_availablility: (req, res) => {
+         const dbInstance = req.app.get('db')
+
+         dbInstance.get_availability(req.params.id)
+         .then((data) => res.status(200).send(data))
+     },
 
     getStylist: (req, res) => {
         const dbInstance = req.app.get('db')
@@ -70,7 +77,30 @@ module.exports = {
         dbInstance.get_hours(req.params.id)
         .then((data) => res.status(200).send(data))
         .catch(err => console.log(err, 'get hours error'))
-    }
+    },
+
+    business_login: async(req, res) => {
+        const dbInstance = req.app.get('db')
+        const {email, password} = req.body
+        console.log(email, password)
+      
+        let user = await dbInstance.check_user(email)
+      
+        let result = await bcrypt.compareSync(password, user[0].password);
+        console.log(result)
+       if (result) {
+          req.session.user = user[0]
+          res.status(200).send('success')
+            console.log(req.session)
+            app.get('/api/getbusiness', (req, res) => {
+              dbInstance.getbusiness(req.session.user.user_id)
+              .then((user) => res.status(200).send(user))
+            })
+          } else {
+          res.status(401).send('wrong password')
+        }
+      }
+      
     
 
 

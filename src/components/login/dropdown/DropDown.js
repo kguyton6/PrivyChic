@@ -13,9 +13,9 @@ export default class DropDownMenu extends Component {
        axios.get('/api/logout')
        .then((res) => {
         if(res.status === 200) {
-            res.redirect('/home')
+            this.props.onClose()
         }
-        return this.props.logout
+
     })
     }
     
