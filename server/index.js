@@ -32,8 +32,8 @@ app.use(session({
 
 app.post('/auth/signup', async (req, res) => {
   const dbInstance = req.app.get('db')
-  const {first_name, last_name, email, password} = req.body
-  console.log(first_name, last_name, email, password)
+  const {full_name, email, password} = req.body
+  console.log(full_name, email, password)
 
   let user = await dbInstance.check_user(email)
   if(user[0]){ return res.status(401).send('Email already in use')
@@ -41,7 +41,7 @@ app.post('/auth/signup', async (req, res) => {
 
   let salt = bcrypt.genSaltSync(10)
    let hash = bcrypt.hashSync(password, salt)
-   let newUser = await dbInstance.create_user(first_name, last_name, email, hash)
+   let newUser = await dbInstance.create_user(full_name, email, hash)
   
      req.session.user = newUser[0]
      console.log(req.session)
@@ -88,9 +88,12 @@ app.get('/api/date/:id', ctrl.get_availablility)
 app.get('/api/profile/:id', ctrl.getStylist)
 app.get('/api/hours/:id', ctrl.get_hours)
 app.get('/api/services/:id', ctrl.allServices)
-app.post('/api/signup/business', ctrl.create_business)
-app.post('/api/addProfile', ctrl.create_profile)
+app.get('/api/getbusiness', ctrl.get_business)
+app.post('/api/signup/business/:id', ctrl.create_business)
+app.post('/api/addProfile/:id', ctrl.create_profile)
 app.post('/auth/login/business', ctrl.business_login)
+app.delete('/api/delete/:id', ctrl.delete_user)
+app.delete('/api/delete/business/:id', ctrl.delete_business)
 
 
 const PORT = SERVER_PORT || 4800

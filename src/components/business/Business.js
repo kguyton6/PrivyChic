@@ -2,37 +2,52 @@ import React, { Component } from 'react'
 import logo from '../assets/Artboard1.png'
 import './business.css'
 import { Link } from 'react-router-dom'
-import Business_Form from '../forms/Business_Form'
+import BusinessSignUp from '../login/modal/BusinessSignUp'
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
+import Login from '../login/modal/Login'
 
 class Business extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            formModal: false
+            BusinessSignUp: false,
+            businessLogin: false,
+            showLogin: true
         }
 
     }
 
-    toggleModal = () => {
+    toggleSignUp = () => {
         this.setState(prevState => {
           return {
-            formModal: !prevState.formModal
+            BusinessSignUp: !prevState.BusinessSignUp
           }
         })
       }
 
 
     showModal = () => {
-        if (this.state.formModal) {
+        if (this.state.BusinessSignUp) {
             return (
-                <Business_Form onClose={this.toggleModal}  />
+                <BusinessSignUp onClose={this.toggleSignUp}  />
+            )
+        } else if (this.state.businessLogin){
+            return (
+                <BusinessSignUp onClose={this.toggleLogin} />
             )
         }
 
     }
+    toggleLogin = () => {
+        this.setState(prevState => {
+            return {
+                businessLogin: !prevState.businessLogin
+            }
+        })
+    }
+
 
     render() {
         return (
@@ -48,8 +63,8 @@ class Business extends Component {
                     <nav className='business-nav'>
                         <span className='business-nav-links'>Pricing</span>
                         <span className='business-nav-links'>Blog</span>
-                        <span className='business-nav-links'>Login</span>
-                        <span className='business-nav-links'>Sign Up</span>
+                        <span onClick={this.toggleLogin}className='business-nav-links'>Login</span>
+                        <span onClick={this.toggleSignUp}className='business-nav-links'>Sign Up</span>
                         <span className='business-nav-links'>Help</span>
                     </nav>
                 
@@ -61,7 +76,7 @@ class Business extends Component {
                         Invest in Yourself.<br />
                         Trust StyleSeat with the rest.
 <span className='small-text'>#1 Appointment booking and online scheduling software for independent professionals.</span>
-                        <button onClick={this.toggleModal} className='left-box-button'>Try It Now</button>
+                        <button onClick={this.toggleSignUp} className='left-box-button'>Try It Now</button>
                         <span className='trial-text'>30 day free trial, no card required</span>
                     </div>
                 </div>

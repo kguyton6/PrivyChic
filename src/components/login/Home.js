@@ -32,17 +32,27 @@ class Home extends Component {
       showLoginModal: false,
       showMenu: false,
       input: '',
-      // showSignUp: false
+      full_name: ''
 
     }
   }
  
-  // componentDidMount = () => {
-  //    axios.get('/api/check_user', this.props.email).then((res) => {
-  //      console.log(res.data)
-  //      this.setState({user: res.data})
-  //    })
-  // }
+  getUser = () => {
+     axios.get('/api/getuser').then((res) => {
+       console.log(res.data)
+       this.setState({user: res.data, full_name: res.data[0].full_name, showUser: true})
+     })
+     if(this.state.showLoginModal){
+     return this.toggleModal()
+     } else if(this.state.showLoginModal){
+       return this.toggleSignUp()
+     }
+  }
+  componentDidUpdate = () => {
+    if(!this.state.user) {
+      this.setState({showUser: false})
+    }
+  }
   
   toggleModal = () => {
     this.setState(prevState => {
@@ -63,19 +73,14 @@ class Home extends Component {
   showModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} />
+        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} getUser={this.getUser} />
       )
     } else if(this.state.showSignUp){
       return (
-        <Login onClose={this.toggleSignUp} />
+        <Login onClose={this.toggleSignUp} getUser={this.getUser}/>
       )
-   } else if(this.state.BusinessSignUp) {
-     return (
-     <Login onClose={this.BusinessSignUpModal} business={this.state.BusinessSignUp} />
-     )
-   }
-}
-
+    }
+  }
   BusinessSignUpModal = () => {
     this.setState(prevState => {
       return {
@@ -87,25 +92,36 @@ class Home extends Component {
   toggleMenu = () => {
     this.setState(prevState => {
       return {
-     showMenu: !prevState.showMenu
+     showMenu: !prevState.showMenu,
+    
       }
     })
   }
 
-  showDropDown = () => {
+  logout = () => {
+    axios.get('/api/logout')
+    .then((res) => {
+     if(res.status === 200) {
+       this.setState({showUser: false})
+      }
+    })
+ }
+  
+ showDropDown = () => {
     if (this.state.showMenu) {
       return (
-        <DropDownMenu onClose={this.toggleMenu} />
+        <DropDownMenu onClose={this.toggleMenu} logout={this.logout}/>
       )
     }
   }
+
 
  
 
   render() {
 
 
-    const { addFullName, addZip } = this.props
+    const { addFirstName, addZip } = this.props
     return (
       <div className="App">
 
@@ -126,7 +142,7 @@ class Home extends Component {
               <img className='bell' src={bell} width='30px' height='30px' />
               <div className='nav-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
-                <span className='profile-img'>{`${this.state.firstName} ${this.state.lastName}`}</span>
+                <span className='profile-img'>{this.state.full_name}</span>
                   {this.showDropDown()}
               </div>
             </div>
@@ -156,11 +172,11 @@ class Home extends Component {
 
               <div className='input-search-box'>
                 <div className='input-container'>
-                  <input onChange={(e) => addFullName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
+                  <input onChange={(e) => addFirstName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
                   <img className='icon2' src={icon} />
                   <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
                   <img src={location} className='location-icon' />
-                  <input onChange={(e) => addFullName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
+                  <input onChange={(e) => addFirstName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
@@ -178,7 +194,7 @@ class Home extends Component {
             <div className='right-box'>
               <span className='bold-text'>Are you a beauty professional or barber?</span>
               <span className='booking-text'>#1 Appointment booking software for independent professionals</span>
-              <button onClick={this.BusinessSignUpModal} className='setup'>Set Up My Business</button>
+              <Link to='/business'><button className='setup'>Set Up My Business</button></Link>
               <span className='trial-text'>30 day free trial, no card required.</span>
               {this.showModal()}
               {/* {this.BusinessSignUpModal()} */}
@@ -225,15 +241,15 @@ class Home extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    zip: state.zip,
-    full_name: state.full_name,
+    zipcode: state.zipcode,
+    first_name: state.first_name,
 
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addZip: zip => dispatch({ type: 'ADD_ZIP', payload: zip }),
-    addFullName: full_name => dispatch({ type: 'ADD_FULLNAME', payload: full_name}),
+    addZip: zipcode => dispatch({ type: 'ADD_ZIP', payload: zipcode }),
+    addFirstName: first_name => dispatch({ type: 'ADD_FULLNAME', payload: first_name}),
 
   }
 }

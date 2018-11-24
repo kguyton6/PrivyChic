@@ -17,7 +17,8 @@ class Login extends Component {
 
     this.state = {
       showLogin: true,
-      showSignup: false
+      showSignup: false,
+      user_id: null
     }
 
   }
@@ -34,8 +35,8 @@ class Login extends Component {
 
   signup = () => {
     if (this.props.business) {
-      let { first_name, last_name, email, password } = this.props
-      axios.post('/auth/signup', { first_name: first_name, last_name: last_name, email: email, password: password })
+      let { full_name, email, password } = this.props
+      axios.post('/auth/signup', { full_name: full_name, email: email, password: password })
         .then(() => {
           axios.get('/api/getuser')
             .then((res) => {
@@ -43,24 +44,30 @@ class Login extends Component {
             })
         })
     } else {
-      let { first_name, last_name, email, password } = this.props
-      axios.post('/auth/signup', { first_name: first_name, last_name: last_name, email: email, password: password })
+      let { full_name, email, password } = this.props
+      axios.post('/auth/signup', { full_name, email: email, password: password })
         .then((res) => {
           if (res.status === 200) {
-            this.props.onClose()
+            this.props.getUser()
           }
         })
     }
+    this.props.onClose()
   }
   login = () => {
-    if (this.props.business) {
+    if (this.props.businessLogin) {
       axios.post('/auth/login/business', { email: this.props.email, password: this.props.password })
-    } else {
+      .then((res) => {
+        if(res.status === 200){
+          this.props.history.push('/dashboard')
+        }
+      })
+    } else if(this.props.showLogin) {
       let { email, password } = this.props
       axios.post('/auth/login', { email: email, password: password })
         .then((res) => {
           if (res.status === 200) {
-            this.props.onClose()
+            this.props.getUser() 
           }
         })
     }
@@ -68,13 +75,13 @@ class Login extends Component {
 
   callbackForm = () => {
     if (this.state.user_id) {
-      return <Business_Form onClose={this.props.onClose} id={this.state.user_id}/>
+      return <Business_Form onClose={this.props.onClose} id={this.state.user_id} />
     }
   }
 
 
   render() {
-    const { addEmail, addPassword, addFirstName, addLastName, onClose } = this.props
+    const { addEmail, addPassword, addFullName, addLastName, onClose } = this.props
     return (
       <div className='App'>
         {this.state.showLogin === true && this.props.showLogin ?
@@ -117,10 +124,7 @@ class Login extends Component {
                 </div>}
 
               <div className='signup-container'>
-
-                <input placeholder='First Name' className='signup-input' onChange={(e) => addFirstName(e.target.value)} />
-
-                <input placeholder='Last Name' className='signup-input' onChange={(e) => addLastName(e.target.value)} />
+                <input placeholder='Full Name' className='signup-input' onChange={(e) => addFullName(e.target.value)} />
                 <input placeholder='Email' className='signup-input' onChange={(e) => addEmail(e.target.value)} />
                 <input placeholder='Password' type='password' className='signup-input' onChange={(e) => addPassword(e.target.value)} />
                 <button className='signup-button' onClick={this.signup}>Sign Up</button></div>
@@ -138,7 +142,7 @@ const mapStateToProps = (state) => {
   return {
     email: state.email,
     password: state.password,
-    first_name: state.first_name,
+    full_name: state.full_name,
     last_name: state.last_name,
     user: state.user,
   }
@@ -148,7 +152,7 @@ const mapDispatchToProps = dispatch => {
   return {
     addEmail: email => dispatch({ type: 'ADD_EMAIL', payload: email }),
     addPassword: password => dispatch({ type: 'ADD_PASSWORD', payload: password }),
-    addFirstName: first_name => dispatch({ type: 'ADD_FIRST_NAME', payload: first_name }),
+    addFullName: full_name => dispatch({ type: 'ADD_FULLNAME', payload: full_name }),
     addLastName: last_name => dispatch({ type: 'ADD_LAST_NAME', payload: last_name }),
     getUserInfo: userInfo => dispatch({ type: 'GET_USER', payload: userInfo })
   }

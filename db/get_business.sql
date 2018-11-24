@@ -1,4 +1,4 @@
-select * from priv_users
+select * from profile
 join business
-on priv_users.user_id = business.user_id
-where user_id = $1
+on profile.user_id = business.user_id
+where business.user_id = $1

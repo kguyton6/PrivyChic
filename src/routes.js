@@ -1,7 +1,6 @@
 import React from 'react'
 import Home from './components/login/Home'
 import {Switch, Route} from 'react-router-dom'
-import {withRouter} from 'react-router'
 import Dashboard from './components/Dashboard/Dashboard'
 import help from './help'
 import Login from './components/login/modal/Login'
@@ -16,7 +15,6 @@ const routes = (
 
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/home' component={Home} />
           <Route exact path='/dashboard' component={Dashboard}/>
           <Route path='/help' component={help}/>
           <Route path='/login' component={Login}/>

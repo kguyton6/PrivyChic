@@ -11,7 +11,7 @@ const initialState = {
     address: '',
     city: '',
     State: '',
-    zipcode: 0,
+    zipcode: null,
     picture: '',
     phone: '',
     email: '',
