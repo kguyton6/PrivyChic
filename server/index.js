@@ -18,7 +18,7 @@ const {
   APP_CODE
 } = process.env
 
-
+app.use( express.static( `${__dirname}/../build` ) )
 
 
 massive(DATABASE_URL).then(dbInstance => {
