@@ -18,9 +18,7 @@ const {
   APP_CODE
 } = process.env
 
-// app.get('*', (req, res)=>{
-//   res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
+
 
 
 massive(DATABASE_URL).then(dbInstance => {
@@ -120,6 +118,9 @@ app.post('/auth/login/business', ctrl.business_login)
 app.delete('/api/delete/:id', ctrl.delete_user)
 app.delete('/api/delete/business/:id', ctrl.delete_business)
 
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 const PORT = SERVER_PORT || 9000
 
