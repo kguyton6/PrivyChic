@@ -365,6 +365,8 @@ ul.business_hours {
     overflow-wrap: break-word;
 
 }
-
+/* @media screen and (min-width: 750) and (max-width: 1400){
+    
+} */
 
 }
