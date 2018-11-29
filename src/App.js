@@ -7,6 +7,7 @@ import routes from './routes'
 
 const App = ({ history }) => {
   return (
+    
     <Router history={history}>
       { routes }
     </Router>

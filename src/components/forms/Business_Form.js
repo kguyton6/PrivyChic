@@ -3,9 +3,8 @@ import close from '../assets/close.png'
 import './form.css'
 import { connect } from 'react-redux'
 import Profile_Form from './Profile_Form';
-// import {ADD_BUSINESS_NAME, ADD_ADDRESS, ADD_PHONE, ADD_CITY, ADD_ADDRESS, ADD_STATE, ADD_ZIP} from '../../ducks/reducer'
+import {addAddress, addBusinessName, addCity, addPhone, addPortfolio, addState, addZip} from '../../ducks/actions/action_creators'
 import { Route, Link } from 'react-router-dom'
-import { runInThisContext } from 'vm';
 import axios from 'axios';
 
 class Business_Form extends Component {
@@ -32,19 +31,7 @@ class Business_Form extends Component {
             )
         }
     }
-    businessSignUp = () => {
-        const {business_name, phone, address, city, State, zipcode } = this.props   
-        axios.post(`/api/signup/business/${this.props.id}`, {business_name: business_name, phone_number: phone, streetaddress: address, state: State, zipcode: zipcode, city: city,  })
-        .then((res) => {
-            if(res.status === 200){
-                return (
-                    this.toggleModal()
-                )
-            } else {
-                alert(res.statusText)
-            }
-        })
-    }
+    
     delete = () => {
         axios.delete(`/api/delete/${this.props.id}`)
         .then((res) => {
@@ -53,17 +40,31 @@ class Business_Form extends Component {
             }
         })
     }
+//     businessSignup = () => {
+//         const {full_name, email, password, business_name, phone, address, city, State, zipcode, portfolio, profession, first_name, last_name, description, picture } = this.props  
+        
+//         axios.post(`/auth/signup/business`, {
+//             full_name: full_name, email: email, password: password, business_name: business_name, phone_number: phone, streetaddress: address,  city: city, state: State, zipcode: zipcode, portfolio: portfolio })
+//             .then((res) => {
+//                 if(res.status === 200) {
+//                     this.props.history.push('/dashboard')
+//                } else {
+//                    console.log(res.statusText)
+//              }
+             
+//     })
+// }
 
     render() {
-        const { addAddress, addZip, addBusinessName, addCity, addPhone, addState } = this.props
+        const { addAddress, addZip, addBusinessName, addCity, addPhone, addState, addPortfolio } = this.props
         return (
             <div className='App'>
                 <div className='form-modal'>
                     <form className='form'>
                         <div className='form-header'>
-                            <span onClick={this.delete} className='form-cancel'>CANCEL</span>
+                            <span onClick={this.props.onClose} className='form-cancel'>CANCEL</span>
                             <span className='form-title'>Add Business Info</span>
-                            <span onClick={this.businessSignUp} className='form-save'>Next</span>
+                            <span onClick={this.toggleModal} className='form-save'>Save</span>
 
                         </div>
 
@@ -72,7 +73,8 @@ class Business_Form extends Component {
 
                             <div className='business-inputs'>
                                 <input placeholder='Business Name' className='business-name' onChange={(e) => addBusinessName(e.target.value)} />
-                                <input className='phone' placeholder='Phone Number on Profile' onChange={(e) => addPhone(e.target.value)} />
+                                <input className='phone' placeholder='Business Phone Number' onChange={(e) => addPhone(e.target.value)} />
+                                <input className='portfolio' placeholder='Picture Of Your Work' onChange={(e) => addPortfolio(e.target.value)}/>
                                 <span className='business-location'>Business Location</span>
                                 <input placeholder='Business Address' className='business-address' onChange={(e) => addAddress(e.target.value)} />
                                 <input placeholder='City' className='city-input' onChange={(e) => addCity(e.target.value)} />
@@ -102,17 +104,7 @@ export function mapStateToProps(state) {
 
     }
 }
-const mapDispatchToProps = dispatch => {
-    return {
-        addBusinessName: business_name => dispatch({ type: 'ADD_BUSINESS_NAME', payload: business_name }),
-        addPhone: phone => dispatch({ type: 'ADD_PHONE', payload: phone }),
-        addAddress: address => dispatch({ type: 'ADD_ADDRESS', payload: address }),
-        addCity: city => dispatch({ type: 'ADD_CITY', payload: city }),
-        addState: State => dispatch({ type: 'ADD_STATE', payload: State }),
-        addZip: zipcode => dispatch({ type: 'ADD_ZIP', payload: zipcode }),
 
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Business_Form)
+const bindActionCreators = {addAddress, addBusinessName, addCity, addPhone, addPortfolio, addState, addZip, addPortfolio}
+export default connect(mapStateToProps, bindActionCreators)(Business_Form)
 

@@ -1,4 +1,4 @@
 select * from calendar
-join business
-on calendar.user_id = business.business_id
-where calendar_month = $1 and calendar_day = $2
+join profile
+on calendar.business_id = profile.business_id
+where six_digit_date = $1

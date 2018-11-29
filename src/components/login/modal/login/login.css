@@ -1,6 +1,6 @@
 @media screen and (min-width: 1099px) {
-.login-modal {
-    z-index: 20;
+.login-modal, .business-modal {
+    z-index: 1000;
     background-color: rgba(0, 0, 0, 0.671);
     min-width: 100vw;
     min-height: 100vh;
@@ -34,10 +34,10 @@
         height: 60px;
         color: white;
         font-size: 18px;
-        margin-top: 8%;
+        margin-top: 10%;
 }
 img.close {
-   right: -13%;
+   right: 2%;
     position: absolute;
     cursor: pointer;
     height: 15px;
@@ -51,7 +51,8 @@ img.close {
     text-indent: 5px;
     border-right: solid thin rgb(204, 204, 204);
     border: solid thin rgb(204, 204, 204);
-    border-left: solid thin rgb(204, 204, 204)
+    border-left: solid thin rgb(204, 204, 204);
+    margin: 2%;
 
 }
 
@@ -70,18 +71,25 @@ img.close {
 .top-container {
     display: flex;
     justify-content: space-evenly;
-    width: 80%;
+    width: 100%;
     margin-top: 5%;
     position: relative;
-    margin-right: 5%;
+    font-weight: bold;
+    font-size: 22px;
+
  
+}
+.signup-span-active {
+    width: 60%;
+    margin-left: 10%;
 }
 
  .login-span-active, .signup-span-active {
     color:#2876AD;
     justify-content: space-between;
-    margin-right: 15%;
+    /* margin-right: 15%; */
     cursor: pointer;
+
    
 } 
 .input-container1 {

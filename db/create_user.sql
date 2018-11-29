@@ -1,3 +1,3 @@
-insert into priv_users (email, password, full_name)
-values($2, $3, $1)
+insert into priv_users (full_name, email, password, user_type)
+values($1, $2, $3, $4)
 returning *;

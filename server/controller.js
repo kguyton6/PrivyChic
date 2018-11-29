@@ -9,89 +9,109 @@ module.exports = {
 
     },
 
-    getuser: (req, res) => {
+    get_user: (req, res) => {
         const dbInstance = req.app.get('db')
         console.log(req.session.user.user_id)
 
-        dbInstance.getuser(req.session.user.user_id)
+        dbInstance.get_user(req.session.user.user_id)
             .then((data) => {
                 res.status(200).send(data)
             }).catch(err => console.log(err, 'getuser error'))
     },
 
-    stylist_zip: (req, res, next) => {
+    stylist_zip: async(req, res, next) => {
         const dbInstance = req.app.get('db')
+        console.log(req.params.id)
 
         dbInstance.stylist_zip(req.params.id)
-            .then((data) => res.status(200).send(data))
-            .catch(err => console.log(err, 'getstylist error'))
+      .then((data) => res.status(200).send(data))
+
     },
-    stylist_name: (req, res, next) => {
+    stylist_name: async(req, res, next) => {
         const dbInstance = req.app.get('db')
-        let {full_name} = `%${req.params.id}%`
+        const {full_name} = `%${req.params.id}%`
 
         dbInstance.stylist_name(full_name)
-            .then((data) => res.status(200).send(data))
-            .catch(err => console.log(err, 'getstylist error'))
+        .then((data) => {
+        res.status(200).send(data)
+        })
     },
-    get_availablility: (req, res) => {
+
+    get_availablility: async(req, res) => {
         const dbInstance = req.app.get('db')
 
-        dbInstance.get_availability(req.params.id)
-            .then((data) => res.status(200).send(data))
+        let match = await dbInstance.get_availability(req.params.id)
+            if(match){
+                let id = match[0].business_id
+               let data = await dbInstance.getStylist(id)
+                res.status(200).send(data)
+            }
     },
 
-    getStylist: (req, res) => {
+    getStylist: async(req, res) => {
         const dbInstance = req.app.get('db')
 
-
-        dbInstance.getStylist(req.params.id)
-            .then((profile) => res.status(200).send(profile))
-            .catch(err => console.log(err, 'profile error in controller'))
+       dbInstance.getStylist(req.params.id)
+       .then((data) => {
+          res.status(200).send(data) 
+        })
+    //    let responseStylist = { stylist, availability }  
     },
+    
 
     create_business: async(req, res, next) => {
         const dbInstance = req.app.get('db')
-        const { business_name, phone_number, streetaddress, state, zipcode, city } = req.body
+        const {full_name, email, password, business_name, phone_number, streetaddress, city, state, zipcode, portfolio, first_name, last_name, profession, about, picture, accept_payment } = req.body
+        
+        let user = await dbInstance.check_user(email)
+        // let result = await bcrypt.compareSync(password, user[0].password)
+        if(user[0]){
+            req.session.user = user[0]
 
-        let business = await dbInstance.get_business(req.params.id)
-        if(business[0]){ return res.status(401).send('business already created')
-      } else {
-        dbInstance.create_business(req.params.id, business_name, phone_number, streetaddress, state, zipcode,  city)
-            .then((data) => res.status(200).send(data))
-            .catch(err => console.log(err, 'create business error'))
-         }
+        } else {
+            let salt = bcrypt.genSaltSync(10)
+            let hash = bcrypt.hashSync(password, salt)
+            user =  await dbInstance.create_user(full_name, email, hash, 'business')
+            req.session.user = user[0]
+        }
+       
+        let newBusiness = await dbInstance.create_business(req.session.user.user_id, business_name, phone_number, streetaddress, city, state, zipcode, portfolio, full_name, first_name, last_name, profession, about, picture, accept_payment)
+        
+         let responseUser = {user: req.session.user, newBusiness}
+     
+        res.status(200).send(responseUser)
+        
     },
-    create_profile: (req, res, next) => {
+    get_calendar: (req, res) => {
+      const  dbInstance = req.app.get('db')
+
+      dbInstance.get_calendar()
+          .then((data) => res.status(200).send(data))
+      
+    },
+
+    allServices: async(req, res, next) => {
         const dbInstance = req.app.get('db')
-        const { first_name, last_name, profession, about, picture } = req.body
+        console.log(req.params.id)
 
-        dbInstance.create_profile(req.params.id, profession, about, picture,  first_name, last_name)
-            .then(() => res.status(200).send('profile success'))
-            .catch(err => console.log(err, 'profile error'))
+        let service = await dbInstance.allServices(req.params.id)
+        let calendar  = await dbInstance.appointment_times(req.params.id)
+
+        let response = {service, calendar}
+        res.status(200).send(response)
+        
+
     },
-
-    allServices: (req, res) => {
+    create_booking: (req, res) => {
         const dbInstance = req.app.get('db')
-        dbInstance.allServices(req.params.id)
-            .then((data) => res.status(200).send(data))
+        let { id, service_id } = req.body
+
+
+        dbInstance.create_booking(req.session.user.user_id, req.params.business_id, service_id, id )
+        .then(() => res.status(200).send('success'))
     },
 
-    get_hours: (req, res) => {
-        const dbInstance = req.app.get('db')
-
-        dbInstance.get_hours(req.params.id)
-            .then((data) => res.status(200).send(data))
-            .catch(err => console.log(err, 'get hours error'))
-    },
-
-    get_business: (req, res) => {
-        const dbInstance = req.app.get('db')
-
-        dbInstance.get_business(req.session.user.user_id)
-        .then((data) => res.status(200).send(data))
-        .catch(err => console.log(err, 'get business error'))
-    },
+  
 
     business_login: async (req, res) => {
         const dbInstance = req.app.get('db')
@@ -102,18 +122,19 @@ module.exports = {
 
         let result = await bcrypt.compareSync(password, user[0].password);
         console.log(result)
-        if (result) {
+        if (!result) {
+            res.sendStatus(401)
+        }else {
             req.session.user = user[0]
-            res.status(200).send('success')
-            console.log(req.session)
-            app.get('/api/getbusiness', (req, res) => {
-                dbInstance.get_business(req.session.user.user_id)
-                console.log(data)
-                    .then((data) => res.status(200).send(data))
-            }) .catch(err => console.log(err, 'get business login error'))
-        } else {
-            res.status(401).send('wrong password')
         }
+        
+         let business = await dbInstance.check_business(req.session.user.user_id)
+           if(business){
+               req.session.user = business[0]
+               console.log(business)
+               res.status(200).send(req.session.business)
+           }
+    
     },
     delete_user: (req, res) => {
         const dbInstance = req.app.get('db')
@@ -129,4 +150,3 @@ module.exports = {
     }
 
 }
-

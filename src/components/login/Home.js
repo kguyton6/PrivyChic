@@ -3,19 +3,20 @@ import './home.css';
 import logo from '../assets/privy3.svg'
 import icon from '../assets/icon.svg'
 import location from '../assets/location.png'
-import { Link, NavLink} from 'react-router-dom'
+import { Link, NavLink, Route} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import bell from '../assets/bell.png'
-import Login from './modal/Login'
+import Login from './modal/login/Login'
 import down from '../assets/down-arrow.png'
-import DropDownMenu from '../login/dropdown/DropDown';
-import BusinessSignUp from './modal/BusinessSignUp'
+import DropDown from '../forms/dropdown/DropDown';
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
-// import Search from '../search/Search'
-import {addDate, addFullName, addZip} from '../../ducks/reducers/rootReducer'
+import Search from '../search/Search'
+import {getUserInfo, addStylistName, addZip} from '../../ducks/actions/action_creators'
+// import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.1/node_modules/redux';
+
 
 
 class Home extends Component {
@@ -37,22 +38,14 @@ class Home extends Component {
     }
   }
  
-  getUser = () => {
-     axios.get('/api/getuser').then((res) => {
-       console.log(res.data)
-       this.setState({user: res.data, full_name: res.data[0].full_name, showUser: true})
-     })
-     if(this.state.showLoginModal){
-     return this.toggleModal()
-     } else if(this.state.showLoginModal){
-       return this.toggleSignUp()
-     }
-  }
   componentDidUpdate = () => {
-    if(!this.state.user) {
-      this.setState({showUser: false})
-    }
+    axios.get('/checkSession')
+    .then((res) => {
+
+      this.props.getUserInfo(res.data)
+    })
   }
+
   
   toggleModal = () => {
     this.setState(prevState => {
@@ -73,21 +66,15 @@ class Home extends Component {
   showModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} getUser={this.getUser} />
+        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal}  />
       )
     } else if(this.state.showSignUp){
       return (
-        <Login onClose={this.toggleSignUp} getUser={this.getUser}/>
+        <Login onClose={this.toggleSignUp}  />
       )
     }
   }
-  BusinessSignUpModal = () => {
-    this.setState(prevState => {
-      return {
-        BusinessSignUp: !prevState.BusinessSignUp
-    }
-  })
-  }
+ 
 
   toggleMenu = () => {
     this.setState(prevState => {
@@ -102,30 +89,27 @@ class Home extends Component {
     axios.get('/api/logout')
     .then((res) => {
      if(res.status === 200) {
-       this.setState({showUser: false})
-      }
+       return this.componentDidUpdate()
+       }
     })
  }
   
  showDropDown = () => {
     if (this.state.showMenu) {
       return (
-        <DropDownMenu onClose={this.toggleMenu} logout={this.logout}/>
+        <DropDown onClose={this.toggleMenu} logout={this.logout} login={this.showModal}/>
       )
     }
   }
 
 
- 
-
   render() {
-
-
-    const { addFirstName, addZip } = this.props
+    console.log(this.props.userInfo.full_name)
+    const { addStylistName, addZip } = this.props
     return (
       <div className="App">
 
-        {this.state.showUser === true ?
+        {this.props.userInfo.full_name ?
           <header className="home-header">
             <img src={menu} className='menu' width='100%' />
             <span className='responsive-title'>PrivyChic</span>
@@ -142,20 +126,21 @@ class Home extends Component {
               <img className='bell' src={bell} width='30px' height='30px' />
               <div className='nav-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
-                <span className='profile-img'>{this.state.full_name}</span>
+                <span className='profile-img'>{this.props.userInfo.full_name}</span>
                   {this.showDropDown()}
               </div>
             </div>
           </header> :
           <header className="home-header">
-            <img src={menu} className='menu' width='15px' />
+            <img src={menu} className='menu' width='15px' onMouseEnter={this.toggleMenu} />
+            {this.showDropDown()}
             <span className='responsive-title'>PrivyChic</span>
             <Link to='/search' className='search-link'> <img src={search}  className='search-img' /></Link>
 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
-                <input className='search-input' placeholder='Search' />
-                <img src={icon} alt='icon' className='icon' width='25px' />
+                <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)}/>
+              <img src={icon} alt='icon' className='icon' width='25px' />
               </div>
             </div>
             <div className='nav-link-container'>
@@ -172,11 +157,11 @@ class Home extends Component {
 
               <div className='input-search-box'>
                 <div className='input-container'>
-                  <input onChange={(e) => addFirstName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
-                  <img className='icon2' src={icon} />
+                  <input onChange={(e) => addStylistName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
+                  <Link to='/search'> <img className='icon2' src={icon} /> </Link>
                   <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
                   <img src={location} className='location-icon' />
-                  <input onChange={(e) => addFirstName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
+                  <input onChange={(e) => addStylistName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
@@ -197,7 +182,6 @@ class Home extends Component {
               <Link to='/business'><button className='setup'>Set Up My Business</button></Link>
               <span className='trial-text'>30 day free trial, no card required.</span>
               {this.showModal()}
-              {/* {this.BusinessSignUpModal()} */}
             </div>
           </div>
         </div>
@@ -233,7 +217,7 @@ class Home extends Component {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
         </div>
-
+       
       </div>
 
     );
@@ -242,16 +226,11 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     zipcode: state.zipcode,
-    first_name: state.first_name,
-
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    addZip: zipcode => dispatch({ type: 'ADD_ZIP', payload: zipcode }),
-    addFirstName: first_name => dispatch({ type: 'ADD_FULLNAME', payload: first_name}),
+    userInfo: state.userInfo,
+    stylistName: state.stylistName
 
   }
 }
 
-export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home))
+const bindActionCreators = {getUserInfo, addStylistName, addZip}
+export default withRouter( connect(mapStateToProps, bindActionCreators)(Home))

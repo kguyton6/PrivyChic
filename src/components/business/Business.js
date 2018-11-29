@@ -2,45 +2,45 @@ import React, { Component } from 'react'
 import logo from '../assets/Artboard1.png'
 import './business.css'
 import { Link } from 'react-router-dom'
-import BusinessSignUp from '../login/modal/BusinessSignUp'
+import BusinessSignUp from '../login/modal/business/BusinessSignUp'
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
-import Login from '../login/modal/Login'
+import Login from '../login/modal/login/Login'
+import bell from '../assets/bell.png'
+import down from '../assets/down-arrow.png'
+import axios from 'axios';
+import {getUserInfo} from '../../ducks/actions/action_creators'
+import {connect} from 'react-redux'
 
+ 
 class Business extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            BusinessSignUp: false,
+            businessSignUp: false,
             businessLogin: false,
             showLogin: true
         }
 
     }
 
+    componentDidMount = () => {
+        axios.get('/checkSession')
+        .then((res) => {
+            this.props.getUserInfo(res.data)
+            console.log(this.props.getUserInfo.full_name)
+        })
+    }
+
     toggleSignUp = () => {
         this.setState(prevState => {
           return {
-            BusinessSignUp: !prevState.BusinessSignUp
+            businessSignUp: !prevState.businessSignUp
           }
         })
       }
-
-
-    showModal = () => {
-        if (this.state.BusinessSignUp) {
-            return (
-                <BusinessSignUp onClose={this.toggleSignUp}  />
-            )
-        } else if (this.state.businessLogin){
-            return (
-                <BusinessSignUp onClose={this.toggleLogin} />
-            )
-        }
-
-    }
-    toggleLogin = () => {
+      toggleLogin = () => {
         this.setState(prevState => {
             return {
                 businessLogin: !prevState.businessLogin
@@ -48,8 +48,28 @@ class Business extends Component {
         })
     }
 
+    showModal = () => {
+        if (this.state.businessSignUp) {
+            return (
+                <BusinessSignUp onClose={this.toggleSignUp} signup={this.state.businessSignUp}  />
+            )
+        } else if (this.state.businessLogin){
+            return (
+                <BusinessSignUp onClose={this.toggleLogin} businessLogin={this.state.businessLogin} />
+            )
+        }
+
+    }
+ 
+    logout = () => {
+        axios.get('/api/logout')
+        .then(() => {
+            this.componentDidMount()
+        })
+    }
 
     render() {
+        
         return (
             <div className='App'>
                
@@ -60,13 +80,25 @@ class Business extends Component {
                     </div>
                     <div className='business-header'>
                     <Link to='/'><img src={logo} alt='logo' className='business-logo' width='190px' height='70px' /></Link>
+                        {this.props.userInfo.user_type === 'client' ? 
                     <nav className='business-nav'>
-                        <span className='business-nav-links'>Pricing</span>
+                          <span className='profile-img'>{`Hi ${this.props.userInfo.full_name},`} Start Growing Your business Today -----></span>
+                      <span onClick={this.toggleSignUp}className='business-nav-links'>Sign Up</span> 
+                             <span className='business-nav-links'>Pricing</span>
                         <span className='business-nav-links'>Blog</span>
-                        <span onClick={this.toggleLogin}className='business-nav-links'>Login</span>
-                        <span onClick={this.toggleSignUp}className='business-nav-links'>Sign Up</span>
-                        <span className='business-nav-links'>Help</span>
-                    </nav>
+                        <span onClick={this.logout}className='business-nav-links'>Logout</span> 
+                        <div className='icons-container'>
+                        {/* <img className='bell' src={bell} width='30px' height='30px' /> */}
+                        <div className='nav-dropdown' >
+                          {/* <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' /> */}
+                        </div></div></nav> :
+                          <nav className='business-nav'>
+                              <span className='business-nav-links'>Pricing</span>
+                        <span className='business-nav-links'>Blog</span>
+                        <span onClick={this.toggleLogin}className='business-nav-links'>Login</span> 
+                        <span onClick={this.toggleSignUp}className='business-nav-links'>Sign Up</span> 
+                        <span onClick={this.logout}className='business-nav-links'>Logout</span> 
+                        </nav> }
                 
                 </div>
                 {this.showModal()}
@@ -74,7 +106,7 @@ class Business extends Component {
                     <div className='business-left-box'>
                         Be Independent. <br />
                         Invest in Yourself.<br />
-                        Trust StyleSeat with the rest.
+                        Trust PrivyChic with the rest.
 <span className='small-text'>#1 Appointment booking and online scheduling software for independent professionals.</span>
                         <button onClick={this.toggleSignUp} className='left-box-button'>Try It Now</button>
                         <span className='trial-text'>30 day free trial, no card required</span>
@@ -116,5 +148,12 @@ class Business extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    const {userInfo} = state
+    return {
+        userInfo
+    }
+}
 
-export default Business
+const bindActionCreators = {getUserInfo}
+export default connect(mapStateToProps, bindActionCreators)(Business)

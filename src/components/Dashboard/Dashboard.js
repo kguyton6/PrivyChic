@@ -1,6 +1,8 @@
 import React,  {Component} from 'react'
 import axios from 'axios'
-
+import { getUserInfo} from '../../ducks/actions/action_creators'
+import {connect} from 'react-redux'
+// import bindActionCreators from 'redux'
 
 class Dashboard extends Component {
     constructor(props){
@@ -12,13 +14,14 @@ class Dashboard extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/api/getbusiness')
+        axios.get('/checkSessions')
         .then((res) => {
-            console.log(res.data)
-            this.setState({user: res.data})
-        })
-    }
+            this.props.getUserInfo(res.data)
+         })
+        }
+    
     render(){
+        console.log(this.props)
         return (
             <div className='App'>
             
@@ -27,5 +30,12 @@ class Dashboard extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    const {userInfo} = state
+    return {
+       userInfo
+    }
+}
+const bindActionCreators = { getUserInfo }
 
-export default Dashboard
+export default connect(mapStateToProps, bindActionCreators)(Dashboard)

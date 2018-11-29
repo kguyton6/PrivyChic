@@ -1,4 +1,4 @@
 select * from profile
 join business
-on profile.user_id = business.business_id
-where upper(first_name) like $1 
+on profile.user_id = business.user_id
+where full_name like $1 

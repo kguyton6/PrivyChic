@@ -292,18 +292,30 @@ span.float1:hover {
         top: 0px;
         color: white;
         justify-content: space-between;
-        height: 15%;
+        height: 60px;
+        position: relative;
+        font-family: fantasy;
+
      }
-     img.menu, .search-img  {
-        margin: 3%;
-        width: 5%;
+    
+     .search-img {
+         position: absolute;
+         right: 3%;
+         top: 25%;
+         width: 6%;
      }
      
     .responsive-title {
         padding-top: 2%;
         color: white;
-        font-size: 34px;
+        font-size: 36px;
         font-family: fantasy;
+        margin-left: 35%;
+
+    }
+    .menu {
+        margin-top: 3%;
+
     }
     .home {
         display: flex;
@@ -322,7 +334,9 @@ span.float1:hover {
     }
     .icon2 {
         position: absolute;
-        left: 15px;
+        left: 5%;
+        z-index: 20;
+        top: 12%;
     }
     .top-box {
         width: 100%;

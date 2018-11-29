@@ -1,6 +1,6 @@
-// import { combineReducers } from 'redux'
-import axios from 'axios'
-import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION, ADD_EMAIL, ADD_FIRST_NAME, ADD_FULLNAME, ADD_LAST_NAME, ADD_PASSWORD, ADD_PHONE, ADD_ZIP, GET_USER} from '../constants'
+import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION, ADD_FIRST_NAME, ADD_STYLIST_NAME, ADD_LAST_NAME, ADD_PHONE, ADD_ZIP, GET_USER, ADD_TIMES, ADD_APPOINTMENT, ADD_PORTFOLIO, ADD_EMAIL,ADD_PASSWORD, ADD_FULLNAME, SHOW_SERVICES} from '../constants'
+
+import '../actions/action_creators'
 
 
 const initialState = {
@@ -18,39 +18,43 @@ const initialState = {
     password: '',
     full_name: '',
     date: '',
-    user: {}
-
+    userInfo: {},
+    time: {},
+    appointment: {},
+    portfolio: '',
+    // displayServices: false
 }
 
 
 
-// action creators
-export const getUserInfo = () => {
-    console.log('get user hit')
-    const userInfo = axios.get('/api/getuser').then( res => {
-        console.log(res.data)
-        return res.data
-    })
-    return {
-        type: GET_USER,
-        payload: userInfo
-    }
-}
 
 
  const rootReducer = (state = initialState, action) => {
         console.log('REDUCER HIT: Action ->', action);
         switch (action.type) {
+            case SHOW_SERVICES:
+            return Object.assign({}, state, {services: action.payload})
+
             case GET_USER:
-                return Object.assign({}, state, {user: action.payload})
+            return Object.assign({}, state, {userInfo: action.payload})
+
+            case ADD_PORTFOLIO:
+            return Object.assign({}, state, {portfolio: action.payload})
+           
             case ADD_FIRST_NAME:
                 return Object.assign({}, state, { first_name: action.payload })
 
             case ADD_LAST_NAME:
                 return Object.assign({}, state, { last_name: action.payload })
 
+            case ADD_FULLNAME:
+                return Object.assign({}, state, {full_name: action.payload})
+
             case ADD_BUSINESS_NAME:
                 return Object.assign({}, state, { business_name: action.payload })
+
+            case ADD_EMAIL: 
+                return Object.assign({}, state, {email: action.payload})
 
             case ADD_DESCRIPTION:
                 return Object.assign({}, state, { description: action.payload })
@@ -73,50 +77,24 @@ export const getUserInfo = () => {
             case ADD_PHONE:
                 return Object.assign({}, state, { phone: action.payload })
 
-            case ADD_EMAIL:
-                return Object.assign({}, state, { email: action.payload })
-
-            case ADD_PASSWORD:
-                return Object.assign({}, state, { password: action.payload })
-
-            case ADD_FULLNAME:
-                return Object.assign({}, state, { full_name: action.payload })
+            case ADD_STYLIST_NAME:
+                return Object.assign({}, state, { stylist_name: action.payload })
 
             case ADD_DATE:
                 return Object.assign({}, state, { date: action.payload })
+         
+           case ADD_TIMES:
+            return Object.assign({}, state, {time: action.payload})
 
+            case ADD_APPOINTMENT:
+            return Object.assign({}, state, {appointment: action.payload})
+
+            case ADD_PASSWORD: 
+            return Object.assign({}, state, {password: action.payload})
+            
             default: return state
         }
     }
-export const addFirstName = first_name => ({ type: ADD_FIRST_NAME, payload: first_name })
 
-export const addLastName = last_name => ({ type: ADD_LAST_NAME, payload: last_name })
-
-export const addBusinessName = business_name => ({ type: ADD_BUSINESS_NAME, payload: business_name })
-export const addDescription = description => ({ type: ADD_DESCRIPTION, payload: description })
-
-export const addAddress = address => ({ type: ADD_ADDRESS, payload: address })
-
-export const addCity = city => ({ type: ADD_CITY, payload: city })
-
-export const addState = State => ({ type: ADD_STATE, payload: State })
-
-export const addZip = zipcode => ({
-    type: ADD_ZIP, payload: zipcode
-})
-
-export const addPicture = picture => ({ type: ADD_PICTURE, payload: picture })
-
-export const addPhone = phone => ({ type: ADD_PHONE, payload: phone })
-
-export const addEmail = email => ({ type: ADD_EMAIL, payload: email })
-
-export const addPassword = password => ({ type: ADD_PASSWORD, payload: password })
-
-export const addFullName = full_name => ({ type: ADD_FULLNAME, payload: full_name })
-
-export const addDate = date => ({ type: ADD_DATE, payload: date })
-
-
-
+    
 export default rootReducer

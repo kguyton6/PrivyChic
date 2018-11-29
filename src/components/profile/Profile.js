@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import logo from '../assets/Artboard1.png'
 import { Link, NavLink } from 'react-router-dom'
 import './profile.css'
 import Services from './Services'
+import Appointment from '../forms/Appointment'
+import search from '../assets/search.png'
+import menu from '../assets/menu.png'
+import '../../reset.css'
+import {connect} from 'react-redux'
+import {showServices} from '../../ducks/actions/action_creators'
+import Login from '../login/modal/login/Login'
 
 
 
@@ -15,7 +21,9 @@ class Profile extends Component {
             profile: [],
             full_name: '',
             loginModal: false,
-            hours: []
+            services: [],
+            calendar: [],
+            showTitles: true
         }
     }
 
@@ -23,30 +31,44 @@ class Profile extends Component {
         axios.get(`/api/profile/${this.props.match.params.id}`)
             .then((res) => {
                 console.log(res)
-                this.setState({ profile: res.data, full_name: res.data[0].full_name })
+                this.setState({ profile: res.data, full_name: res.data[0].full_name})
             },
-                axios.get(`/api/hours/${this.props.match.params.id}`)
+                axios.get(`/api/services/${this.props.match.params.id}`)
                     .then((res) => {
-                        this.setState({ hours: res.data })
+                        console.log(res.data)
+                        this.setState({ services: res.data.service, calendar: res.data.calendar })
                     })
                    
             )
     }
 
   
+    showModal = () => {
+        if(this.props.showLogin){
+            return (
+                <Login onClose={this.toggleLogin} />
+            )
+        } else {
+            if(this.props.showSignUp){
+                return (
+                    <Login onClose={this.toggleSignUp} />
+                )
+            }
+        }
+    }
 
     showProfile = () => {
         let profile = this.state.profile
         let stylist = []
         for (let i in profile) {
-
+        
             var sectionStyle = {
                 width: "100%",
-                height: "400px",
-                backgroundImage: `url(${profile[i].pictures})`,
+                height: "42vw",
+                backgroundImage: `url(${profile[i].portfolio})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100%',
-                backgroundPositionY: '-300px',
+                backgroundPositionY: '40%',
                 zoom: '-2'
 
               };
@@ -54,12 +76,12 @@ class Profile extends Component {
              
 
             stylist.push(
-                <React.Fragment>
-                <section  style={sectionStyle} className='banner-container'>
+                <React.Fragment key={i}>
+                <section  style={sectionStyle} id='banner-container'>
                     <img src={profile[i].picture} alt='profile-pic'  className='profile-pic'/>
                     <h1 className='profile-fullname'>{profile[i].full_name.toUpperCase()}</h1>
                 </section>
-                <div key={i} className='profile-top-container'>
+                <div key={profile[i].id} className='profile-top-container'>
                     <div className='name-title'>
                         {`${profile[i].full_name} - Hair Stylist`}<br/>
                        <span id='profession-title'> {profile[i].profession}</span>
@@ -76,16 +98,15 @@ class Profile extends Component {
         let business_address = []
         for(let i in address){
           business_address.push(
-              <div className='business-address-box'>
+              <div key={i}className='business-address-box'>
             <ul>
               <span id='business-name-title'>{address[i].full_name.toUpperCase()}</span>
                 <li>{address[i].streetaddress}</li>
                 <li>
                     {address[i].business_name}
                 </li>
-                <li>{address[i].city}</li>
-                <li>{address[i].state}</li>
-                <li>{address[i].zipcode}</li>
+                <li>{`${address[i].city}, ${address[i].state} ${address[i].zipcode}`}</li>
+                {/* <li>{address[i].zipcode}</li> */}
                 <span id='number'>{address[i].phone_number}</span>
             </ul>
         </div>
@@ -96,7 +117,7 @@ class Profile extends Component {
     }
 
     businessHours = () => {
-        let hours = this.state.hours
+        let hours = this.state.profile
         let newHours = []
 
         for (let i in hours) {
@@ -105,7 +126,8 @@ class Profile extends Component {
                 <span className='business-hours-text'>BUSINESS HOURS</span>
                     <ul >
                         <li >{` Sunday: ${hours[i].sunday}`}</li>
-                        <li >{` Monday: ${hours[i].monday}`}</li>                      <li >{` Tuesday: ${hours[i].tuesday}`}</li>
+                        <li >{` Monday: ${hours[i].monday}`}</li>                      
+                        <li >{` Tuesday: ${hours[i].tuesday}`}</li>
                         <li >{` Wednesday: ${hours[i].wednesday}`}</li>
                         <li >{` Thursday: ${hours[i].thursday}`}</li>
                         <li >{` Friday: ${hours[i].friday}`}</li>
@@ -117,10 +139,20 @@ class Profile extends Component {
         return newHours
     }
 
-    toggleModal = () => {
+    toggleModal = (showLogin) => {
+        let loginModal = showLogin
+        loginModal = this.state.loginModal
         this.setState(prevState => {
             return {
-                loginModal: !prevState.loginModal
+            loginModal: !prevState.loginModal
+            }
+        })
+    }
+    showServiceTitles = () => {
+        this.setState(prevState => {
+            return {
+                showTitles: !prevState.showTitles
+                
             }
         })
     }
@@ -131,32 +163,59 @@ class Profile extends Component {
             <div className='App'>
 
                 <div className='profile-head' width='100%'>
-                    <Link to='/' className='profile-logo'>PrivyChic</Link>
+                <img src={menu} className='menu' width='40px' height='30px'/>
+                    <Link to='/' className='profile-logo-title'>PrivyChic</Link>
                     <div className='profile-link-container'>
-                        <span onClick={this.toggleModal} className='profile-link' >Sign Up</span>
+                        <span onClick={(showLogin) =>this.toggleModal(showLogin)} className='profile-link' >Sign Up</span>
                         <span onClick={this.toggleModal} className='profile-link' >Login</span>
-                        <Link to='/form/business' ><button className='business-button'>For Business</button></Link>
+                        <Link to='/business' ><button className='business-button'>For Business</button></Link>
                         <NavLink to='/help' ><span className='profile-link'>Help</span></NavLink>
                     </div>
-                </div>
+                 <img src={search} className='search-icon' width='30px'/>
+                                 </div>
                 {this.showProfile()}
                 <div className='profile-main-container'>
-                <div className='services'>
-                <h4 >{`${this.state.full_name} Service Menu`}</h4>
-                 <Services id={this.props.match.params.id} />
-                 </div>
-                 <div className='right-profile-box'>
+                {this.state.showTitles ? 
+                <div className='service-container'>
+                <h4 className='service-menu-title'>{`${this.state.full_name}'s Service Menu`}</h4>
+                <div className='labels'>
+                <label className='service_name-title'>Service </label>
+                <label className='description-title'>Description</label>
+                <label className='price-title'>Price</label>
+                <label className='duration-title'>Duration</label>
+                </div> 
+                 {/* <div className='services' id='available'>  
+                 <Services title={this.showServiceTitles}services={this.state.services} calendar={this.state.calendar}full_name={this.state.full_name}/>
+                </div> */}
+                 </div> :
+                 <div id='avialability-container'>
+                
+
+                  <h4 className='service-menu-title'>{`${this.state.full_name}'s Availablility`}</h4>
+               
+                </div> }
+
+                 <Services showAvailability={this.showServiceTitles} services={this.state.services} calendar={this.state.calendar} full_name={this.state.full_name} showModal={this.showModal}/>
+
+
+                </div> 
                  {this.showAddress()}
+
+
                 {this.businessHours()}
                 </div>
-                </div>
 
-            </div>
+
 
 
         )
     }
 }
-
-
+// const mapStateToProps = (state) => {
+//     return {
+//         displayServices: state.displayServices,
+//         showServices: showServices()
+//     }
+// }
+// const bindActionCreators = {showServices}
 export default Profile

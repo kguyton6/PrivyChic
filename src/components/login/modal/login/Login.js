@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './login.css'
-import close from '../../assets/close.png'
+import close from '../../../assets/close.png'
 import { connect } from 'react-redux'
-import { addFirstName, addLastName } from '../../../ducks/actions/action_creators';
-import SignUp from './BusinessSignUp'
-import Home from '../Home'
-import { Redirect } from 'react-router'
+// import {bindActionCreators} from 'redux'
+import { getUserInfo, addFullName, addEmail, addPassword } from '../../../../ducks/actions/action_creators';
 import { withRouter } from 'react-router';
-import Business_Form from '../../forms/Business_Form';
+import Business_Form from '../../../forms/Business_Form';
 
 
 class Login extends Component {
@@ -18,7 +16,11 @@ class Login extends Component {
     this.state = {
       showLogin: true,
       showSignup: false,
-      user_id: null
+      user_id: null,
+      email: '',
+      password: '',
+      full_name: '',
+      user_type: ''
     }
 
   }
@@ -34,54 +36,44 @@ class Login extends Component {
   }
 
   signup = () => {
-    if (this.props.business) {
       let { full_name, email, password } = this.props
-      axios.post('/auth/signup', { full_name: full_name, email: email, password: password })
-        .then(() => {
-          axios.get('/api/getuser')
-            .then((res) => {
-              this.setState({ user_id: res.data[0].user_id })
-            })
-        })
-    } else {
-      let { full_name, email, password } = this.props
-      axios.post('/auth/signup', { full_name, email: email, password: password })
+      axios.post('/auth/signup', { full_name, email, password: password })
         .then((res) => {
           if (res.status === 200) {
-            this.props.getUser()
+            this.props.getUserInfo(res.data)
+            console.log(this.props.userInfo)
           }
         })
-    }
-    this.props.onClose()
-  }
+        this.props.onClose()
+      }
+  
   login = () => {
-    if (this.props.businessLogin) {
-      axios.post('/auth/login/business', { email: this.props.email, password: this.props.password })
-      .then((res) => {
-        if(res.status === 200){
-          this.props.history.push('/dashboard')
-        }
-      })
-    } else if(this.props.showLogin) {
       let { email, password } = this.props
       axios.post('/auth/login', { email: email, password: password })
         .then((res) => {
-          if (res.status === 200) {
-            this.props.getUser() 
-          }
-        })
+          console.log(res.data)
+           this.props.getUserInfo(res.data) 
+           this.props.onClose()
+          })
     }
-  }
 
   callbackForm = () => {
     if (this.state.user_id) {
-      return <Business_Form onClose={this.props.onClose} id={this.state.user_id} />
+      return <Business_Form onClose={this.props.onClose} email={this.props.userInfo.email} full_name={this.props.userInfo.full_name} />
     }
   }
+  // handleEmail = (value) => {
+  //   this.setState({email: value})
+  // }
+  handlePassword = (value) => {
+    this.setState({password: value})
+  }
 
-
+  // handleFullName = (value) => {
+  //   this.setState({full_name: value})
+  // }
   render() {
-    const { addEmail, addPassword, addFullName, addLastName, onClose } = this.props
+    const { onClose, addEmail, addFullName, addPassword } = this.props
     return (
       <div className='App'>
         {this.state.showLogin === true && this.props.showLogin ?
@@ -99,7 +91,7 @@ class Login extends Component {
                 <input placeholder='Email' className='login-input' onChange={(e) => addEmail(e.target.value)} />
                 <input placeholder='Password' type='password' className='password-input' onChange={(e) => addPassword(e.target.value)} />
                 <span className='forgot-pw'>Forgot your password?</span>
-                <button className='login-button' onClick={() => this.login(this.props.email, this.props.password)}>Login</button></div>
+                <button className='login-button' onClick={this.login}>Login</button></div>
             </div>
           </div> :
           <div className='login-modal'>
@@ -124,8 +116,8 @@ class Login extends Component {
                 </div>}
 
               <div className='signup-container'>
-                <input placeholder='Full Name' className='signup-input' onChange={(e) => addFullName(e.target.value)} />
-                <input placeholder='Email' className='signup-input' onChange={(e) => addEmail(e.target.value)} />
+                <input placeholder='Full Name' value={this.props.userInfo.full_name}className='signup-input' onChange={(e) => addFullName(e.target.value)} />
+                <input placeholder='Email' value={this.props.userInfo.email}className='signup-input' onChange={(e) => addEmail(e.target.value)} />
                 <input placeholder='Password' type='password' className='signup-input' onChange={(e) => addPassword(e.target.value)} />
                 <button className='signup-button' onClick={this.signup}>Sign Up</button></div>
             </div>
@@ -144,18 +136,17 @@ const mapStateToProps = (state) => {
     password: state.password,
     full_name: state.full_name,
     last_name: state.last_name,
-    user: state.user,
+    userInfo: state.userInfo,
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addEmail: email => dispatch({ type: 'ADD_EMAIL', payload: email }),
-    addPassword: password => dispatch({ type: 'ADD_PASSWORD', payload: password }),
-    addFullName: full_name => dispatch({ type: 'ADD_FULLNAME', payload: full_name }),
-    addLastName: last_name => dispatch({ type: 'ADD_LAST_NAME', payload: last_name }),
-    getUserInfo: userInfo => dispatch({ type: 'GET_USER', payload: userInfo })
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     addEmail: email => dispatch({ type: 'ADD_EMAIL', payload: email }),
+//     addPassword: password => dispatch({ type: 'ADD_PASSWORD', payload: password }),
+//     addFullName: full_name => dispatch({ type: 'ADD_FULLNAME', payload: full_name }),
+//     addLastName: last_name => dispatch({ type: 'ADD_LAST_NAME', payload: last_name }),
+     
+// }
+const bindActionCreators = {getUserInfo, addFullName, addEmail, addPassword}
+export default withRouter(connect(mapStateToProps, bindActionCreators)(Login))

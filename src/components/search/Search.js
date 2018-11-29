@@ -6,15 +6,26 @@ import marker from '../assets/location.png'
 import search from '../assets/icon.svg'
 import './search.css'
 import check from '../assets/checkmark.png'
-import Login from '../login/modal/Login'
+import Login from '../login/modal/login/Login'
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import profile from '../assets/profile.png'
 import menu from '../assets/menu.png'
-import {addZip} from '../../ducks/reducers/rootReducer'
+import Availability from './Availability'
+import Appointment from '../forms/Appointment'
+import { addTimes, addZip, addFullName } from '../../ducks/actions/action_creators'
+
 
 const APP_CODE = 'KdE2bd_twT_q-JIYM47NSA'
 const APP_ID = 'kyH657pnAu1U3wljSnsq'
+
+const availableTimes = {
+    fontColor: 'black',
+    borderStyle: 'solid',
+    borderColor: 'black',
+    fontSize: '12px',
+    height: '50%',
+}
 
 class Search extends Component {
     constructor(props) {
@@ -24,192 +35,244 @@ class Search extends Component {
             stylists: [],
             acceptsPayment: false,
             showLoginModal: false,
-            date: this.props.date,
-
+            appointments: false,
+            availability: [],
+            showStylist: true,
+            business_id: null,
+            calendar: [],
+            profileImage: profile
+        
 
 
         }
     }
 
 
-
-componentDidMount = () => {
-    if(this.props.full_name) {
-    axios.get(`/api/name/${this.props.full_name.toUpperCase()}`)
-    .then((res) => {
-        this.setState({stylists: res.data})
-    })
-} else if(this.props.zipcode){
-    axios.get(`/api/zip/${this.props.zipcode}`)
-    .then((res) => {
-        this.setState({stylists: res.data})
-    })
-} else {
-    axios.get(`/api/date/${this.props.date}`)
-    .then((res) => {
-        this.setState({stylists: res.data})
-    }) 
-}
-}
-
-findStylist = () => {
-    if(this.props.full_name) {
-        axios.get(`/api/name/${this.props.full_name}`)
-        .then((res) => {
-            this.setState({stylists: res.data})
-        })
-    } else if(this.props.zip){
-        axios.get(`/api/zipcode/${this.props.zipcode}`)
-        .then((res) => {
-            this.setState({stylists: res.data})
-        })
-    } else {
-        axios.get(`/api/date/${this.props.date}`)
-        .then((res) => {
-            this.setState({stylists: res.data})
-        }) 
+    componentDidMount = () => {
+        axios.get('/api/calendar')
+            .then(res => {
+                this.setState({ calendar: res.data })
+                if (this.props.full_name) {
+                    axios.get(`/api/name/${this.props.full_name.toUpperCase()}`)
+                        .then(res => {
+                            this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                        })
+                    if (this.props.zipcode) {
+                        axios.get(`/api/zipcode/${this.props.zipcode}`)
+                            .then((res) => {
+                                this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                            })
+                    }}
+            })
     }
-}
+
+    findStylist = () => {
+        if (this.props.full_name) {
+            axios.get(`/api/name/${this.props.full_name.toUpperCase()}`)
+                .then((res) => {
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                })
+        } else if (this.props.zipcode) {
+            axios.get(`/api/zipcode/${this.props.zipcode}`)
+                .then((res) => {
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                })
+        } else {
+            axios.get(`/api/date/${this.props.date}`)
+                .then((res) => {
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                })
+        }
+    }
 
 
-showStylist = () => {
-    let stylists = this.state.stylists
-    let stylist = []
-    for (let i in stylists) {
-        console.log(stylists[i])
-        let full_name = stylists[i].full_name.toUpperCase()
-        stylist.push(
-            <div key={stylists[i].business_id} className='stylist-card' >
-                <div className='responsive-box'>
-                <img src={stylists[i].pictures} width='100%' height='100%'/>
-
-                </div>
-                <div className='profile-main-box'>
-                <div className='responsive-title'>
-                {`${stylists[i].full_name}-${stylists[i].profession}`}
-                </div>
-                        <span className='service-filter'>Multiple Services
-                <img src={downArrow} alt='down' className='down' width='15px' height='10px' />
-                        </span>
-                   
-                    <div className='profile-box'>
-                        <div className='profile-pic'>
-                            {stylists[i].picture ?
-                                <img src={stylists[i].picture} alt='profile' className='picture' width='100%' height='100%' />
-                                : <img src={profile} alt='profile' className='picture' width='100%' height='100%' />}
-                          
-                          <span className='stylist-name'>{full_name}
-                        </span>
-                            </div>
+    showStylist = () => {
+        let stylists = this.state.stylists
+        let stylist = []
+        for (let i in stylists) {
+            console.log(stylists[i])
+            stylist.push(
+                this.state.showStylist ?
+                    <div key={i} className='stylist-card' >
+                        <div className='responsive-box'>
+                            <img src={stylists[i].portfolio} width='100%' height='100%' />
                     </div>
-                    <div className='availability'>
-                        <div className='availability-filter'>
-                        <span className='availability-text'>Check Availability</span>
-                        <li className='schedule'>10:00 a.m.</li>
-                        <li className='schedule'>11:00 a.m.</li>
-                        <li className='schedule'>12:00 p.m.</li>
-                        <li className='schedule'>2:00 p.m.</li>
-                        <li className='schedule'>4:30 p.m.</li>
-                        <li className='schedule'>5:30 p.m.</li>
+                        <div className='profile-main-box'>
+                            <div className='responsive-title'>
+                                {`${stylists[i].full_name}-${stylists[i].profession}`}
+                            </div>
+                            <span className='service-filter'>Multiple Services
+                <img src={downArrow} alt='down' className='down' width='15px' height='10px' />
+                            </span>
+                           <div className='profile-box'>
+                                <div className='profile-pic'>
+                                        <img src={stylists[i].picture} alt='profile' className='picture' width='100%' height='100%' />                                 
+                                    <span className='stylist-name'>{stylists[i].full_name}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className='availability'>
+                                <div className='availability-filter'>
+                                    <span onClick={() => this.showAvailability(stylists[i].business_id)} className='availability-text'>Check Availability</span>
 
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <Link to={`/profile/${stylists[i].business_id}`} className='view-photos'>View Photos</Link>
+                    </div> :
+                    <div className='stylist-card2'>
+                        <div className='responsive-box'>
+                            <img src={stylists[i].portfolio} width='100%' height='100%' />
+
+                            <div className='profile-main-box'>
+                                <div className='profile-box'>
+                                    <div className='profile-pic'>
+                                        <img src={stylists[i].picture} alt='profile' className='picture' width='100%' height='100%' />
+                                        <span className='stylist-name'>{this.stylists[i].full_name.toUpperCase()}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='availability'>
+                                    <div className='time-filter'>
+                                        {this.showAvailability()}</div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <Link to={`/profile/${stylists[i].business_id}`} className='view-photos'>View Photos</Link>
-            </div>
-        )
-    }
+
+            )
+        }
+
     return stylist
 }
 
 
-paymentsToggle = () => {
+    paymentsToggle = () => {
 
-    this.setState(prevState => {
-        return {
-            acceptsPayment: !prevState.acceptsPayment
+        this.setState(prevState => {
+            return {
+                acceptsPayment: !prevState.acceptsPayment
+            }
+        })
+    }
+
+    toggleModal = () => {
+        this.setState(prevState => {
+            return {
+                showLoginModal: !prevState.showLoginModal,
+            }
+        })
+    }
+
+    showAvailability = (id) => {
+       this.state.calendar.filter((time) => {
+           console.log(time)
+           if(time.business_id === id){
+              return (
+              <div key={id}>
+                {time.month_name}
+              </div>
+              )
+          }
+        })        
+    }
+    handlePaymentFilter = (e) => {
+        console.log(e.target)
+        this.state.stylists.filter((stylist, i) => {
+            console.log(stylist, i)
+        })
+    }
+
+
+    showModal = () => {
+        if (this.state.showLoginModal) {
+            return (
+                <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} />
+            )
         }
-    })
-}
+    }
+    // availability = () => {
+    //     const { addTimes } = this.props
+    //     let times = this.state.availability
+    //     let time = []
+    //     for (let i in times) {
+    //         time.push(
+    //             <ul className='timeList' key={i}>
+    //                 <Link to={`/profile/${this.state.business_id}`} onClick={() => addTimes(`${times[i].month_name} ${times[i].day} at ${times[i].time}`)}><li className='time'>{`${times[i].month_name} ${times[i].day} ${times[i].year} ${times[i].time}`}</li></Link>
+    //             </ul>
 
-toggleModal = () => {
-    this.setState(prevState => {
-        return {
-            showLoginModal: !prevState.showLoginModal
-        }
-    })
-}
-
-showModal = () => {
-    if (this.state.showLoginModal) {
+    //         )
+    //     }
+    //     return time
+    // }
+    render() {
+        console.log(this.state.calendar)
+        const { addDate, addFullName, addZip, full_name, date, zipcode } = this.props
         return (
-            <Login onClose={this.toggleModal} />
+            <div className='Search'>
+                <div className='search-header' width='100%'>
+                    <Link to='/'><img src={logo} alt='logo' width='100%' height='60px' className='logo' /></Link>
+                    <div className='header-inputs'>
+                        <img src={menu} className='menu-icon' width='40px' height='30px' />
+                        <img src={search} onClick={() => this.findStylist()} className='search-icon1' alt='search' width='27px' />
+                        <input className='name-input' placeholder='Name, Salon, Style Type'
+                            onChange={(e) => addFullName(e.target.value)} />
+                        <input className='location-input' placeholder='Current Location'
+                            onChange={(e) => addZip(e.target.value)} />
+                        <img src={marker} alt='marker' className='marker-icon' width='13px' />
+                        <input type='date' id='date'
+                            onChange={(e) => addDate(e.target.value)} />
+                        <button className='search-button' onClick={this.findStylist}>Search</button>
+                    </div>
+
+
+                    {/* <div className='nav-links'>
+                    <span className='profile-img'>{this.props.full_name}</span>
+                    </div> : */}
+                    <div className='nav-links'>
+                        <span onClick={this.toggleModal} className='signup-link'>Sign Up</span>
+                        <span onClick={this.toggleModal} className='login-link'>Login</span>
+                        <span className='help-link'>Help</span>
+                    </div>
+                </div>
+                <div className='main-container'>
+                    <div className='search-top-container'>
+                        <span className='filter-text'>FILTERS</span>
+                        <span className='payments-text'>Accepts Payment
+                        <input onChange={(e) => this.handlePaymentFilter(e.target)}type='checkbox' width='15px' className='payment-checkbox'/>
+                        </span>
+                        {/* {!this.state.acceptsPayment ? */}
+                            {/* <span className='payments-text'>Accepts Payments */}
+            {/* <div onClick={this.paymentsToggle} className='toggle'></div></span> : */}
+                            {/* <span className='payments-text'>Accepts Payments */}
+            {/* <img src={check} onClick={this.paymentsToggle} width='40px' height='40px' className='toggle' /> } */}
+                    </div>
+                    {/* </span> */}
+                    {this.showModal()}
+                    {/* {this.showAvailability()} */}
+                </div>
+                <div className='stylist-container'>
+                    {this.showStylist()}
+                    {this.showAvailability()}
+                </div>
+
+
+            </div>
         )
     }
-}
-render() {
-    console.log(this.props.full_name)
-    const { addDate, addFullName, addZip, full_name, date, zipcode } = this.props
-
-    return (
-        <div className='Search'>
-            <div className='search-header' width='100%'>
-                <Link to='/'><img src={logo} alt='logo' width='100%' height='60px' className='logo' /></Link>
-                <div className='header-inputs'>
-                <img src={menu} className='menu' width='100%' height='100%'/>
-                    <img src={search} onClick={() => this.findStylist()}className='search-icon1' alt='search' width='27px' />
-                    <input value={full_name} className='name-input' placeholder='Name, Salon, Style Type'
-                        onChange={(e) => addFullName(e.target.value)} />
-                    <input value={this.props.zipcode}className='location-input' placeholder='Current Location'
-                        onChange={(e) => addZip(e.target.value)} />
-                    <img src={marker} alt='marker' className='marker-icon' width='13px' />
-                    <input value={date} type='date' id='date'
-                        onChange={(e) => addDate(e.target.value)} />
-                    <button className='search-button' onClick={() => this.findStylist()}>Search</button>
-                </div>
-
-                <div className='nav-links'>
-                    <span onClick={this.toggleModal} className='signup-link'>Sign Up</span>
-                    <span onClick={this.toggleModal} className='login-link'>Login</span>
-                    <span className='help-link'>Help</span>
-                </div>
-            </div>
-            <div className='main-container'>
-                <div className='search-top-container'>
-                    <span className='filter-text'>FILTERS</span>
-                    {!this.state.acceptsPayment ?
-                        <span className='payments-text'>Accepts Payments
-            <div onClick={this.paymentsToggle} className='toggle'></div></span> :
-                        <span className='payments-text'>Accepts Payments
-            <img src={check} onClick={this.paymentsToggle} width='40px' height='40px'className='toggle' /> </span>}
-                </div>
-
-                {this.showModal()}
-            </div>
-            <div className='stylist-container'>
-                {this.showStylist()}
-            </div>
-
-        </div>
-    )
-}
 }
 
 const mapStateToProps = (state) => {
 
-return {
-    zipcode: state.zipcode,
-    full_name: state.full_name,
-    date: state.date
-}
-}
-const mapDispatchToProps = (dispatch) => {
-return {
-     addZip: zipcode => dispatch({type: 'ADD_ZIP', payload: zipcode}),
-     addFullName: full_name => dispatch({type: 'ADD_FULLNAME', payload: full_name}),
-     addDate: date => dispatch({type: 'ADD_DATE', payload: date})
-} 
+    return {
+        zipcode: state.zipcode,
+        full_name: state.full_name,
+        date: state.date
+    }
 }
 
+const bindActionCreators = { addTimes, addZip, addFullName }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, bindActionCreators)(Search)
