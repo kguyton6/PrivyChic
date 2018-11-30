@@ -132,9 +132,9 @@ class Home extends Component {
             </div>
           </header> :
           <header className="home-header">
-            <img src={menu} className='menu' width='15px' onMouseEnter={this.toggleMenu} />
+            <img src={menu} className='menu' width='15px'  />
             {this.showDropDown()}
-            <span className='responsive-title'>PrivyChic</span>
+            <span className='responsive-home-title'>PrivyChic</span>
             <Link to='/search' className='search-link'> <img src={search}  className='search-img' /></Link>
 
             <div className='header-search-box'>
@@ -179,7 +179,7 @@ class Home extends Component {
             <div className='right-box'>
               <span className='bold-text'>Are you a beauty professional or barber?</span>
               <span className='booking-text'>#1 Appointment booking software for independent professionals</span>
-              <Link to='/business'><button className='setup'>Set Up My Business</button></Link>
+              <Link to='/business' className='setup-link'><button className='setup'>Set Up My Business</button></Link>
               <span className='trial-text'>30 day free trial, no card required.</span>
               {this.showModal()}
             </div>

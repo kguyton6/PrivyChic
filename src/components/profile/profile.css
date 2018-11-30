@@ -42,17 +42,14 @@
     font-weight: bold;
 
 }
-
- img.profile-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    position: absolute;
-    left: 20vw;
-    bottom: 5vh; 
-    z-index: 10;
-
-
+.profile-pic {
+width: 15vw;
+height: 15vw;
+border-radius: 60px;
+position: absolute;
+left: 5vw;
+top: 32vw;
+z-index: 10;
 }
 .business-button {
     padding: 5px 35px;
@@ -74,6 +71,7 @@
     font-weight: bold;
     left: 32%;
     bottom: 10vh;
+    font-size: 5em;
 }
 #profession-title {
     font-weight: lighter;

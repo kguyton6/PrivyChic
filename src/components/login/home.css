@@ -3,95 +3,60 @@
      position: relative;
     display: flex;
     justify-content: center;
+
  }
 
 .home-header {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    background-color: white;
-    top: 0px;
+   background-color: black;
+   color: white;
+   height: 80px;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
  }
-
-.search-input {
-    width: 100%;
-    height: 35px;
-    text-indent: 33px;
-    font-size: 14px;
-    color: rgb(168, 168, 168);
-    border: #E9ECEB solid .2px;
-
-}
 .wrapper {
-    position: relative;
+    display: hidden;
 }
-.header-search-box {
-    position: relative;
-    width: 40%;
-    margin-left: 5%;
-}
-.icon {
+/* .icon {
     position: absolute;
     left: 50px;
     top: 7px;
-}
-.nav-link-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    text-decoration: none;
-    
-}
+} */
+ 
 
-.nav-link-container {
-    width: 45%;
-}
-
-.business {
-    background-color: #343737;
-    color: white;
-    width: 100%;
-    height: 40px;
-    font-weight: bold;
-    font-size: 13px;
-    margin-right: 10px;
+.business, .nav-link-container, .nav-link, .search-input, .header-search-box {
+    display: none;
 
 }
-.nav-link {
-    color: rgb(110, 110, 110);
-   text-decoration: none;
-   border-style: none;
-   background-color: transparent;
-   font-size: 13px;
-}
+
 
 .top-box{
     display: flex;
     height: auto;
     color: white;
     font-weight: bold;
-
-
+    flex-direction: column;
 }
-
+.responsive-home-title {
+    font-size: 2rem;
+    font-family: fantasy;
+}
 .search-box {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    width: 75%;
-    font-size: 40px;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 15%;
     color: white;
-    font-weight: bold;
     background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/woman.jpg');
     background-repeat: no-repeat;
-background-position-y: -200px;
-background-position-x: -50px;
-    background-size: 100%;
+background-position-y: -130px;
+    background-size: 120%;
     
 }
 .search-link-container{
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     background-color: rgba(65, 65, 65, 0.596);
     font-size: 14px;
@@ -103,7 +68,8 @@ background-position-x: -50px;
     align-items: center;
     padding: 10px;
     width: 80%;
-    height: 10px;
+    height: 10px; */
+    display: none;
 }
 a {
     text-decoration: none;
@@ -114,33 +80,30 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    height: 400px;
-    width: 30%;
-    background-color: #343737;
-    font-size: 25px;
-
+    height: 220px;
+    width: 100%;
+    background-color: hsl(180, 3%, 21%);
+    justify-content: space-evenly;
 }
 .trial-text {
-   font-size: 15px;
+   font-size: 10px;
    font-weight: lighter;
-   /* padding: 20px; */
-
 }
 .booking-text {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: lighter;
-
+    margin-left: 5%;
 }
 .bold-text {
-    font-size: 32px;
-
+    font-size: 22px;
+    margin: 5%;
 }
 .name, .location {
-    height: 45px;
+    /* height: 45px;
     width: 50%;
     text-indent: 35px;
-    font-size: 14px;
+    font-size: 14px; */
+    display: none;
 
 }
 .icons-container {
@@ -152,6 +115,7 @@ a {
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 5%;
 }
 .profile-img {
     width: 150px;
@@ -166,41 +130,64 @@ a {
 .bell {
     margin-top: 5px;
 }
-
+.menu{
+    width: auto;
+    height:40%;
+    margin-left: 5%;
+}
 .down-arrow {
     float: right;
     margin-top: 10%;
     cursor: pointer;
 }
 .search {
-    background-color: rgb(100, 209, 195);
+    display: none;
+    /* background-color: rgb(100, 209, 195);
     color: white;
     align-items: center;
     border-color: rgb(100, 209, 195);
     font-size: 20px;
     font-weight: bold;
     display: flex;
-    justify-content: center;
-}
+    justify-content: center; */
 
+}
+   
+ .search-img, .search-link { 
+    width: 10vw;
+    margin-right: 5%;
+} 
 
 span.motto {
-    margin-bottom: 30px;
-    width: 70%;
-    font-weight: bolder;
-    margin-right: 15%;
+    margin-top: 10%;
+    margin-bottom: 20px;
+    width: 90%;
+    /* font-weight: lighter; */
+    letter-spacing: 2px;
+    font-size: 2rem;
+    line-height: 1.2em;
+
 
 }
-.input-container{
+.input-container {
     position: relative;
-    width: 100%;
-    display: flex; 
+    width: 90%;
+    display: flex;
+    justify-content: center;
 }
-
+.responsive {
+    background-color: rgba(251, 253, 255, 0.705);
+    height: 40px;
+    width: 88%;
+    text-indent: 12%;
+}
 .icon2 {
     position: absolute;
-    left: 5px; 
-    top: 15px;
+    left: 6%; 
+    top: 15%;
+    z-index: 10;
+    cursor: pointer;
+    
 }
 
 .setup {
@@ -208,28 +195,27 @@ span.motto {
     border-color: rgb(100, 209, 195);
     height: 50px;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
+    width: 100%;
+    margin-top: 5%;
+}
+.setup-link {
+    width: 200px;
+    display: flex;
+    justify-content: center;
 }
 
 .input-search-box {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    width: 85%;
+    width: 100%;
 }
 
  .location-icon {
-    position: absolute;
-    left: 52%;
-    top: 30%;
+    display: none;
 } 
 
 h1 {
-    color: rgb(71, 71, 71);
-    font-weight: lighter;
-    font-size: 40px;
-    text-align: center;
+   display: none;
 } 
 
 
@@ -247,13 +233,13 @@ span.float1:hover {
    position: relative;
    margin-bottom: 33px;
    background-color: rgb(51, 51, 51);
-   width: 31%;
-   height: 22vw;
+   width: 85%;
+   height: 40vh;
 
 }
-/* .box {
-    opacity: .5;
-} */
+.box {
+    image-orientation: unset;
+}
 
 .float-text {
     display: flex;
@@ -280,143 +266,14 @@ span.float1:hover {
 
 }
  
-@media screen and (min-width: 350px) and (max-width: 899px){
-    .search, .business, .search-input, .name, .location, .location-icon, .search-link-container, .nav-link-container, .App-logo, .header-search-box {
+/* @media (max-width: 400px){
+     .search, .business, .search-input, .name, .location, .location-icon, .search-link-container, .nav-link-container, .App-logo, .header-search-box {
         display: none;
     }
-    .home-header {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        background-color: rgb(2, 2, 2);
-        top: 0px;
-        color: white;
-        justify-content: space-between;
-        height: 60px;
-        position: relative;
-        font-family: fantasy;
-
-     }
     
-     .search-img {
-         position: absolute;
-         right: 3%;
-         top: 25%;
-         width: 6%;
-     }
-     
-    .responsive-title {
-        padding-top: 2%;
-        color: white;
-        font-size: 36px;
-        font-family: fantasy;
-        margin-left: 35%;
 
-    }
-    .menu {
-        margin-top: 3%;
-
-    }
-    .home {
-        display: flex;
-        flex-direction: column;
-    }
-    .responsive {
-        width: 100%;
-        height: 42px;
-        background-color: #fff;
-        position: relative;
-        margin-left: 5%;
-        text-indent: 30px;
-    }
-    .input-container{
-        position: relative;
-    }
-    .icon2 {
-        position: absolute;
-        left: 5%;
-        z-index: 20;
-        top: 12%;
-    }
-    .top-box {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-
-    }
-    .search-box {
-        width: 100%;
-        height: 300px;
-        font-size: 30px;
-        color: white;
-        font-weight: bold;
-        background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/woman.jpg');
-        background-repeat: no-repeat;
-    background-position-y: 100%;
-    background-position-x: 0px;
-        background-size: 130%;
-        
-    }
-   
-    .right-box {
-        width: 100%;
-        height: 250px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-    
-    span.motto {
-        width: 90%;
-        font-weight: bold;
-        margin-left: 5%;
-    }
-    .bold-text {
-        font-size: 24px;
-        width: 80%;
-    }
-    .booking-text {
-        width: 80%;
-    }
-
-.setup {
-    background-color: rgb(100, 209, 195);
-    border-color: rgb(100, 209, 195);
-    width: 75%;
-    height: 50px;
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.trial-text {
-    font-size: 10px;
-}
-   
-    .img-container {
-        width: 90%;
-        height: 50%;
-     }
-    .float1 {
-        width: 70%;
-        height: 40%;
-        background-color: rgba(255, 255, 255, 0.705);
-        position: absolute;
-        top: 27%;
-        right: 17%;
-        font-size: 17px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: black;
-    
-    }
-
-}
-@media screen and (min-width: 530px) and (max-width: 705px) {
+} */
+/* @media (max-width: 950px) {
     .search-box {
         font-size: 35px;
     background-position-y: 80%;
@@ -433,9 +290,9 @@ span.float1:hover {
         justify-content: space-evenly;
         text-align: center;
     }
-}
+}  */
 
-@media screen and (min-width: 706px) and (max-width: 899px) {
+ /* @media screen and (min-width: 706px) and (max-width: 899px) {
     .search-box {
         font-size: 40px;
     background-position-y: 85%;
@@ -453,9 +310,10 @@ span.float1:hover {
         justify-content: space-evenly;
         text-align: center;
     }
-   
-}
-@media screen and (min-width: 900px) and (max-width: 1100px){
+}   */
+
+ 
+/* @media screen and (min-width: 900px) and (max-width: 1100px){
     .responsive, .responsive-title, .menu, .search-img {
         display: none;
     }
@@ -529,21 +387,6 @@ span.float1:hover {
     margin-left: 5%;
 }
 
-.search-link-container {
-    display: flex;
-    flex-direction: row;
-    background-color: rgba(65, 65, 65, 0.596);
-    font-size: 11px;
-    -webkit-text-decoration-color: white;
-    text-decoration-color: white;
-    text-decoration: none;
-    margin-top: 45px;
-    justify-content: space-between;
-    /* padding: 10px; */
-    width: 76%;
-    height: 10px;
-    margin-right: 5.5%;
-}
     .right-box {
         display: flex;
         justify-content: space-evenly;
@@ -587,9 +430,9 @@ span.float1:hover {
     }
 
      
-}
+} */
 
-@media screen and (min-width: 1099px) and (max-width: 2100px){
+/* @media screen and (min-width: 1099px) and (max-width: 2100px){
     .responsive, .responsive-title, .menu, .search-img {
         display: none;
     }
@@ -598,7 +441,7 @@ span.float1:hover {
     align-items: center;
     width: 100%;
     background-color: white;
-    /* justify-content: space-between; */
+
 
    }
   
@@ -639,7 +482,7 @@ span.float1:hover {
     color: white;
     font-weight: bold;
     font-size: 13px;
-    /* margin: 10px; */
+
 
 
 }
@@ -733,6 +576,6 @@ span.float1:hover {
     }
   
      
-}
+} */
 
-   
+

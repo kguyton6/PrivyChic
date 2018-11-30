@@ -119,6 +119,7 @@ class Search extends Component {
                     <div className='stylist-card2'>
                         <div className='responsive-box'>
                             <img src={stylists[i].portfolio} width='100%' height='100%' />
+                            </div>
 
                             <div className='profile-main-box'>
                                 <div className='profile-box'>
@@ -134,8 +135,7 @@ class Search extends Component {
 
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            </div>
 
             )
         }
@@ -213,7 +213,7 @@ class Search extends Component {
                     <div className='header-inputs'>
                         <img src={menu} className='menu-icon' width='40px' height='30px' />
                   
-                    <div className='menu-container'>
+                    <div className='search-menu-container'>
                         <span>Login</span>
                         <span>Signup</span>
                     </div> 
