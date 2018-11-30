@@ -43,13 +43,13 @@
 
 }
 
-img.profile-pic {
+ img.profile-pic {
     width: 120px;
     height: 120px;
     border-radius: 60px;
     position: absolute;
-    left: 22%;
-    top: 20%;
+    left: 20vw;
+    bottom: 5vh; 
     z-index: 10;
 
 
@@ -73,7 +73,7 @@ img.profile-pic {
     position: absolute;
     font-weight: bold;
     left: 32%;
-    top: 38%;
+    bottom: 10vh;
 }
 #profession-title {
     font-weight: lighter;
@@ -148,7 +148,7 @@ li {
     position: relative;
     
 }
-@media screen and (min-width: 300px) and (max-width: 750px){
+@media screen and (max-width: 750px){
     .profile-top-container{
         display: none;
     }
@@ -203,14 +203,14 @@ img.menu {
         height: 15vw;
         border-radius: 60px;
         position: absolute;
-        left: 6%;
-        top: 43vw;
+        left: 5vw;
+        top: 40vh;
         z-index: 10;
     }
     .profile-fullname {
         font-size: 26px;
         left: 27%;
-        top: 46vw;
+        top: 40vh;
     }
    #banner-container {
        height: 300px;
@@ -365,8 +365,16 @@ ul.business_hours {
     overflow-wrap: break-word;
 
 }
-/* @media screen and (min-width: 750) and (max-width: 1400){
-    
-} */
+@media screen and (min-width: 750px) and (max-width: 1500){
+    .profile-fullname {
+        position: inherit;
+        font-size: 48px;
+        
+    }
+    .profile-pic {
+        position: absolute;
+
+    }
+}
 
 }

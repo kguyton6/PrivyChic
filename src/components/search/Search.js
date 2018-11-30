@@ -13,7 +13,7 @@ import profile from '../assets/profile.png'
 import menu from '../assets/menu.png'
 import Availability from './Availability'
 import Appointment from '../forms/Appointment'
-import { addTimes, addZip, addFullName } from '../../ducks/actions/action_creators'
+import { addTimes, addZip, addFullName, getUserInfo } from '../../ducks/actions/action_creators'
 
 
 const APP_CODE = 'KdE2bd_twT_q-JIYM47NSA'
@@ -47,23 +47,18 @@ class Search extends Component {
         }
     }
 
+    // componentWillReceiveProps = (prevProps) => {
+    //     return {
 
+    //         prevProps:  prevProps.this.props
+    //     }
+    // }
     componentDidMount = () => {
-        axios.get('/api/calendar')
-            .then(res => {
-                this.setState({ calendar: res.data })
-                if (this.props.full_name) {
-                    axios.get(`/api/name/${this.props.full_name.toUpperCase()}`)
-                        .then(res => {
-                            this.setState({ stylists: res.data, profileImage: res.data[0].picture })
-                        })
-                    if (this.props.zipcode) {
-                        axios.get(`/api/zipcode/${this.props.zipcode}`)
-                            .then((res) => {
-                                this.setState({ stylists: res.data, profileImage: res.data[0].picture })
-                            })
-                    }}
-            })
+               axios.get('/checkSession')
+               .then((res) => {
+                   this.props.getUserInfo(res.data)
+               })
+            
     }
 
     findStylist = () => {
@@ -211,11 +206,18 @@ class Search extends Component {
         console.log(this.state.calendar)
         const { addDate, addFullName, addZip, full_name, date, zipcode } = this.props
         return (
+            this.state.stylists? 
             <div className='Search'>
                 <div className='search-header' width='100%'>
                     <Link to='/'><img src={logo} alt='logo' width='100%' height='60px' className='logo' /></Link>
                     <div className='header-inputs'>
                         <img src={menu} className='menu-icon' width='40px' height='30px' />
+                  
+                    <div className='menu-container'>
+                        <span>Login</span>
+                        <span>Signup</span>
+                    </div> 
+                    
                         <img src={search} onClick={() => this.findStylist()} className='search-icon1' alt='search' width='27px' />
                         <input className='name-input' placeholder='Name, Salon, Style Type'
                             onChange={(e) => addFullName(e.target.value)} />
@@ -226,16 +228,16 @@ class Search extends Component {
                             onChange={(e) => addDate(e.target.value)} />
                         <button className='search-button' onClick={this.findStylist}>Search</button>
                     </div>
-
-
-                    {/* <div className='nav-links'>
-                    <span className='profile-img'>{this.props.full_name}</span>
-                    </div> : */}
+                    {!this.props.full_name ?
                     <div className='nav-links'>
                         <span onClick={this.toggleModal} className='signup-link'>Sign Up</span>
                         <span onClick={this.toggleModal} className='login-link'>Login</span>
                         <span className='help-link'>Help</span>
-                    </div>
+                    </div> :
+                     <div className='nav-links'>
+                     <span className='nav-links'>{this.props.full_name}</span>
+                      <span className='nav-links'>{this.logout}</span>
+                    </div> }
                 </div>
                 <div className='main-container'>
                     <div className='search-top-container'>
@@ -257,9 +259,12 @@ class Search extends Component {
                     {this.showStylist()}
                     {this.showAvailability()}
                 </div>
+            
 
 
             </div>
+            :
+            <div className='no-search'>No Search Results</div>
         )
     }
 }
@@ -273,6 +278,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const bindActionCreators = { addTimes, addZip, addFullName }
+const bindActionCreators = { addTimes, addZip, addFullName, getUserInfo }
 
 export default connect(mapStateToProps, bindActionCreators)(Search)

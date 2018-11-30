@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { getUserInfo, addFullName, addEmail, addPassword } from '../../../../ducks/actions/action_creators';
 import { withRouter } from 'react-router';
 import Business_Form from '../../../forms/Business_Form';
+import ForgotPassWord from '../login/ForgotPassWord'
 
 
 class Login extends Component {
@@ -20,7 +21,8 @@ class Login extends Component {
       email: '',
       password: '',
       full_name: '',
-      user_type: ''
+      user_type: '',
+      disabled: false
     }
 
   }
@@ -62,23 +64,31 @@ class Login extends Component {
       return <Business_Form onClose={this.props.onClose} email={this.props.userInfo.email} full_name={this.props.userInfo.full_name} />
     }
   }
-  // handleEmail = (value) => {
-  //   this.setState({email: value})
+  // passwordReset = () => {
+  //     this.setState(prevState => {
+  //       return {
+  //         disabled: !prevState.disabled
+  //       }
+  //     })
   // }
+
+
   handlePassword = (value) => {
     this.setState({password: value})
   }
 
-  // handleFullName = (value) => {
-  //   this.setState({full_name: value})
-  // }
+ 
   render() {
+ 
+    // password()
     const { onClose, addEmail, addFullName, addPassword } = this.props
     return (
+    // this.state.disabled === true ?
       <div className='App'>
         {this.state.showLogin === true && this.props.showLogin ?
           <div className='login-modal'>
             <div className='modal'>
+                <img src={close} className='close' onClick={onClose} width='5%' height='5%' />
               <div className='top-container'>
                 <div className='signup-span'>
                   <span onClick={this.toggleSignUp} className='signup'>Sign Up</span>
@@ -86,10 +96,11 @@ class Login extends Component {
                 <div className='login-span-active'>
                   <span className='login-text'>Login</span>
                 </div>
-                <img src={close} className='close' onClick={onClose} width='5%' height='5%' /></div>
+                </div>
               <div className='input-container1'>
                 <input placeholder='Email' className='login-input' onChange={(e) => addEmail(e.target.value)} />
                 <input placeholder='Password' type='password' className='password-input' onChange={(e) => addPassword(e.target.value)} />
+               
                 <span className='forgot-pw'>Forgot your password?</span>
                 <button className='login-button' onClick={this.login}>Login</button></div>
             </div>
@@ -124,8 +135,10 @@ class Login extends Component {
 
 
           </div>}
-        {this.callbackForm()}
-      </div>
+
+        
+          </div> 
+
     )
   }
 }

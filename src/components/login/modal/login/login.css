@@ -1,3 +1,4 @@
+
 @media screen and (min-width: 1099px) {
 .login-modal, .business-modal {
     z-index: 1000;
@@ -17,7 +18,7 @@
     text-align: center;
     font-weight: lighter;
     margin-top: 10%;
-    /* margin-bottom: 5%; */
+    cursor: pointer;
 }
 
 .login-button {
@@ -37,12 +38,14 @@
         margin-top: 10%;
 }
 img.close {
-   right: 2%;
+    width: 12px;
+    height: 12px;
     position: absolute;
+    right: 3%;
+    top: 3%;
     cursor: pointer;
-    height: 15px;
-    width: 15px;
-    top: -15%;
+
+
 
 }
 .login-input, .password-input, .signup-input {
@@ -58,20 +61,21 @@ img.close {
 
 
 
-
+.login-span {
+    margin-right: 20%;
+}
 
 .signup-span, .login-span {
     color: rgb(177, 177, 177);
      font-weight: lighter;
-     margin-right: 10%;
      cursor: pointer;
 
 }
    
 .top-container {
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: space-between;
+    width: 90%;
     margin-top: 5%;
     position: relative;
     font-weight: bold;
@@ -79,16 +83,16 @@ img.close {
 
  
 }
-.signup-span-active {
+/* .signup-span-active {
     width: 60%;
-    margin-left: 10%;
-}
+    /* margin-left: 10%; */
+
 
  .login-span-active, .signup-span-active {
     color:#2876AD;
-    justify-content: space-between;
     /* margin-right: 15%; */
     cursor: pointer;
+    margin-right: 13%;
 
    
 } 
@@ -128,20 +132,151 @@ img.close {
 @media screen and (min-width: 350px) and (max-width: 800px) {
     .modal {
         margin-top: 50%;
+        width: 350px;
+        height: 300px;
         background-color: white;
         display: flex;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -200px;
+        margin-top: -200px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         justify-content: space-between;
 
     }
+
     .login-text {
         color: #2876AD;
     }
+    .login-input, .password-input, .signup-input {
+        height: 45px;
+        width: 80%;
+        text-indent: 5px;
+        border-right: solid thin rgb(204, 204, 204);
+        border: solid thin rgb(204, 204, 204);
+        border-left: solid thin rgb(204, 204, 204);
+        margin: 2%;
+    
+    }
+    
+    
+    
+    .login-span {
+        margin-right: 20%;
+    }
+    
+    .signup-span, .login-span {
+        color: rgb(177, 177, 177);
+         font-weight: lighter;
+         cursor: pointer;
+    
+    }
+       
+    .top-container {
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        margin-top: 5%;
+        position: relative;
+        font-weight: bold;
+        font-size: 22px;
+    
+     
+    }
+    /* .signup-span-active {
+        width: 60%;
+        /* margin-left: 10%; */
+    
+    
+     .login-span-active, .signup-span-active {
+        color:#2876AD;
+        /* margin-right: 15%; */
+        cursor: pointer;
+        margin-right: 13%;
+    
+       
+    } 
+    .input-container1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        /* margin-top: 5%; */
+        /* margin-bottom: 50px; */
+    }
+    .signup-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    
+    }
+    .modal {
+        width: 350px;
+        height: 350px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -200px;
+        margin-top: -200px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+    } 
+    .forgot-pw {
+        font-size: 12px;
+        color: rgb(28, 118, 173);
+        text-align: center;
+        font-weight: lighter;
+        margin-top: 10%;
+        /* margin-bottom: 5%; */
+    }
+    
+    .login-button {
+        background-color: #5CD3CA;
+        width: 100%;
+        height: 60px;
+        color: white;
+        font-size: 18px;
+        margin-top: 15%;
+    }
+    .signup-button {
+            background-color: #5CD3CA;
+            width: 100%;
+            height: 60px;
+            color: white;
+            font-size: 18px;
+            margin-top: 10%;
+    }
+    img.close {
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        right: 3%;
+        top: 3%;
+        cursor: pointer;
+    
+    }
+    .login-modal, .business-modal {
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.671);
+        min-width: 100vw;
+        min-height: 100vh;
+        position: fixed;
+        left: 0px;
+        /* margin-top: -100px; */
+        top: 0px;
 }
 
-
+}
 @media screen and (min-width: 799px) and (max-width: 1100px) {
     .modal {
         margin-top: 50%;

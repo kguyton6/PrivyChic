@@ -91,7 +91,10 @@ class TakeMoney extends Component {
         axios.post(`/api/appointments/${this.props.business_id}`, this.props.service_id, this.props.id)
         .then((res) => {
           if(res.status === 200) {
-            this.props.history.push('/')
+            axios.post('/sendEmail', this.props.full_name, this.props.calendar.month_name)
+            .then(() => {
+              this.props.history.push('/dashboard')
+            })
             alert('Your appointment has been created')
           }
         })

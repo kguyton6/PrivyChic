@@ -52,7 +52,7 @@
     .menu-icon {
         cursor: pointer;
         /* left: 2%; */
-        /* position: absolute; */
+        position: absolute;
         height: 5vw;
         width: 7vw;
         margin: 4%;
@@ -121,6 +121,11 @@
         margin-left: 5%;
        
         
+    }
+    .menu-container {
+        overflow: hidden;
+        width: 40px;
+
     }
     .responsive-box {
         width: 100%;
@@ -246,10 +251,24 @@
 
 
     }
+    .menu-container {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        width: 50px;
+        z-index: -1;
+
+        
+    }
+
     .menu-icon {
         height: 30px;
         cursor: pointer;
         margin: 3%;
+        position: absolute;
+        z-index: 10;
+
     }
     .location-input {
         width: 80%;
@@ -923,7 +942,7 @@ img.down {
     }
 }
 @media screen and (min-width: 1520px) and (max-width: 2200px) {
-    .menu-icon {
+    .menu-icon, .menu-container {
         display: none;
     }
     .search-header {
@@ -1051,7 +1070,7 @@ img.down {
     }
     
     .picture {
-        border-radius: 15px;
+        border-radius: 50px;
         zoom: 2;
         width: 22%;
         height: 50%;
@@ -1155,7 +1174,10 @@ img.down {
         cursor: pointer;
       
     }
-    
+    .no-search {
+        font-size: 32px;
+        text-align:center;
+    }
     .service-filter {
         position: absolute;
         display: flex;
@@ -1201,7 +1223,13 @@ img.down {
     }
 }
 @media screen and (min-width: 2200px) and (max-width: 3200px) {
-    .menu-icon {
+    .menu-icon, .menu-container {
+        display: none;
+    }
+    
+}
+@media screen and (max-width: 9000px){
+    .menu-container, .menu-icon {
         display: none;
     }
 }

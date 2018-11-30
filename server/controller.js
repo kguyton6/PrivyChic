@@ -103,12 +103,13 @@ module.exports = {
 
     },
     create_booking: (req, res) => {
-        const dbInstance = req.app.get('db')
-        let { id, service_id } = req.body
+            const dbInstance = req.app.get('db')
+            const { service_id, available_id } = req.body
 
-
-        dbInstance.create_booking(req.session.user.user_id, req.params.business_id, service_id, id )
-        .then(() => res.status(200).send('success'))
+          
+           dbInstance.create_booking(service_id, req.params.id, req.session.user.user_id, available_id)
+            .then((appointment) => res.status(200).send(appointment))
+          
     },
 
   

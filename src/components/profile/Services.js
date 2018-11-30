@@ -120,7 +120,7 @@ class Services extends Component {
                     <li style={listElement} id='day-number'>{`12/${availability[i].day}`}</li>
                     <li style={listElement} id='time'>{availability[i].time}</li>
                 </ul>
-                    <TakeMoney business_id={availability[i].business_id} id={availability[i].id} service_id={this.state.service_id}/>
+                    <TakeMoney full_name={this.props.full_name} business_id={availability[i].business_id} id={availability[i].id} service_id={this.state.service_id}/>
                 </div>
                )
                console.log(time)

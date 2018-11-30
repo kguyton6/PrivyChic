@@ -69,7 +69,8 @@ class Profile extends Component {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100%',
                 backgroundPositionY: '40%',
-                zoom: '-2'
+                zoom: '-2',
+                position:'relative'
 
               };
 
@@ -171,7 +172,7 @@ class Profile extends Component {
                         <Link to='/business' ><button className='business-button'>For Business</button></Link>
                         <NavLink to='/help' ><span className='profile-link'>Help</span></NavLink>
                     </div>
-                 <img src={search} className='search-icon' width='30px'/>
+                <Link to='/search'><img src={search} className='search-icon' width='30px'/></Link> 
                                  </div>
                 {this.showProfile()}
                 <div className='profile-main-container'>
