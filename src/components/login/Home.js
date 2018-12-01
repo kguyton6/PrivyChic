@@ -3,21 +3,55 @@ import './home.css';
 import logo from '../assets/privy3.svg'
 import icon from '../assets/icon.svg'
 import location from '../assets/location.png'
-import { Link, NavLink, Route} from 'react-router-dom'
-import {withRouter} from 'react-router'
+import { Link, Route } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import bell from '../assets/bell.png'
 import Login from './modal/login/Login'
 import down from '../assets/down-arrow.png'
-import DropDown from '../forms/dropdown/DropDown';
 import menu from '../assets/menu.png'
 import search from '../assets/search.png'
 import Search from '../search/Search'
-import {getUserInfo, addStylistName, addZip} from '../../ducks/actions/action_creators'
-// import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.1/node_modules/redux';
+import { getUserInfo, addStylistName, addZip } from '../../ducks/actions/action_creators'
+import { Button, Collapse, Well, Fade, FadeDropdown, FadeItem } from 'react-bootstrap'
+import CustomMenu from '../dropdown/CustomMenu'
 
+const homeWell = {
+  position: 'absolute',
+  width: '150px',
+   height: '90px',
+  left: '5%',
+  zIndex: '10',
+  fontSize: '10px',
+  top: '5%',
+  fontWeight: 'bold',
+  justifyContent: 'space-evenly',
+   flexDirection: 'column',
+  backgroundColor: 'rgba(226, 226, 226, 0.918)',
+  display: 'flex',
+  bordeRadius: '3px',
+overflowWrap: 'break-word',
+  boxShadow: 'rgba(128, 128, 128, 0.431)',
+  cursor: 'pointer',
+}
+const homeMenu = {
+  cursor: 'pointer',
+  color: 'rgb(56, 56, 56)',
+  fontSize: '18px',
+  textAlign: 'left',
+  letterSpacing: '1px',
+  textIndent: '5px',
+  display: 'flex'
+}
 
+const availableTimes = {
+  fontColor: 'black',
+  borderStyle: 'solid',
+  borderColor: 'black',
+  fontSize: '12px',
+  height: '50%',
+}
 
 class Home extends Component {
   constructor(props) {
@@ -33,20 +67,20 @@ class Home extends Component {
       showLoginModal: false,
       showMenu: false,
       input: '',
-      full_name: ''
+      full_name: this.props.userInfo.full_name,
+      open: false
 
     }
   }
- 
-  componentDidUpdate = () => {
-    axios.get('/checkSession')
-    .then((res) => {
 
-      this.props.getUserInfo(res.data)
-    })
+  componentDidMount = () => {
+    axios.get('/checkSession')
+      .then((res) => {
+        this.props.getUserInfo(res.data)
+      })
   }
 
-  
+
   toggleModal = () => {
     this.setState(prevState => {
       return {
@@ -66,54 +100,58 @@ class Home extends Component {
   showModal = () => {
     if (this.state.showLoginModal) {
       return (
-        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal}  />
+        <Login onClose={this.toggleModal} showLogin={this.state.showLoginModal} />
       )
-    } else if(this.state.showSignUp){
+    } else if (this.state.showSignUp) {
       return (
-        <Login onClose={this.toggleSignUp}  />
+        <Login onClose={this.toggleSignUp} />
       )
     }
   }
- 
 
-  toggleMenu = () => {
-    this.setState(prevState => {
-      return {
-     showMenu: !prevState.showMenu,
-    
-      }
-    })
-  }
+
+  // toggleMenu = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       showMenu: !prevState.showMenu,
+
+  //     }
+  //   })
+  // }
 
   logout = () => {
     axios.get('/api/logout')
-    .then((res) => {
-     if(res.status === 200) {
-       return this.componentDidUpdate()
-       }
+      .then((res) => {
+        if (res.status === 200) {
+          return this.componentDidMount()
+        }
+      })
+  }
+  menu = () => {
+    this.setState(prevState => {
+      return {
+        open: !prevState.open
+      }
     })
- }
-  
- showDropDown = () => {
-    if (this.state.showMenu) {
+  }
+  dropdown = () => {
+    if(this.state.open) {
       return (
-        <DropDown onClose={this.toggleMenu} logout={this.logout} login={this.showModal}/>
+        <CustomMenu open={this.menu} menuStyle={homeMenu} wellStyle={homeWell} login={this.toggleModal}/>
       )
     }
   }
-
+  
+ 
+    
 
   render() {
     console.log(this.props.userInfo.full_name)
     const { addStylistName, addZip } = this.props
     return (
       <div className="App">
-
-        {this.props.userInfo.full_name ?
+        {this.props.userInfo && this.props.userInfo.length ?
           <header className="home-header">
-            <img src={menu} className='menu' width='100%' />
-            <span className='responsive-title'>PrivyChic</span>
-           <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link> 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
               <div className='wrapper'>
@@ -124,30 +162,31 @@ class Home extends Component {
 
             <div className='icons-container'>
               <img className='bell' src={bell} width='30px' height='30px' />
-              <div className='nav-dropdown' >
+              <div className='Fade-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
                 <span className='profile-img'>{this.props.userInfo.full_name}</span>
-                  {this.showDropDown()}
+                {this.dropdown()}
               </div>
             </div>
           </header> :
-          <header className="home-header">
-            <img src={menu} className='menu' width='15px'  />
-            {this.showDropDown()}
+          <header className="home-header-responsive">
+            <Button onClick={this.menu}><img src={menu} className='menu-icon' width='40px' />
+            {this.dropdown()}
+            </Button>
             <span className='responsive-home-title'>PrivyChic</span>
-            <Link to='/search' className='search-link'> <img src={search}  className='search-img' /></Link>
+            <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link>
 
             <div className='header-search-box'>
               <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
-                <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)}/>
-              <img src={icon} alt='icon' className='icon' width='25px' />
+                <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)} />
+                <img src={icon} alt='icon' className='icon' width='25px' />
               </div>
             </div>
             <div className='nav-link-container'>
               <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
               <span onClick={this.toggleModal} className='nav-link' >Login</span>
               <Link to='/business' ><button className='business'>For Business</button></Link>
-              <NavLink to='/help' className='nav-link'><span className='nav-link'>Help</span></NavLink>
+              <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
             </div>
           </header>}
         <div className='home'>
@@ -159,9 +198,9 @@ class Home extends Component {
                 <div className='input-container'>
                   <input onChange={(e) => addStylistName(e.target.value)} className='name' placeholder='Haircut, salon name, stylist name' />
                   <Link to='/search'> <img className='icon2' src={icon} /> </Link>
-                  <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location' />
+                  <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location-1' />
                   <img src={location} className='location-icon' />
-                  <input onChange={(e) => addStylistName(e.target.value)}className='responsive' placeholder='Haircut, Salon Name, Style Name'/>
+                
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
@@ -217,7 +256,7 @@ class Home extends Component {
             <img src='https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg' width='100%' height='100%' className='box' />
           </div>
         </div>
-       
+
       </div>
 
     );
@@ -227,10 +266,10 @@ const mapStateToProps = (state) => {
   return {
     zipcode: state.zipcode,
     userInfo: state.userInfo,
-    stylistName: state.stylistName
+    stylist_name: state.stylist_name
 
   }
 }
 
-const bindActionCreators = {getUserInfo, addStylistName, addZip}
-export default withRouter( connect(mapStateToProps, bindActionCreators)(Home))
+const bindActionCreators = { getUserInfo, addStylistName, addZip }
+export default withRouter(connect(mapStateToProps, bindActionCreators)(Home))

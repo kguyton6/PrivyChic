@@ -1,151 +1,150 @@
 
 .profile-logo {
-    font-size: 42px;
+    font-size: 22px;
     color: white;
     font-family: cursive;
-    width: 100px;
-    margin-left: 5%;
+ 
 }
+.profile-menu {
+    width: auto;
+
+}
+
+
 .profile-head {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 95%;
     background-color: transparent;
-    top: 0px;
+    margin-top: 5%;
+    margin-left: 5%;
     position: fixed;
-    padding-top: 2%;
     border-bottom-color: transparent;
-    justify-content: space-between;
-
+    justify-content: space-between;  
    }
 
 .profile-link-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    font-size: 16px;
-    align-items: center;
+    display: none;
+}
+.profile-logo-title {
+    font-size: 2rem;
+    font-family: fantasy;
     color: white;
-    /* margin-right: 3%; */
-    justify-content: space-evenly;
-    width: 45%;
-
-
-
-
 }
 
-.about {
-    width: 20%;
-    margin-left: 33%;
-    font-size: 18px;
-    font-weight: bold;
-
-}
-.profile-pic {
-width: 15vw;
-height: 15vw;
-border-radius: 60px;
+#profile-pic1 {
 position: absolute;
 left: 5vw;
-top: 32vw;
+top: 75%;
 z-index: 10;
+display: flex;
 }
 .business-button {
-    padding: 5px 35px;
-    background-color: transparent;
-    margin-right: 10%;
-    color: white;
-    text-align: center;
+display: none;
 }
 
-.profile-top-container {
-    width: 39%;
-    margin-top: 1%;
-    margin-bottom: 5%;
+.profile-top-container, .business_hours, #business-name-title  {
+    display: none;
 
 }
 .profile-fullname {
     color: white;
     position: absolute;
-    font-weight: bold;
-    left: 32%;
-    bottom: 10vh;
-    font-size: 5em;
+    top: 35vh;
+    left: 36%;
+    font-size: 1.5rem;
 }
-#profession-title {
-    font-weight: lighter;
-    font-size: 13px;
-}
-.name-title {
-    font-weight: bold;
-    font-size: 15px;
-}
-/* .services{
-    width: 40%;
-    height:500px;
-    color: black;
-    margin-left: 5%;
-
-} */
-.right-profile-box {
-    position: absolute;
-    right: 3%;
-    width: 20%;
+.profile-main-container {
     height: auto;
     display: flex;
+    margin-top: 12%;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
 
 }
-.business_hours {
-
-    width: 100%;
+.business-address-box {
+    width: 30%;
     height: auto;
-    margin-top: 10%;
-    display: flex;
-    flex-direction: column;
     font-size: 12px;
-    letter-spacing: 1.5px;
-    line-height: 1.5em;
-    /* text-align: center; */
-}
-.business-address-box  {
-    width: 100%;
-    height: auto;
-    font-size: 14px;
     font-weight: lighter;
-    color: #9FCAD7;
+    color: rgb(9, 173, 165);
     text-align: center;
-    display: flex;
-    /* margin-left: 20%; */
- 
-
 }
-#number, #business-name-title {
+
+#number {
     color: black;
 }
-#business-name-title, .business-hours-text  {
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-}
+.service-container {
+    width: 90%; 
+    padding-bottom: 10%;
+    border: solid #06D8CC thin;
+    padding-top: 5%;
+    margin-bottom: 5%;
+    position: relative;
 
+}
 li {
     list-style-type: none;
+    text-align: center;
+}
+.labels {
+    font-size: 12px;
+    display: flex;;
+    margin-top: 5%;
+    position: relative;
 
 }
+#price, .price-title {
+    position: absolute;
+    left: 45%;
+}
+#service_name, .service_name-title {
+    margin-left: 8%;
+}
+#service-button {
+    position: absolute;
+    right: 8%;
 
-.profile-main-container {
-    height: 100%;
-    width: 100vw;
+}
+#description, #duration, .duration-title, .description-title {
+    display: none;
+}
+#wrapper {
+    font-size: 14px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding-bottom: 50px;
     align-items: center;
-    position: relative;
     
 }
+.current-month {
+    font-size: 22px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    margin-bottom: 5%;
+}
+#time-ul {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+    line-height: 14px;
+}
+#timeList {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 40%;
+    margin: 3%;
+}
+.availability-list {
+    display: flex;
+    overflow: scroll;
+    width: 90%;
+    align-self: center;
+
+}
+/*
 @media screen and (max-width: 750px){
     .profile-top-container{
         display: none;
@@ -173,7 +172,6 @@ li {
     }
 img.menu { 
         cursor: pointer;
-    /* position: absolute; */
     margin-left: 3%;
     margin-bottom: 5%;
 
@@ -224,8 +222,6 @@ img.menu {
     margin-bottom: 3%;
     font-size: 16px;
     
-    /* width: 0px; */
-    /* position: absolute; */
 
 }
 .service-menu-title {
@@ -267,7 +263,6 @@ ul.business_hours {
 }
 .availability-list {
     display: flex;
-    /* width: 80%; */
     height: 150px;
     margin-top: 3%;
     justify-content: center;
@@ -293,7 +288,6 @@ ul.business_hours {
     font-size: 26px;
     font-family: fantasy;
     margin-top: 7%;
-    /* width: 20%; */
     align-self: center;
 }
 .services {
@@ -375,4 +369,4 @@ ul.business_hours {
     }
 }
 
-}
+} */

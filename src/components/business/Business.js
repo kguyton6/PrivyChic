@@ -11,8 +11,40 @@ import down from '../assets/down-arrow.png'
 import axios from 'axios';
 import {getUserInfo} from '../../ducks/actions/action_creators'
 import {connect} from 'react-redux'
-
+import {Button} from 'react-bootstrap'
+import CustomMenu from '../dropdown/CustomMenu'
  
+
+const businessWell = {
+    position: 'absolute',
+    width: '150px',
+     height: '90px',
+    left: '5%',
+    zIndex: '10',
+    fontSize: '10px',
+    top: '5%',
+    fontWeight: 'bold',
+    justifyContent: 'space-evenly',
+     flexDirection: 'column',
+    backgroundColor: 'rgba(226, 226, 226, 0.918)',
+    display: 'flex',
+    bordeRadius: '3px',
+  overflowWrap: 'break-word',
+    boxShadow: 'rgba(128, 128, 128, 0.431)',
+    cursor: 'pointer',
+  }
+  const businessMenu = {
+    cursor: 'pointer',
+    color: 'rgb(56, 56, 56)',
+    fontSize: '18px',
+    textAlign: 'left',
+    letterSpacing: '1px',
+    textIndent: '5px',
+    display: 'flex'
+  }
+const buttonStyle = {
+    width: '60px'
+}
 class Business extends Component {
     constructor(props) {
         super(props)
@@ -20,7 +52,8 @@ class Business extends Component {
         this.state = {
             businessSignUp: false,
             businessLogin: false,
-            showLogin: true
+            showLogin: true,
+            open: false
         }
 
     }
@@ -60,13 +93,28 @@ class Business extends Component {
         }
 
     }
- 
+    menu = () => {
+        this.setState( prevState => { 
+            return {
+                open: !prevState.open
+            }
+        })
+      }
+    
     logout = () => {
         axios.get('/api/logout')
         .then(() => {
             this.componentDidMount()
         })
     }
+    dropdown = () => {
+        if(this.state.open) {
+          return (
+            <CustomMenu login={this.toggleLogin} open={this.menu} wellStyle={businessWell} menuStyle={businessMenu}/>
+          )
+        }
+      }
+      
 
     render() {
         
@@ -74,9 +122,12 @@ class Business extends Component {
             <div className='App'>
                
                     <div className='responsive-header'>
-                    <img src={menu} className='business-menu' width='5%'/>
+                    <Button style={buttonStyle} onClick={this.menu}><img src={menu} className='business-menu' width='40px'/>
+                        {this.dropdown()} </Button> 
+
+               
                     <span className='business-title'>PrivyChic</span>
-                    <img src={search}  className='search-icon' width='5%'/>
+<Link to='search' className='search-icon'><img src={search} width='30px'/></Link>
                     </div>
                     <div className='business-header'>
                     <Link to='/'><img src={logo} alt='logo' className='business-logo' width='190px' height='70px' /></Link>

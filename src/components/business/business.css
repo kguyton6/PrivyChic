@@ -1,11 +1,3 @@
-
-
-@media screen and (min-width: 350px) and (max-width: 1100px) {
-    .business-logo, .business-nav, .business-header {
-        display: none;
-    }
-}
-@media screen and (min-width: 350px) and (max-width: 749px) {
    .business-logo, .business-nav, .business-header {
        display: none;
    }
@@ -18,7 +10,8 @@
         top: 0px;
         color: white;
         justify-content: space-between;
-        height: 15%;
+        height: 80px;
+
     }
     .business-title {
         padding-top: 2%;
@@ -27,16 +20,22 @@
     font-family: fantasy;
     }
     .business-menu {
-        margin-left: 5%;
-
+        height: auto;
+        width: 100%;
+        height: 100%;
     }
+    .empty {
+        display: none;
+    }
+    
     .search-icon {
+        width: 10%;
         margin-right: 5%;
     }
     
     .top-business-box{
         width: 100%;
-        height: 250px;
+        height: 40vh;
         color: white;
         font-weight: bold;
         background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
@@ -51,7 +50,7 @@
         color: white;
         font-weight: bold;
         text-align: center;
-        width: 30%;
+        width: 40%;
         height: 40px;
         border-style: none;
         font-size: 16px;
@@ -66,11 +65,12 @@
         justify-content: space-evenly;
         height: 90%;
         width: 90%;
+        letter-spacing: 2px;
     }
     .small-text {
         font-size: 14px;
         font-weight: lighter;
-        color: black;
+        color: white;
     }
     .main-title {
         display: flex;
@@ -83,6 +83,7 @@
         color: rgb(31, 31, 31);
         margin-top: 20px;
         margin-bottom: 10px;
+        letter-spacing: 1px;
     
     }
     .bold-text2 {
@@ -97,9 +98,10 @@
        font-size: 16px;
     }
     .box1 {
-        width: 20%;
-        height: 18%;
+        width: 30%;
+        height: 25%;
         font-size: 28px;
+        line-height: 60px;
         border-style: solid;
         border-color: black;
         border-width: 2px;
@@ -108,12 +110,12 @@
         vertical-align: center;
         position: absolute;
         top: -25px;
-        left: 40%;
+        left: 35%;
         background-color: white;
     }
     
     .outer-box {
-        width: 70%;
+        width: 100%;
         height: 250px;
         position: relative;
         display: flex;
@@ -129,7 +131,7 @@
     
     }
     .paragraph {
-        padding: 20px;
+        padding: 30px;
         letter-spacing: 1px;
     }
     .box-title {
@@ -147,9 +149,9 @@
     }
     
    
-}
 
-@media screen and (min-width: 550px) and (max-width: 750px) {
+
+/* @media screen and (min-width: 550px) and (max-width: 750px) {
     .top-business-box{
         width: 100%;
         height: 350px;
@@ -217,9 +219,9 @@
     .paragraph {
         font-size: 14px;
     }
-}
+} */
 
-@media screen and (min-width: 749px) and (max-width: 850px) {
+/* @media screen and (min-width: 749px) and (max-width: 850px) {
     .responsive-header {
         display: flex;
         align-items: center;
@@ -347,9 +349,9 @@
         font-size: 22px;
         font-weight: bold;
     }
-}
+} */
 
-@media screen and (min-width: 849px) and (max-width: 1100px) {
+/* @media screen and (min-width: 849px) and (max-width: 1100px) {
     .responsive-header {
         display: flex;
         align-items: center;
@@ -476,9 +478,9 @@
         font-size: 24px;
         font-weight: bold;
     }
-}
+} */
 
-@media screen and (min-width: 1099px) and (max-width: 1600px) {
+/* @media screen and (min-width: 1099px) and (max-width: 1600px) {
 
     .business-title, .search-icon, .business-menu {
         display: none;
@@ -637,9 +639,9 @@
     justify-content: space-evenly;
 
     }
-}
+} */
 
-@media screen and (min-width: 1600px) and (max-width: 2200px) {
+/* @media screen and (min-width: 1600px) and (max-width: 2200px) {
 
     .business-title, .search-icon, .business-menu {
         display: none;
@@ -808,4 +810,4 @@
     justify-content: space-evenly;
 
     }
-}
+} */

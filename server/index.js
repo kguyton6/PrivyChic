@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
-
+const sendMail = require('./sendMail')
 
 const {
 
@@ -20,6 +20,7 @@ const {
 } = process.env
 
 app.use(express.static(`${__dirname}/../build`))
+app.use('/api/v1/communicate', sendMail)
 
 
 massive(DATABASE_URL).then(dbInstance => {
@@ -35,14 +36,31 @@ app.use(require("body-parser").text());
 
 
 
-
 app.use(session({
   secret: 'SESSION_SECRET',
   resave: false,
   saveUninitialized: false
 }))
-const stripe = require("stripe")("sk_test_WidQ87DFISivzhHHZIYyZX0p");
+const {API_PUBLIC_KEY, EMAIL, DOMAIN} = process.env
+var mailgun = require('mailgun-js')({apiKey: API_PUBLIC_KEY, domain: DOMAIN});
 
+
+
+// app.post('/emails', (req, res) => {
+  
+//   var data = {
+//     from: `Kimberly Guyton ${EMAIL}`,
+//     to: `kimguyton@gmail.com, ${EMAIL}`,
+//     subject: 'Hello',
+//     text: 'Testing some Mailgun awesomness!'
+//   };
+//   mailgun.messages().send(data, function (err, body) {
+//     console.log(err, body, 'whats up');
+//   })
+// })
+
+
+const stripe = require("stripe")("sk_test_WidQ87DFISivzhHHZIYyZX0p");
 app.post('/save-stripe-token', async (req, res) => {
   let token = (req.body, 'tok_mastercard')
   const customer = await stripe.customers.create({
@@ -152,6 +170,7 @@ app.get('/checkSession', (req, res) => {
   app.get('/api/profile/:id', ctrl.getStylist)
   app.get('/api/calendar', ctrl.get_calendar)
   app.get('/api/services/:id', ctrl.allServices)
+  app.get('/api/payments', ctrl.accept_payments)
   app.post('/auth/signup/business', ctrl.create_business)
   app.post('/auth/login/business', ctrl.business_login)
   app.post('/api/appointments/:id', ctrl.create_booking)

@@ -21,6 +21,7 @@ module.exports = {
 
     stylist_zip: async(req, res, next) => {
         const dbInstance = req.app.get('db')
+        const { accept_payment } = req.body
         console.log(req.params.id)
 
         dbInstance.stylist_zip(req.params.id)
@@ -35,6 +36,15 @@ module.exports = {
         .then((data) => {
         res.status(200).send(data)
         })
+    },
+    accept_payments: (req, res) => {
+      const dbInstance = req.app.get('db')
+
+        console.log(req.body)
+
+        dbInstance.accept_payments()
+        .then((data) => res.status(200).send(data))
+
     },
 
     get_availablility: async(req, res) => {

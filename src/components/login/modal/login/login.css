@@ -1,5 +1,3 @@
-
-@media screen and (min-width: 1099px) {
 .login-modal, .business-modal {
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.671);
@@ -7,8 +5,11 @@
     min-height: 100vh;
     position: fixed;
     left: 0px;
-    /* margin-top: -100px; */
     top: 0px;
+    display: flex;
+    justify-content: center;
+    
+
 
 }
 
@@ -34,14 +35,14 @@
         width: 100%;
         height: 60px;
         color: white;
-        font-size: 18px;
+        font-size: 24px;
         margin-top: 10%;
 }
 img.close {
     width: 12px;
     height: 12px;
     position: absolute;
-    right: 3%;
+    right: 0%;
     top: 3%;
     cursor: pointer;
 
@@ -75,7 +76,7 @@ img.close {
 .top-container {
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
     margin-top: 5%;
     position: relative;
     font-weight: bold;
@@ -83,10 +84,11 @@ img.close {
 
  
 }
-/* .signup-span-active {
-    width: 60%;
-    /* margin-left: 10%; */
-
+.signup-span-active {
+    width: inherit;
+    text-align: center;
+    height: 40px;
+}
 
  .login-span-active, .signup-span-active {
     color:#2876AD;
@@ -114,22 +116,19 @@ img.close {
 
 }
 .modal {
-    width: 350px;
-    height: 350px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    margin-left: -200px;
-    margin-top: -200px;
+    width: 80%;
+    height: 40%;
+    margin-top: 30%;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 } 
-}
-@media screen and (min-width: 350px) and (max-width: 800px) {
+
+ /* @media screen and (min-width: 350px) and (max-width: 800px) {
     .modal {
         margin-top: 50%;
         width: 350px;
@@ -186,27 +185,21 @@ img.close {
     
      
     }
-    /* .signup-span-active {
-        width: 60%;
-        /* margin-left: 10%; */
-    
-    
-     .login-span-active, .signup-span-active {
+   
+ 
+    .login-span-active, .signup-span-active {
         color:#2876AD;
-        /* margin-right: 15%; */
         cursor: pointer;
         margin-right: 13%;
     
        
-    } 
+    }  
     .input-container1 {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
-        /* margin-top: 5%; */
-        /* margin-bottom: 50px; */
     }
     .signup-container {
         display: flex;
@@ -237,7 +230,7 @@ img.close {
         text-align: center;
         font-weight: lighter;
         margin-top: 10%;
-        /* margin-bottom: 5%; */
+
     }
     
     .login-button {
@@ -272,12 +265,11 @@ img.close {
         min-height: 100vh;
         position: fixed;
         left: 0px;
-        /* margin-top: -100px; */
         top: 0px;
 }
 
-}
-@media screen and (min-width: 799px) and (max-width: 1100px) {
+}  */
+/* @media screen and (min-width: 799px) and (max-width: 1100px) {
     .modal {
         margin-top: 50%;
         background-color: white;
@@ -287,4 +279,4 @@ img.close {
         align-items: center;
         justify-content: space-between;
     }
-}
+} */

@@ -10,8 +10,14 @@ import '../../reset.css'
 import {connect} from 'react-redux'
 import {showServices} from '../../ducks/actions/action_creators'
 import Login from '../login/modal/login/Login'
+import Availability from './Availability'
 
+const title = {
+    height: '40px',
+    fontWeight: 'bold',
+    textDecoration: 'underline',
 
+}
 
 class Profile extends Component {
     constructor(props) {
@@ -64,23 +70,29 @@ class Profile extends Component {
         
             var sectionStyle = {
                 width: "100%",
-                height: "42vw",
+                height: "40vh",
                 backgroundImage: `url(${profile[i].portfolio})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100%',
                 backgroundPositionY: '40%',
                 zoom: '-2',
-                position:'relative'
+                position:'relative',
+                zIndex: '-10'
 
               };
+              var profilePic = {
+                  width: '100px',
+                  height: '100px',
+                  borderRadius:'60px'
+              }
 
              
 
             stylist.push(
                 <React.Fragment key={i}>
                 <section  style={sectionStyle} id='banner-container'>
-                    <img src={profile[i].picture} alt='profile-pic'  className='profile-pic'/>
-                    <h1 className='profile-fullname'>{profile[i].full_name.toUpperCase()}</h1>
+                    <img src={profile[i].picture} alt='profile-pic' id='profile-pic1'  style={profilePic}/>
+                    <span className='profile-fullname'>{profile[i].full_name.toUpperCase()}</span>
                 </section>
                 <div key={profile[i].id} className='profile-top-container'>
                     <div className='name-title'>
@@ -157,6 +169,8 @@ class Profile extends Component {
             }
         })
     }
+  
+    
 
     render() {
         console.log(this.state)
@@ -164,7 +178,7 @@ class Profile extends Component {
             <div className='App'>
 
                 <div className='profile-head' width='100%'>
-                <img src={menu} className='menu' width='40px' height='30px'/>
+                <img src={menu} className='profile-menu' width='40px' height='30px'/>
                     <Link to='/' className='profile-logo-title'>PrivyChic</Link>
                     <div className='profile-link-container'>
                         <span onClick={(showLogin) =>this.toggleModal(showLogin)} className='profile-link' >Sign Up</span>
@@ -172,40 +186,32 @@ class Profile extends Component {
                         <Link to='/business' ><button className='business-button'>For Business</button></Link>
                         <NavLink to='/help' ><span className='profile-link'>Help</span></NavLink>
                     </div>
-                <Link to='/search'><img src={search} className='search-icon' width='30px'/></Link> 
+                <Link to='/search' className='search-icon'><img src={search}  width='30px'/></Link> 
                                  </div>
                 {this.showProfile()}
                 <div className='profile-main-container'>
-                {this.state.showTitles ? 
                 <div className='service-container'>
                 <h4 className='service-menu-title'>{`${this.state.full_name}'s Service Menu`}</h4>
+                {!this.state.showTitles ?
                 <div className='labels'>
-                <label className='service_name-title'>Service </label>
-                <label className='description-title'>Description</label>
-                <label className='price-title'>Price</label>
-                <label className='duration-title'>Duration</label>
-                </div> 
-                 {/* <div className='services' id='available'>  
-                 <Services title={this.showServiceTitles}services={this.state.services} calendar={this.state.calendar}full_name={this.state.full_name}/>
-                </div> */}
-                 </div> :
-                 <div id='avialability-container'>
-                
+                <label style={title}className='service_name-title'>Service </label>
+                <label style={title} className='description-title'>Description</label>
+                <label style={title} className='price-title'>Price</label>
+                <label style={title} className='duration-title'>Duration</label>
+                </div> :
+                <div className='labels'> </div>}
+                 <div className='services' id='available'>  
+                 <Services title={this.showServiceTitles}services={this.state.services} calendar={this.state.calendar} showAvailability={this.showAvailability}full_name={this.state.full_name}/>
+                </div>
 
-                  <h4 className='service-menu-title'>{`${this.state.full_name}'s Availablility`}</h4>
-               
-                </div> }
-
-                 <Services showAvailability={this.showServiceTitles} services={this.state.services} calendar={this.state.calendar} full_name={this.state.full_name} showModal={this.showModal}/>
-
-
-                </div> 
+                </div>
                  {this.showAddress()}
 
 
-                {this.businessHours()}
-                </div>
 
+                {this.businessHours()}
+    </div>
+    </div>
 
 
 

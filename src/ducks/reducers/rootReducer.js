@@ -22,6 +22,7 @@ const initialState = {
     time: {},
     appointment: {},
     portfolio: '',
+    stylist_name: ''
     // displayServices: false
 }
 
