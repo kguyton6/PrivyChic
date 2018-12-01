@@ -20,7 +20,7 @@ const {
 } = process.env
 
 app.use(express.static(`${__dirname}/../build`))
-app.use('/api/v1/communicate', sendMail)
+
 
 
 massive(DATABASE_URL).then(dbInstance => {
@@ -41,8 +41,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
-const {API_PUBLIC_KEY, EMAIL, DOMAIN} = process.env
-var mailgun = require('mailgun-js')({apiKey: API_PUBLIC_KEY, domain: DOMAIN});
+
 
 
 
@@ -123,42 +122,35 @@ app.get('/checkSession', (req, res) => {
   }
 })
 
-  app.post('/send', (req, res, next) => {
-      const { full_name, month_name, day, time, email } = req.body
-    //   var smtpConfig = {
-    //     host: 'smtp.gmail.com',
-    //     port: 465,
-    //     //proxy config
-    //     // assumes a HTTP proxy running on port 3128
-    //     proxy: 'http://localhost:9000/'
-    // };
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        //proxy config
-        // assumes a HTTP proxy running on port 3128
-        proxy: 'http://localhost:9000/',
-        auth: {
-          user: 'kimguyton@gmail.com',
-          pass: 'Haley12112006@'
-        },
-      })
-      const mailOptions = {
-        from: `"Kim Guyton" <kimguyton@gmail.com>`,
-        to: `${email}`,
-        subject: `Appointment Booked from PrivyChic`,
-        text: `Thank you for using PrivyChic, your appointment is scheduled with ${full_name} on ${month_name} ${day} at ${time}`,
-        //  replyTo: `${req.body.email}`,
-        //  html: '<b>From PrivyChic</b>'
-      }
-      transporter.sendMail(mailOptions, (err, res) => {
-        if (err) {
-          console.error('there was an error: ', err);
-        } else {
-          console.log('Message Sent: %s ', res.info)
-        }
-      })
-    })
+  // app.post('/send', (req, res, next) => {
+  //     const { full_name, month_name, day, time, email } = req.body
+    
+  //     const transporter = nodemailer.createTransport({
+  //       host: 'smtp.gmail.com',
+  //       port: 465,
+    
+  //       proxy: 'http://localhost:9000/',
+  //       auth: {
+  //         user: 'kimguyton@gmail.com',
+  //         pass: 'Haley12112006@'
+  //       },
+  //     })
+  //     const mailOptions = {
+  //       from: `"Kim Guyton" <kimguyton@gmail.com>`,
+  //       to: `${email}`,
+  //       subject: `Appointment Booked from PrivyChic`,
+  //       text: `Thank you for using PrivyChic, your appointment is scheduled with ${full_name} on ${month_name} ${day} at ${time}`,
+  //        replyTo: `${req.body.email}`,
+  //        html: '<b>From PrivyChic</b>'
+  //     }
+  //     transporter.sendMail(mailOptions, (err, res) => {
+  //       if (err) {
+  //         console.error('there was an error: ', err);
+  //       } else {
+  //         console.log('Message Sent: %s ', res.info)
+  //       }
+  //     })
+  //   })
   
 
 
