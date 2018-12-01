@@ -65,9 +65,11 @@ class Services extends Component {
             }
 
                 showAvailability = () => {
+                console.log(this.state.service_id)
+
                     if(this.state.showAvailable){
                         return (
-                            <Availability service_id={this.state.service_id} goBack={this.showTimes} calendar={this.props.calendar}/>
+                            <Availability service_id={this.state.service_id} goBack={this.showTimes} stylist_name={this.props.stylist_name}calendar={this.props.calendar} />
                         )
                     }
                 }

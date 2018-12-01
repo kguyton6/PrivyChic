@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Griddle from 'griddle-react'
+import {connect} from 'react-redux'
 import TakeMoney from '../stripe/TakeMoney'
 import './profile.css'
+
 
 const listElement = {
    fontSize: '12px'
@@ -38,12 +39,10 @@ class Availability extends Component {
    
 
     availability = () => {
-
         let availability = this.props.calendar
         let time = []
 
        for(let i in availability){
-           console.log(availability)
            time.push(
             <div key={availability[i].id} id='timeList'>
             <ul style={serviceList} id='time-ul'>
@@ -51,17 +50,16 @@ class Availability extends Component {
                 <li style={listElement} id='day-number'>{`12/${availability[i].day}`}</li>
                 <li style={listElement} id='time'>{availability[i].time}</li>
             </ul>
-                <TakeMoney full_name={this.props.full_name} business_id={availability[i].business_id} id={availability[i].id} service_id={this.state.service_id}/>
+                <TakeMoney stylist_name={this.props.stylist_name} business_id={availability[i].business_id} calendar_id={availability[i].id} service_id={this.props.service_id} month_name={availability[i].month_name} day={availability[i].day} appointment_time={availability[i].time}full_name={this.props.userInfo.full_name}/>
             </div>
-           )
-           console.log(time)
+           ) 
+           console.log(availability[i].id)
         }
         return time
     } 
     
-    
+
     render(){
-        console.log(this.props.calendar)
        return ( 
        <div id='wrapper'>
         <span onClick={this.props.goBack} style={goBack}>{`< Go Back `}</span>
@@ -80,5 +78,10 @@ class Availability extends Component {
         )
     }
 }
-
-export default Availability
+const mapStateToProps = (state) => {
+    return {
+        userInfo: state.userInfo,
+        stylist_name: state.stylist_name
+    }
+}
+export default connect(mapStateToProps)(Availability)

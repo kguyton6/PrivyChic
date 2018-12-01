@@ -77,7 +77,7 @@ class Search extends Component {
         if(this.props.zipcode) {
         axios.get(`/api/zipcode/${this.props.zipcode}`)
         .then((res) => {
-            this.setState({stylists: res.data})
+            this.setState({stylists: res.data ,full_name: res.data[0].full_name})
         },
                axios.get('/checkSession')
                .then((res) => {
@@ -92,17 +92,17 @@ class Search extends Component {
         if (this.props.stylist_name) {
             axios.get(`/api/name/${this.props.stylist_name.toUpperCase()}`)
                 .then((res) => {
-                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture, full_name: res.data[0].full_name })
                 })
         } else if (this.props.zipcode) {
             axios.get(`/api/zipcode/${this.props.zipcode}`)
                 .then((res) => {
-                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture, full_name: res.data[0].full_name })
                 })
         } else {
             axios.get(`/api/date/${this.props.date}`)
                 .then((res) => {
-                    this.setState({ stylists: res.data, profileImage: res.data[0].picture })
+                    this.setState({ stylists: res.data, profileImage: res.data[0].picture, full_name: res.data[0].full_name })
                 })
         }
     }
@@ -269,7 +269,7 @@ class Search extends Component {
                         <span className='help-link'>Help</span>
                     </div> :
                      <div className='nav-links'>
-                     <span className='nav-links'>{this.props.full_name}</span>
+                     <span className='nav-links'>{this.props.userInfo.full_name}</span>
                       <span className='nav-links'>{this.logout}</span>
                     </div> }
                 </div>

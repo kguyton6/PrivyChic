@@ -12,7 +12,7 @@ import '../login/modal/login/login.css'
 import './stripe.css'
 import axios from 'axios';
 // import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.1/node_modules/redux';
-import { addAppointment } from '../../ducks/actions/action_creators'
+import { addAppointment, getUserInfo } from '../../ducks/actions/action_creators'
 
 
 
@@ -48,10 +48,18 @@ class TakeMoney extends Component {
             complete:false,
             showLogin: false,
             showSignUp: false,
-            
+            customer_id: null
 
         }
 
+    }
+
+    componentDidMount = () => {
+        axios.get('/checkSession')
+        .then((res) => {
+            this.props.getUserInfo(res.data)
+        })
+        this.props.addAppointment(this.props.month_name, this.props.day)
     }
    
     toggleLogin = () => {
@@ -86,26 +94,46 @@ class TakeMoney extends Component {
 
   onToken = (stripeToken) => {
      axios.post(`/save-stripe-token`, { stripeToken,  })
-     .then((response) => {
-       console.log(response)
-        axios.post(`/api/appointments/${this.props.business_id}`, this.props.service_id, this.props.id)
+     .then((res) => {
+         console.log(res)
+         this.setState({customer_id: res.data.data.customer.id})
+     },
+        axios.post(`/api/appointments/${this.props.business_id}`, 
+        {service_id: this.props.service_id, 
+         calendar_id: this.props.calendar_id, 
+        token: this.state.customer_id})
         .then((res) => {
-          if(res.status === 200) {
-            axios.post('/sendEmail', this.props.full_name, this.props.calendar.month_name)
-            .then(() => {
-              this.props.history.push('/dashboard')
-            })
-            alert('Your appointment has been created')
-          }
-        })
-       })
+            console.log(res)
+        },
+            axios.post('/sendEmail', 
+            { email: this.props.userInfo.email, 
+            full_name: this.props.userInfo.full_name, 
+            stylist_name: this.props.stylist_name, 
+            month_name: this.props.month_name,
+            day:  this.props.day, 
+            time: this.props.appointment_time })
+            .then((res) => {
+                console.log(res) 
+                 if(res.status === 200){
+                     this.props.history.push('/')
+                    }
+                    return alert('appointment has been booked')
+                }))
+        )
+             
+ } 
+    
+    
 
-  }
-
+//   [2]._owner.child.pendingProps.children[""0""]._self.props.calendar
+//   [2]._owner.child.pendingProps.children[""0""]._owner.stateNode.props
+//   [2]._owner.stateNode.props.calendar
+//   [2]._owner.pendingProps
+//   [""0""]._self.props
   // ...
 
   render() {
-console.log(this.props.time)
+console.log(this.props.calendar_id )
     return (
       <div className='App'>
 
@@ -126,30 +154,24 @@ console.log(this.props.time)
   }
 }
 export function mapStateToProps(state){
-  const {name, profession, description, email, website, time, appointment} = state
+  const {full_name, profession, description, email, website, time, appointment, stylist_name, userInfo} = state
   return {
-     name,
+     full_name,
       profession, 
       description,
       email,
       website,
       time,
-      appointment
+      appointment,
+      full_name,
+      stylist_name,
+      userInfo,
+
 
 
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//       addName: name => dispatch ({type: 'ADD_NAME', payload: name }),
-//       addProfession: profession => dispatch ({type: 'ADD_PROFESSION', payload: profession }),
-//       addDescription: description => dispatch({type: 'ADD_DESCRIPTION', payload: description}),
-//       addEmail: email => dispatch({type: 'ADD_EMAIL', payload: email}),
-//       addWebsite: website => dispatch({type: 'ADD_WEBSITE', payload: website}),
 
- 
-//   }
-// }
-const bindActionCreators = {addAppointment}
+const bindActionCreators = {addAppointment, getUserInfo}
 export default connect(mapStateToProps, bindActionCreators)(TakeMoney)

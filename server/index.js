@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
-const sendMail = require('./sendMail')
+// const sendMail = require('./sendMail')
 
 const {
 
@@ -122,35 +122,35 @@ app.get('/checkSession', (req, res) => {
   }
 })
 
-  // app.post('/send', (req, res, next) => {
-  //     const { full_name, month_name, day, time, email } = req.body
+  app.post('/sendEmail', (req, res, next) => {
+      const { stylist_name, full_name, month_name, day, time, email } = req.body
     
-  //     const transporter = nodemailer.createTransport({
-  //       host: 'smtp.gmail.com',
-  //       port: 465,
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
     
-  //       proxy: 'http://localhost:9000/',
-  //       auth: {
-  //         user: 'kimguyton@gmail.com',
-  //         pass: 'Haley12112006@'
-  //       },
-  //     })
-  //     const mailOptions = {
-  //       from: `"Kim Guyton" <kimguyton@gmail.com>`,
-  //       to: `${email}`,
-  //       subject: `Appointment Booked from PrivyChic`,
-  //       text: `Thank you for using PrivyChic, your appointment is scheduled with ${full_name} on ${month_name} ${day} at ${time}`,
-  //        replyTo: `${req.body.email}`,
-  //        html: '<b>From PrivyChic</b>'
-  //     }
-  //     transporter.sendMail(mailOptions, (err, res) => {
-  //       if (err) {
-  //         console.error('there was an error: ', err);
-  //       } else {
-  //         console.log('Message Sent: %s ', res.info)
-  //       }
-  //     })
-  //   })
+        proxy: 'http://localhost:9000/',
+        auth: {
+          user: 'kimguyton@gmail.com',
+          pass: 'Haley12112006@'
+        },
+      })
+      const mailOptions = {
+        from: `"Kim Guyton" <kimguyton@gmail.com>`,
+        to: `${email}`,
+        subject: `Appointment Confirmation from PrivyChic`,
+        text: `${full_name}, Thank you for using PrivyChic, your appointment is scheduled with ${stylist_name} on ${month_name}, ${day} at ${time}.`,
+         replyTo: `kimguyton@gmail.com`,
+         html: '<b>From PrivyChic</b>'
+      }
+      transporter.sendMail(mailOptions, (err, res) => {
+        if (err) {
+          console.error('there was an error: ', err);
+        } else {
+          console.log('Message Sent: %s ', res.info)
+        }
+      })
+    })
   
 
 
@@ -166,6 +166,7 @@ app.get('/checkSession', (req, res) => {
   app.post('/auth/signup/business', ctrl.create_business)
   app.post('/auth/login/business', ctrl.business_login)
   app.post('/api/appointments/:id', ctrl.create_booking)
+  app.put('/api/appointments/:id/bookings', ctrl.create_token)
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
 

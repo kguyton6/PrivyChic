@@ -3,14 +3,16 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom'
 import './profile.css'
 import Services from './Services'
-import Appointment from '../forms/Appointment'
 import search from '../assets/search.png'
 import menu from '../assets/menu.png'
 import '../../reset.css'
 import {connect} from 'react-redux'
-import {showServices} from '../../ducks/actions/action_creators'
 import Login from '../login/modal/login/Login'
-import Availability from './Availability'
+import {Button} from 'react-bootstrap'
+import CustomMenu from '../dropdown/CustomMenu'
+import {addStylistName} from '../../ducks/actions/action_creators'
+
+
 
 const title = {
     height: '40px',
@@ -18,6 +20,33 @@ const title = {
     textDecoration: 'underline',
 
 }
+const well = {
+    position: 'absolute',
+    width: '150px',
+     height: '90px',
+    left: '5%',
+    zIndex: '10',
+    fontSize: '10px',
+    marginTop: '8%',
+    fontWeight: 'bold',
+    justifyContent: 'space-evenly',
+     flexDirection: 'column',
+    backgroundColor: 'rgba(226, 226, 226, 0.918)',
+    display: 'flex',
+    bordeRadius: '3px',
+  overflowWrap: 'break-word',
+    boxShadow: 'rgba(128, 128, 128, 0.431)',
+    cursor: 'pointer',
+    TextAlign: 'left'
+  }
+  const searchMenu = {
+    cursor: 'pointer',
+    color: 'rgb(56, 56, 56)',
+    fontSize: '18px',
+    textAlign: 'left',
+    letterSpacing: '1px',
+    textIndent: '5px',
+  }
 
 class Profile extends Component {
     constructor(props) {
@@ -25,19 +54,22 @@ class Profile extends Component {
 
         this.state = {
             profile: [],
-            full_name: '',
+            stylist_name: '',
             loginModal: false,
             services: [],
             calendar: [],
-            showTitles: true
+            showTitles: true,
+            open: false
         }
     }
 
     componentDidMount = () => {
         axios.get(`/api/profile/${this.props.match.params.id}`)
             .then((res) => {
-                console.log(res)
-                this.setState({ profile: res.data, full_name: res.data[0].full_name})
+                console.log(res.data[0].full_name)
+
+                this.setState({ profile: res.data, stylist_name: res.data[0].full_name,  })
+                this.props.addStylistName(res.data[0].full_name)
             },
                 axios.get(`/api/services/${this.props.match.params.id}`)
                     .then((res) => {
@@ -62,6 +94,20 @@ class Profile extends Component {
             }
         }
     }
+    menu = () => {
+        this.setState(prevState => {
+            return {
+                open: !prevState.open
+            }
+        })
+    }
+    dropdown = () => {
+        if(this.state.open) {
+          return (
+            <CustomMenu open={this.menu} menuStyle={searchMenu} wellStyle={well} login={this.showModal}/>
+          )
+        }
+      }
 
     showProfile = () => {
         let profile = this.state.profile
@@ -178,7 +224,9 @@ class Profile extends Component {
             <div className='App'>
 
                 <div className='profile-head' width='100%'>
-                <img src={menu} className='profile-menu' width='40px' height='30px'/>
+                <Button onClick={this.menu}><img src={menu} className='profile-menu' width='40px' height='30px'/>
+                {this.dropdown()}
+                </Button>
                     <Link to='/' className='profile-logo-title'>PrivyChic</Link>
                     <div className='profile-link-container'>
                         <span onClick={(showLogin) =>this.toggleModal(showLogin)} className='profile-link' >Sign Up</span>
@@ -191,7 +239,7 @@ class Profile extends Component {
                 {this.showProfile()}
                 <div className='profile-main-container'>
                 <div className='service-container'>
-                <h4 className='service-menu-title'>{`${this.state.full_name}'s Service Menu`}</h4>
+                <h4 className='service-menu-title'>{`${this.state.stylist_name}'s Service Menu`}</h4>
                 {!this.state.showTitles ?
                 <div className='labels'>
                 <label style={title}className='service_name-title'>Service </label>
@@ -201,7 +249,7 @@ class Profile extends Component {
                 </div> :
                 <div className='labels'> </div>}
                  <div className='services' id='available'>  
-                 <Services title={this.showServiceTitles}services={this.state.services} calendar={this.state.calendar} showAvailability={this.showAvailability}full_name={this.state.full_name}/>
+                 <Services title={this.showServiceTitles} services={this.state.services} calendar={this.state.calendar} showAvailability={this.showAvailability} stylist_name={this.state.stylist_name}/>
                 </div>
 
                 </div>
@@ -218,11 +266,13 @@ class Profile extends Component {
         )
     }
 }
-// const mapStateToProps = (state) => {
-//     return {
-//         displayServices: state.displayServices,
-//         showServices: showServices()
-//     }
-// }
-// const bindActionCreators = {showServices}
-export default Profile
+const mapStateToProps = (state) => {
+    const {userInfo, stylist_name} = state
+    return {
+        userInfo,
+        stylist_name
+    }
+}
+ 
+const bindActionCreators = {addStylistName}
+export default connect(mapStateToProps, bindActionCreators)(Profile)

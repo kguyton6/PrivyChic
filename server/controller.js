@@ -21,7 +21,6 @@ module.exports = {
 
     stylist_zip: async(req, res, next) => {
         const dbInstance = req.app.get('db')
-        const { accept_payment } = req.body
         console.log(req.params.id)
 
         dbInstance.stylist_zip(req.params.id)
@@ -86,11 +85,16 @@ module.exports = {
         }
        
         let newBusiness = await dbInstance.create_business(req.session.user.user_id, business_name, phone_number, streetaddress, city, state, zipcode, portfolio, full_name, first_name, last_name, profession, about, picture, accept_payment)
-        
-         let responseUser = {user: req.session.user, newBusiness}
-     
-        res.status(200).send(responseUser)
-        
+        if(newBusiness){
+         let updatedUser = await dbInstance.updateUser('business', newBusiness[0].user_id)
+         if(updatedUser){
+            req.session.user = updatedUser[0]
+            let responseUser = {updatedUser: req.session.user, newBusiness}
+            res.status(200).send(responseUser)
+         }
+      } else {
+          res.status(401).send('registration error')
+      }
     },
     get_calendar: (req, res) => {
       const  dbInstance = req.app.get('db')
@@ -98,7 +102,7 @@ module.exports = {
       dbInstance.get_calendar()
           .then((data) => res.status(200).send(data))
       
-    },
+  },
 
     allServices: async(req, res, next) => {
         const dbInstance = req.app.get('db')
@@ -114,14 +118,23 @@ module.exports = {
     },
     create_booking: (req, res) => {
             const dbInstance = req.app.get('db')
-            const { service_id, available_id } = req.body
+            const { service_id, calendar_id } = req.body
+            console.log(service_id, calendar_id, token)
 
           
-           dbInstance.create_booking(service_id, req.params.id, req.session.user.user_id, available_id)
+           dbInstance.create_booking(service_id, req.params.id, req.session.user.user_id, calendar_id, token)
             .then((appointment) => res.status(200).send(appointment))
           
     },
+    create_token: (req, res) => {
+        const dbInstance = req.app.get('db')
+        const {token} = req.body
 
+        dbInstance.create_token(token, req.params.id)
+        .then((res) => {
+            console.log(res)
+        })
+    },
   
 
     business_login: async (req, res) => {
