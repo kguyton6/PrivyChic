@@ -229,8 +229,8 @@
         color: white;
     } */
   
-/*
-@media screen and (min-width: 650px) and (max-width: 899px) {
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
     .schedule, .logo, .name-input, #date, .search-button, .marker-icon, .signup-link, .login-link, .help-link, .responsive-title {
         display: none;
     }
@@ -238,58 +238,57 @@
         width: 100vw;
         background-color: black;
         display: flex;
-        height: 80px;
+        height: 140px;
         position: relative;
         
     }
     .header-inputs {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         width: 100%;
         position: relative;
-
+    }
+    
+    .results-logo {
+        height: 100px;
+        width: 250px;
 
     }
-    .menu-container {
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        font-size: 16px;
-        width: 50px;
-        z-index: -1;
-
-        
+    .no-results {
+        width: 40%;
+        height: auto;
+        font-size: 26px;
     }
 
     .menu-icon {
-        height: 30px;
+        height: 60px;
+        width: auto;
         cursor: pointer;
-        margin: 3%;
-        position: absolute;
+        margin-left: 5%;
+
         z-index: 10;
 
     }
     .location-input {
         width: 80%;
-        font-size: 14px;
-        border-radius: 17px;
-        height: 35px;
+        font-size: 18px;
+        border-radius: 30px;
+        height: 65px;
         color: lightgray;
         text-indent: 10%;
         font-size: 16px;
         background-color: rgb(85, 93, 94);
         border: none;
-        margin-right: 5%;
-        margin-top: 20px;
 
-    
+   
     }
 
     
     .search-icon1 {
         position: absolute;
-        left: 16%;
-        top: 25px;
+        left: 18%;
+        top: 8px;
+        width: 8%;
     } 
    
     
@@ -307,7 +306,7 @@
     .payments-text {
         margin-left: 5%;
         display: flex;
-        font-size: 16px;
+        font-size: 26px;
         font-weight: lighter;
         margin-top: 3%;
         width: 40%;
@@ -322,80 +321,79 @@
     
     }
     
-    .filter-text {
-        margin-left: 5%;
-        margin-top: 3%;
-        font-weight: bolder;
-        font-size: 18px;
+    .payment-checkbox {
+        width: 50px;
+        block-size: 20px;
     }
     
     .stylist-card {
-        width: 70%;
-        height: 25vw;
+        width: 80%;
+        height: 45vw;
         position: relative;
         border-color: rgba(156, 156, 156, 0.767);
         border-style: solid;
         border-width: thin;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         margin-left: 5%;
         margin-bottom: 1%;
     
     }
-    .profile-pic {
+    .search-profile-pic {
         width: 100%;
-        height: 10vw;
+        height: 100%;
         display: flex;
-        margin-left: 5%;
-    }
-    .picture {
-        border-radius:15px;
-        zoom: 2;
-        width: 18%;
-        height: 45%;
-        margin-top: 16%;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        z-index: 10;
 
     }
+    .picture {
+        border-radius:40px;
+        position: absolute;
+        right: 8%;
+        bottom: 25%;
+        width: 8vw;
+        height: 6vh;
+    }
     .responsive-box {
-        width: 55%;
+        width: 65%;
         height: 100%;
 
     }
     .profile-main-box {
-        margin-right: 5%;
         list-style-type: none; 
         display: flex;
         flex-direction: column;
-    }
-    .profile-box {
-        font-weight: bold;
-        margin-top: 10px;
 
-    } 
+    }
      .stylist-name {
-        margin-top: 22%;
-        margin-left: 5%;
-        font-size: 12px;
+        position: absolute;
+        left: 12%;
+        bottom:  1%;
+        font-size: 26px;
 
     }
     .view-photos {
-        font-size: 10px;
+        font-size: 18px;
         font-weight: bold;
         color: rgb(13, 79, 82);
         cursor: pointer;
         position: absolute;
-        right: 5%;
-        top: 5%;
+        right: 3%;
+        top: 3%;
     }
     .availability-filter {
         border-color: #00D7CC;
         color: #00D7CC;
         border-style: solid;
         border-width: thin;
-        width: 40%;
-        height: 4.5vw;
-        font-size: 12px;
-        left: 5%;
+        width: 50%;
+        height: 6vw;
+        font-size: 18px;
+        left: 15%;
         position: relative;
         display: flex;
         align-items: center;
@@ -410,41 +408,14 @@
  
     }
     
-    .service-filter {
-        position: absolute;
-        display: flex;
-        font-size: 12px;
-        width: 40%;
-        margin-left: 2%;
-       
-    }
-    .service-menu {
-        position: absolute;
-        width: 20%;
-        height: 30px;
-        overflow: hidden;
-        margin-top: 10px;
-    
-    }
-    
-    .profile-main-box {
-        margin-top: 2%;
-        width: 60%
-    }
-  
     .availability {
         position: absolute; 
-         border-style: solid;
-        border-width: thin;
-        border-top-color: rgb(160, 160, 160);
-        border-bottom: none;
-        border-right: none;
-        border-left: none;
         text-align: center;
         width: 50%;
         bottom: 10%;
         padding-top: 10px;
-        margin-left: 3%;
+        right: 0%;
+        background-color: transparent;
 
     }
     .time-list time{
@@ -461,16 +432,9 @@
         align-items: center;
         justify-content: center;
     }
-    img.down {
-       cursor: pointer;
-       margin-left: 5%;
-       margin-top: 3%;
-       width: 10px;
-       height: 5px;
-
-    }
+   
 }
-@media screen and (min-width: 900px) and (max-width: 1199px) {
+    /* @media screen and (min-width: 900px) and (max-width: 1199px) {
 
     .schedule, .menu-icon {
         display: none;
@@ -1229,4 +1193,4 @@ img.down {
     .menu-container, .menu-icon {
         display: none;
     }
-} */ 
+} */  

@@ -85,7 +85,7 @@ class Login extends Component {
     return (
     // this.state.disabled === true ?
       <div className='App'>
-        {this.state.showLogin === true && this.props.showLogin ?
+        {this.state.showLogin || this.props.showLogin ?
           <div className='login-modal'>
             <div className='modal'>
                 <img src={close} className='close' onClick={onClose} width='5%' height='5%' />

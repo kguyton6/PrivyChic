@@ -110,15 +110,6 @@ class Home extends Component {
   }
 
 
-  // toggleMenu = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       showMenu: !prevState.showMenu,
-
-  //     }
-  //   })
-  // }
-
   logout = () => {
     axios.get('/api/logout')
       .then((res) => {
@@ -137,7 +128,7 @@ class Home extends Component {
   dropdown = () => {
     if(this.state.open) {
       return (
-        <CustomMenu open={this.menu} menuStyle={homeMenu} wellStyle={homeWell} login={this.toggleModal}/>
+        <CustomMenu open={this.state.open} menuStyle={homeMenu} wellStyle={homeWell} login={this.toggleModal}/>
       )
     }
   }

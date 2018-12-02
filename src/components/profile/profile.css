@@ -144,8 +144,8 @@ li {
     align-self: center;
 
 }
-/*
-@media screen and (max-width: 750px){
+
+@media screen and (min-width: 900px){
     .profile-top-container{
         display: none;
     }
@@ -160,7 +160,8 @@ li {
         text-align: center;
         
     }
-    .profile-logo-title {
+}
+    /* .profile-logo-title {
         margin-left: 0%;
         margin-right: 40%;
         font-size: 30px;
@@ -369,4 +370,4 @@ ul.business_hours {
     }
 }
 
-} */
+} */ 

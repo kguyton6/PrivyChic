@@ -2,6 +2,9 @@ import React from 'react'
 import {Button, Collapse, Well, Fade, Navbar, Nav, MenuItem, NavDropdown, NavItem} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import './dropdown.css'
+import {connect} from 'react-redux'
+import { stat } from 'fs';
+
 
 // const wellStyle = {
 //   position: 'absolute',
@@ -30,11 +33,25 @@ import './dropdown.css'
 //   textIndent: '5px'
 // }
 
-export default class CustomMenu extends React.Component {
+class CustomMenu extends React.Component {
+
 
 
 render () {
+  console.log(this.props.children)
  return (
+   this.props.userInfo ?
+   <Fade in={this.props.open} >
+<div>
+    <Well className='width' style={this.props.wellStyle}>
+    <span style={this.props.menuStyle} onClick={this.props.login}>Log out</span>
+  <Link to={`/dashboard/${this.props.userInfo.user_type}`}><span style={this.props.menuStyle}>My Account</span></Link>  
+    <Link to='/'><span style={this.props.menuStyle}>Home</span></Link>
+    
+    </Well>
+    </div>
+</Fade>
+  :
 <Fade in={this.props.open} >
 <div>
     <Well className='width' style={this.props.wellStyle}>
@@ -49,3 +66,11 @@ render () {
 )
 }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+export default connect(mapStateToProps)(CustomMenu)

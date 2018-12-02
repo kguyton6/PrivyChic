@@ -230,7 +230,7 @@ class Search extends Component {
     dropdown = () => {
         if(this.state.open) {
           return (
-            <CustomMenu open={this.menu} menuStyle={searchMenu} wellStyle={well} login={this.toggleModal}/>
+            <CustomMenu open={this.state.open} menuStyle={searchMenu} wellStyle={well} login={this.toggleModal}/>
           )
         }
       }

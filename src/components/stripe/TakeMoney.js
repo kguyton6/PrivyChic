@@ -2,16 +2,12 @@
 import StripeCheckout from 'react-stripe-checkout'
 import React, { Component } from 'react'
 import close from '../assets/close.png'
-// import './profile_form.css'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-// import {Elements, StripeProvider} from 'react-stripe-elements';
-// import CheckoutForm from '../stripe/CheckOutForm';
+import {Link, withRouter} from 'react-router-dom'
 import Login from '../login/modal/login/Login'
 import '../login/modal/login/login.css'
 import './stripe.css'
 import axios from 'axios';
-// import { bindActionCreators } from '../../../../../../Library/Caches/typescript/3.1/node_modules/redux';
 import { addAppointment, getUserInfo } from '../../ducks/actions/action_creators'
 
 
@@ -59,7 +55,8 @@ class TakeMoney extends Component {
         .then((res) => {
             this.props.getUserInfo(res.data)
         })
-        this.props.addAppointment(this.props.month_name, this.props.day)
+
+
     }
    
     toggleLogin = () => {
@@ -93,18 +90,25 @@ class TakeMoney extends Component {
     }
 
   onToken = (stripeToken) => {
-     axios.post(`/save-stripe-token`, { stripeToken,  })
-     .then((res) => {
-         console.log(res)
-         this.setState({customer_id: res.data.data.customer.id})
-     },
-        axios.post(`/api/appointments/${this.props.business_id}`, 
-        {service_id: this.props.service_id, 
-         calendar_id: this.props.calendar_id, 
-        token: this.state.customer_id})
-        .then((res) => {
-            console.log(res)
-        },
+     axios.post(`/save-stripe-token`, { stripeToken, email: this.props.userInfo.email })
+     .then(() => {
+        return this.appointment()
+       
+     })
+}
+
+appointment = () => {
+    axios.post(`/api/appointments/${this.props.business_id}`, 
+    {service_id: this.props.service_id, 
+     calendar_id: this.props.calendar_id, 
+     client_id: this.props.userInfo.user_id,
+    token:  `${this.props.calendar_id}${this.props.userInfo.user_id}`})
+    .then((res) => {
+        if(res.status === 200){
+            this.props.addAppointment(res.data.appointment)
+            this.props.history.push(`/dashboard/${this.props.userInfo.user_type}`)
+           alert(`Appointment booked with ${this.props.stylist_name}`)  
+        
             axios.post('/sendEmail', 
             { email: this.props.userInfo.email, 
             full_name: this.props.userInfo.full_name, 
@@ -113,24 +117,21 @@ class TakeMoney extends Component {
             day:  this.props.day, 
             time: this.props.appointment_time })
             .then((res) => {
-                console.log(res) 
-                 if(res.status === 200){
-                     this.props.history.push('/')
-                    }
-                    return alert('appointment has been booked')
-                }))
-        )
-             
- } 
-    
-    
+                console.log(res)
+               
+            })
+         
+           } else {
+                alert('Please Login and Try again')
+           }
+           
+        })
+}
 
-//   [2]._owner.child.pendingProps.children[""0""]._self.props.calendar
-//   [2]._owner.child.pendingProps.children[""0""]._owner.stateNode.props
-//   [2]._owner.stateNode.props.calendar
-//   [2]._owner.pendingProps
-//   [""0""]._self.props
-  // ...
+        
+
+
+       
 
   render() {
 console.log(this.props.calendar_id )
@@ -174,4 +175,4 @@ export function mapStateToProps(state){
 
 
 const bindActionCreators = {addAppointment, getUserInfo}
-export default connect(mapStateToProps, bindActionCreators)(TakeMoney)
+export default withRouter(connect(mapStateToProps, bindActionCreators)(TakeMoney))

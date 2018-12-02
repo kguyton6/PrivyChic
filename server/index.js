@@ -9,7 +9,7 @@ const ctrl = require('./controller')
 const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
-// const sendMail = require('./sendMail')
+
 
 const {
 
@@ -61,13 +61,16 @@ app.use(session({
 
 const stripe = require("stripe")("sk_test_WidQ87DFISivzhHHZIYyZX0p");
 app.post('/save-stripe-token', async (req, res) => {
+  let { email } = req.body
   let token = (req.body, 'tok_mastercard')
+
   const customer = await stripe.customers.create({
     source: token,
+    email: email
+    
   });
   res.json({ customer });
-
-
+  
   res.status(500).end();
 });
 
@@ -101,14 +104,18 @@ app.post('/auth/login', async (req, res) => {
   let result = await bcrypt.compareSync(password, user[0].password);
   console.log(result)
   if (result) {
+    if (user[0].user_type === 'client') {
     req.session.user = user[0]
-    if (user[0].user_type === 'business') {
-      let businessUser = await dbInstance.getStylist(req.session.user.user_id)
-      req.session.user = businessUser[0]
-      res.status(200).send(req.session.user)
-
-    } else {
       console.log(req.session.user)
+      res.status(200).send(req.session.user)
+      
+    } else {
+      console.log(user[0].user_id)
+     let  businessUser = await dbInstance.loginbusiness(user[0].user_id)
+      if(businessUser){
+      req.session.user = businessUser[0]
+      }
+      console.log(req.session)
       res.status(200).send(req.session.user)
     }
   } else {
@@ -126,9 +133,7 @@ app.get('/checkSession', (req, res) => {
       const { stylist_name, full_name, month_name, day, time, email } = req.body
     
       const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-    
+        service: 'gmail',
         proxy: 'http://localhost:9000/',
         auth: {
           user: 'kimguyton@gmail.com',
@@ -139,15 +144,16 @@ app.get('/checkSession', (req, res) => {
         from: `"Kim Guyton" <kimguyton@gmail.com>`,
         to: `${email}`,
         subject: `Appointment Confirmation from PrivyChic`,
-        text: `${full_name}, Thank you for using PrivyChic, your appointment is scheduled with ${stylist_name} on ${month_name}, ${day} at ${time}.`,
+        text: `${full_name}, Thank you for using PrivyChic, your appointment is scheduled with ${stylist_name} on ${month_name} ${day}, at ${time}.`,
          replyTo: `kimguyton@gmail.com`,
          html: '<b>From PrivyChic</b>'
       }
-      transporter.sendMail(mailOptions, (err, res) => {
+      console.log(mailOptions)
+      transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
           console.error('there was an error: ', err);
         } else {
-          console.log('Message Sent: %s ', res.info)
+          console.log('Message Sent: %s ', info.response)
         }
       })
     })
@@ -161,12 +167,12 @@ app.get('/checkSession', (req, res) => {
   app.get('/api/date/:id', ctrl.get_availablility)
   app.get('/api/profile/:id', ctrl.getStylist)
   app.get('/api/calendar', ctrl.get_calendar)
+  app.get('/api/appointments', ctrl.myAppointments)
   app.get('/api/services/:id', ctrl.allServices)
   app.get('/api/payments', ctrl.accept_payments)
   app.post('/auth/signup/business', ctrl.create_business)
   app.post('/auth/login/business', ctrl.business_login)
   app.post('/api/appointments/:id', ctrl.create_booking)
-  app.put('/api/appointments/:id/bookings', ctrl.create_token)
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
 

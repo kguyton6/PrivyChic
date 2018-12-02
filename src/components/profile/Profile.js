@@ -59,7 +59,8 @@ class Profile extends Component {
             services: [],
             calendar: [],
             showTitles: true,
-            open: false
+            open: false,
+            showLogin: false
         }
     }
 
@@ -79,21 +80,30 @@ class Profile extends Component {
                    
             )
     }
+    toggleLogin = () => {
+        this.setState(prevState => {
+            return {
+                showLogin: !prevState.showLogin,
+                showSignUp: prevState.showSignUp
+            }
+        })
+    }
+    toggleSignUp = () => {
 
+    }
   
     showModal = () => {
-        if(this.props.showLogin){
+        if(this.state.showLogin){
             return (
-                <Login onClose={this.toggleLogin} />
+                <Login onClose={this.toggleLogin} login={this.state.showLogin}/>
             )
-        } else {
-            if(this.props.showSignUp){
+        } else if(this.state.showSignUp){
                 return (
                     <Login onClose={this.toggleSignUp} />
                 )
             }
         }
-    }
+    
     menu = () => {
         this.setState(prevState => {
             return {
@@ -102,9 +112,10 @@ class Profile extends Component {
         })
     }
     dropdown = () => {
+        
         if(this.state.open) {
           return (
-            <CustomMenu open={this.menu} menuStyle={searchMenu} wellStyle={well} login={this.showModal}/>
+            <CustomMenu open={this.state.open} menuStyle={searchMenu} wellStyle={well} login={this.toggleLogin} showLogin={this.state.showLogin} />
           )
         }
       }
@@ -254,8 +265,7 @@ class Profile extends Component {
 
                 </div>
                  {this.showAddress()}
-
-
+                {this.showModal()}
 
                 {this.businessHours()}
     </div>
