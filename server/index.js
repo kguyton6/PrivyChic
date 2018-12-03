@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const massive = require('massive')
 const ctrl = require('./controller')
-const cors = require('cors')
 const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
 
@@ -28,12 +27,9 @@ massive(DATABASE_URL).then(dbInstance => {
   console.log('database connected')
 }).catch(err => console.log(err, 'connection error'))
 
-app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(require("body-parser").text());
 
 
+app.use(bodyParser.json())
 
 
 app.use(session({
@@ -175,7 +171,6 @@ app.get('/checkSession', (req, res) => {
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
   app.delete('/api/delete/appointment/:id', ctrl.delete_appointment)
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'));
   });
