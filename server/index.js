@@ -134,7 +134,6 @@ app.get('/checkSession', (req, res) => {
     
       const transporter = nodemailer.createTransport({
         service: 'gmail',
-        proxy: 'http://localhost:9000/',
         auth: {
           user: 'kimguyton@gmail.com',
           pass: 'Haley12112006@'

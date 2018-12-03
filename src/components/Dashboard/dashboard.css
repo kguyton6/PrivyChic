@@ -1,10 +1,15 @@
 
-
+.App {
+    width: 100%;
+    height: 100%;
+}
 .appointments {
-    width: 60%;
-    border: black solid thin;
+    width: 100%;
+    height: 100%;
+    margin-top: 3%;
     color: black;
     height: 10vh;
+    font-size: 26px;
 }
 .dashboard-header-responsive {
     background-color: black;
@@ -39,6 +44,28 @@
     display: unset;
 
 
+}
+.cancel {
+    width: 80px;
+    background-color: #06D8CC;
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+}
+.dashboard-main-box {
+    height: 30vh;
+    width: 60%;
+    margin-top: 10%;
+    border: #06D8CC thin solid;
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.user-title {
+    font-size: 1.5rem;
+    margin-bottom: 5%;
 }
 div.width.well {
     text-align: left;

@@ -112,7 +112,9 @@ class Search extends Component {
                             </div>
                             <div className='availability'>
                                 <div className='availability-filter'>
-                                   <button className='search-button' onClick={() => this.showAvailability(stylists[i].business_id, stylists[i].service_id)}>Check Availability</button> 
+                                    <Button onClick={() => this.showAvailability(stylists[i].business_id)} className='availability-text'>Check Availability
+
+                                    </Button>
                                
                                 </div>
                                
@@ -123,9 +125,9 @@ class Search extends Component {
                     
 
             )
-            return stylist
         }
 
+    return stylist
         } else {
             return <div className='no-results'>
                 No Search Results
@@ -154,7 +156,7 @@ class Search extends Component {
     showAvailability = (id) => {
         this.setState(prevState => {
             return {
-                stylistSchedule: !prevState.stylistSchedule,
+                availability: !prevState.availability,
                 service_id: id
             }
         })      
@@ -190,10 +192,10 @@ class Search extends Component {
         }
       }
       
-      showSchedule = (id, business_id) => {
-          if(this.state.open){
+      showSchedule = () => {
+          if(this.state.showAvailability){
               return (
-                  <Schedule onClose={this.showAvailability} business_id={business_id}service_id={id}/>
+                  <Schedule onClose={this.showAvailability}/>
               )
           }
       }
@@ -247,7 +249,7 @@ class Search extends Component {
                 </div>
                 <div className='stylist-container'>
                     {this.showStylist()}
-                    {this.showSchedule()}
+
 
                 </div>
             </div>

@@ -1,8 +1,4 @@
-
-    .business-logo, .business-nav {
-        display:none;
-
-    }    
+  
  
 
    .App {
@@ -421,12 +417,7 @@
 
 @media screen and (min-width: 1200px) and (max-width: 1500px) {
   
-    .business-title, .search-icon-link, .business-menu, .business-header {
-        display: none;
-    }
-    .business-logo {
-        display: visible;
-    }
+  
 
 
 .responsive-header {

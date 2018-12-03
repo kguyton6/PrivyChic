@@ -24,7 +24,8 @@ class Dashboard extends Component {
             calendar_id: null,
             client_id: null,
             open: false,
-            name: 'User'
+            name: 'User',
+            appointment: []
         }
     }
 
@@ -32,14 +33,14 @@ class Dashboard extends Component {
         axios.get('/checkSession')
         .then((res) => {
             console.log(res.data)
-            this.setState({name: res.data[0].full_name})
             this.props.getUserInfo(res.data)
+            this.setState({name: this.props.userInfo.full_name})
    
         },
         axios.get(`/api/appointments/${this.props.match.params.id}`)
         .then((res) => {
             console.log(res)
-            this.props.addAppointment(res.data)      
+          this.setState({appointment: res.data})
              
         }))
     }
@@ -73,19 +74,22 @@ class Dashboard extends Component {
            })
         }
         appointments = () => {
-            let appointment = this.state.appointment
             if(this.state.appointment){
-            console.log(appointment)
-                return (
+            let appointment = this.state.appointment
+            let time = []
+            for(let i in appointment){
+                time.push(
                     <div className='appointments'>                   
                     <li>{appointment[0].month_name}</li>
                     <li>{appointment[0].day}</li>
                     <li>{appointment[0].year}</li>
                     <li>{appointment[0].time}</li>
-                    <button onClick={this.cancel}>Cancel</button>
+                    <button className='cancel' onClick={this.cancel}>Cancel</button>
                     </div>
 
-                    )     
+)
+return time
+}    
         } else {
             return (
                 <div>No Appointments Booked</div>
@@ -151,7 +155,7 @@ class Dashboard extends Component {
 
 
            <div className='dashboard-main-box'>
-            <span>{`${this.props.userInfo.full_name}'s Appointment`}</span>
+            <span className='user-title'>{`${this.props.userInfo.full_name}'s Appointments`}</span>
                 {this.appointments()}
         </div> 
         </div> 
