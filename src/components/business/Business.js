@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from '../assets/Artboard1.png'
+import businessLogo from '../assets/Artboard3.png'
 import './business.css'
 import { Link } from 'react-router-dom'
 import BusinessSignUp from '../login/modal/business/BusinessSignUp'
@@ -110,7 +110,7 @@ class Business extends Component {
     dropdown = () => {
         if(this.state.open) {
           return (
-            <CustomMenu login={this.toggleLogin} open={this.menu} wellStyle={businessWell} menuStyle={businessMenu}/>
+            <CustomMenu login={this.toggleLogin} open={this.menu} wellStyle={businessWell} menuStyle={businessMenu} logout={this.logout}/>
           )
         }
       }
@@ -127,10 +127,8 @@ class Business extends Component {
 
                
                     <span className='business-title'>PrivyChic</span>
-<Link to='search' className='search-icon'><img src={search} width='30px'/></Link>
-                    </div>
-                    <div className='business-header'>
-                    <Link to='/'><img src={logo} alt='logo' className='business-logo' width='190px' height='70px' /></Link>
+<Link to='search' className='search-icon-link'><img src={search} width='100%' className='business-search-icon'/></Link>
+                    <Link to='/' className='business-logo-link'><img src={businessLogo} alt='logo' className='business-logo' width='190px' height='70px' /></Link>
                         {this.props.userInfo.user_type === 'client' ? 
                     <nav className='business-nav'>
                           <span className='profile-img'>{`Hi ${this.props.userInfo.full_name},`} Start Growing Your business Today -----></span>
@@ -139,10 +137,11 @@ class Business extends Component {
                         <span className='business-nav-links'>Blog</span>
                         <span onClick={this.logout}className='business-nav-links'>Logout</span> 
                         <div className='icons-container'>
-                        {/* <img className='bell' src={bell} width='30px' height='30px' /> */}
+                        <img className='bell' src={bell} width='30px' height='30px' />
                         <div className='nav-dropdown' >
-                          {/* <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' /> */}
-                        </div></div></nav> :
+                          <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
+                          </div>
+                        </div></nav> :
                           <nav className='business-nav'>
                               <span className='business-nav-links'>Pricing</span>
                         <span className='business-nav-links'>Blog</span>

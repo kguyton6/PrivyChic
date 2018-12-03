@@ -48,13 +48,9 @@ module.exports = {
     myAppointments: (req, res) => {
         const dbInstance = req.app.get('db')
         console.log(req.session)
-        if(req.session.user.business_id){
-            dbInstance.bookedAppointments(req.session.user.user_id)
+            dbInstance.myAppointments(req.params.id)
             .then((data) => res.status(200).send(data))
-        } else {
-            dbInstance.myAppointments(req.session.user.user_id)
-        .then((data) => res.status(200).send(data))
-        }    
+         
     },
     get_availablility: async (req, res) => {
         const dbInstance = req.app.get('db')
@@ -109,7 +105,7 @@ module.exports = {
     get_calendar: (req, res) => {
         const dbInstance = req.app.get('db')
 
-        dbInstance.get_calendar()
+        dbInstance.get_calendar(req.params.id)
             .then((data) => res.status(200).send(data))
 
     },
@@ -179,6 +175,12 @@ module.exports = {
 
         dbInstance.delete_business(req.params.id)
             .then(() => res.status(200).send('delete business success'))
+    },
+    delete_appointment: (req, res) => {
+        const dbInstance = req.app.get('db')
+
+        dbInstance.delete_appointment(req.params.id)
+        .then(() => res.status(200).send('sucess'))
     }
 
 }

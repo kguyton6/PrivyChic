@@ -44,16 +44,7 @@ class Services extends Component {
 
         }
     }
-            // componentWillMount = () => {
-            //     axios.get('/checkSession')
-            //     .then((res) => {
-            //         if(res.data){
-            //             this.props.userInfo(res.data)
-            //         } else {
-            //             return false
-            //         }
-            //     })
-            // }
+         
        
             showTimes = (id) => {
                 this.setState(prevState => {
@@ -81,12 +72,12 @@ class Services extends Component {
             let service = []
             for(let i in services){
                 service.push(
-                    <div key={i} style={menuStyle}>          
+                    <div key={i} >          
                         <ul style={serviceList}>
-                            <li style={listElement} id='service_name'>{services[i].service_name}</li>
-                            <li style={listElement} id='description'>{services[i].description}</li>
-                            <li style={listElement} id='price'>{services[i].price}</li>
-                            <li style={listElement} id='duration'>{services[i].duration}</li>
+                            <li  id='service_name'>{services[i].service_name}</li>
+                            <li  id='description'>{services[i].description}</li>
+                            <li  id='price'>{services[i].price}</li>
+                            <li  id='duration'>{services[i].duration}</li>
                         <button style={buttonStyle} id='service-button'onClick={() => this.showTimes(services[i].service_id)}>Select</button>
                         </ul>
                     </div>

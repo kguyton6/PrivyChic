@@ -6,11 +6,10 @@
 }
 
 
-
-/* @media screen and (min-width: 350px) and (max-width: 650px) {
-    .logo, .name-input, #date, .nav-links, .search-button, .marker-icon, .service-filter, .availability-text {
-        display: none;
-    } */
+.buttonStyle, .btn.btn-default {
+    background-color: transparent;
+    border-color: transparent;
+}
 
     .search-header {
         background-color: #2A2D32;
@@ -93,15 +92,16 @@
         position: relative;
     }
     .stylist-card {
+        margin-top: 5%;
         width: 85%;
-        height: 35vh;
+        height:40vh;
         position: relative;
-        border-color: rgba(156, 156, 156, 0.767);
+        border-color: rgba(207, 206, 206, 0.705);
         border-style: solid;
         border-width: thin;
         display: flex;
         flex-direction: column;
-        /* margin-bottom: 10%; */
+
     }
     .no-results {
         display: flex;
@@ -120,10 +120,10 @@
      display: none;
     }
     .picture {
-        border-radius: 25px;
+        border-radius: 40px;
         zoom: 2;
-        width: 10vw;
-        height: 5vh;
+        width: 9vw;
+        height: 9vw;
         margin-left: 5%;
        z-index: 1000;
        /* margin-top: 5%; */
@@ -207,7 +207,7 @@
         background-color: white;
         color: black;
         overflow-x: scroll;
-        height: 60px;
+        height: 90px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -215,22 +215,9 @@
 
 
     }
-    /* .schedule {
-        color: #00D7CC;
-        border-style: solid;
-        border-width: thin;
-      text-align: center;
-        margin-right: 2%;
-        padding: 2%;
-        height: auto;
-    } */
-    /* .schedule:hover {
-        background-color: #00D7CC;
-        color: white;
-    } */
-  
+    
 
-@media screen and (min-width: 600px) and (max-width: 900px) {
+@media (min-width: 600px) and (max-width: 900px) {
     .schedule, .logo, .name-input, #date, .search-button, .marker-icon, .signup-link, .login-link, .help-link, .responsive-title {
         display: none;
     }
@@ -258,13 +245,41 @@
         width: 40%;
         height: auto;
         font-size: 26px;
+        text-align: center;
     }
+    .searchMenu {
+        cursor: pointer;
 
+        color: rgb(56, 56, 56);
+        font-size: 18px;
+        text-align: left;
+        letter-spacing: 1px;
+        text-indent: 5px;
+        display: flex;
+        flex-direction: column;
+        width: 50px;
+        color: black;
+        top: 5%;
+        height: 20%;
+        left: 3%;
+    
+    }
+    .width.well {
+        width: 100px;
+        top: 30px;
+        position: absolute;
+    }
+    #business, #account, #login, #home {
+        color: black;
+
+    }
     .menu-icon {
-        height: 60px;
+        height: 50px;
         width: auto;
         cursor: pointer;
-        margin-left: 5%;
+        position: absolute;
+        left: 3%; 
+        top: 5%;
 
         z-index: 10;
 
@@ -273,12 +288,13 @@
         width: 80%;
         font-size: 18px;
         border-radius: 30px;
-        height: 65px;
+        height: 50px;
         color: lightgray;
         text-indent: 10%;
         font-size: 16px;
         background-color: rgb(85, 93, 94);
         border: none;
+
 
    
     }
@@ -286,30 +302,22 @@
     
     .search-icon1 {
         position: absolute;
-        left: 18%;
-        top: 8px;
-        width: 8%;
+        left: 110px;
+        top: 7px;
+        width: 6%;
     } 
    
     
-    .toggle {
-        width: 20px;
-        height: 20px;
-        border-radius: 15px;
-        border-color: black;
-        border-style: solid;
-        border-width: thin;
-        margin-left: 5%;
-
-    }
+ 
     
     .payments-text {
         margin-left: 5%;
+        margin-right: 3%;
         display: flex;
         font-size: 26px;
         font-weight: lighter;
         margin-top: 3%;
-        width: 40%;
+        width: 70%;
     }
     
     .search-top-container {
@@ -323,7 +331,8 @@
     
     .payment-checkbox {
         width: 50px;
-        block-size: 20px;
+        block-size: 40px;
+        background-color: #00D7CC;
     }
     
     .stylist-card {
@@ -351,12 +360,12 @@
 
     }
     .picture {
-        border-radius:40px;
+        border-radius:60px;
         position: absolute;
         right: 8%;
         bottom: 25%;
         width: 8vw;
-        height: 6vh;
+        height: 8vw;
     }
     .responsive-box {
         width: 65%;
@@ -369,11 +378,12 @@
         flex-direction: column;
 
     }
-     .stylist-name {
+    
+     span.stylist-name {
         position: absolute;
-        left: 12%;
-        bottom:  1%;
-        font-size: 26px;
+        left: 3%;
+        bottom:  0%;
+        font-size: 2em;
 
     }
     .view-photos {
@@ -385,7 +395,11 @@
         right: 3%;
         top: 3%;
     }
-    .availability-filter {
+    .search-button:hover {
+        color: white;
+        background-color: #00D7CC;
+    }
+    .availability-filter, .avialability-text {
         border-color: #00D7CC;
         color: #00D7CC;
         border-style: solid;
@@ -398,14 +412,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        
+        margin-top: 10%;
+        cursor: pointer;
     
     }
-    span.availability-text:hover {
-        cursor: pointer;
-        background-color: #00D7CC;
-        color: white;
- 
+    .availability-text, a {
+       color: #00D7CC;
+        
     }
     
     .availability {
@@ -434,763 +447,69 @@
     }
    
 }
-    /* @media screen and (min-width: 900px) and (max-width: 1199px) {
-
-    .schedule, .menu-icon {
-        display: none;
-    }
-    .search-header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        border-bottom-color: lightgray;
-        border-bottom-width: thin;
-        border-bottom-style: solid;
-        height: 80px;
-
-    }
-   .logo {
-       width: 120px;
-       height: 40px;
-       margin-left: 5%;
-
-   }
-   .nav-links {
-       width: 30%;
-       display: flex;
-       align-items: center;
-        justify-content: flex-end;
-        margin-right: 3%;
-
-   }
-   .signup-link, .login-link, .help-link {
-       margin: 3%;
-   }
-   .search-button {
-    width: 14%;
-    height: 36px;
-    color: white;
-    background-color: #00D7CC; 
-    font-weight: bolder;
-    font-size: 16px;
-    position: inherit;
-
-
-   }
-   .header-inputs {
-       position: relative;
-        width: 70%;
-        margin-left: 3%;
-        height: 40px;
-
-   }
-   .name-input, .location-input {
-    height: 30px;
-        width: 22%;
-        font-size: 14px;
-        text-indent: 30px;
-   }
-   .search-icon1 {
-       position: absolute;
-        height: 80%;
-        top: 5px;
-
-   }
-   .marker-icon {
-       height: 50%;
-       position: absolute;
-       top: 10px;
-       left: 25%;
-   }
-   #date {
-    height: 32px;
-    width: 18%;
-    font-size: 14px;
-    text-indent: 5px;
-    color: rgb(107, 107, 107);
-   }
-
-   .search-top-container {
-       margin-top: 3%;
-       width: 100%;
-       display: flex;
-       margin-bottom: 5%;
-
-   }
-   .filter-text {
-       font-weight: bold;
-       margin-left: 5%;
-   }
-   .payments-text {
-       font-size: 14px;
-       margin-left: 5%;
-       position: relative;
-       display: flex;
-
-   }
-   .toggle {
-       width: 20px;
-       height: 20px;
-       border-radius: 15px;
-       border-color: black;
-       border-style: solid;
-        border-width: thin;
-        margin-left: 10px;
-   }
-   .stylist-card {
-    width: 70%;
-    height: 22vw;
-    position: relative;
-    border-color: rgba(156, 156, 156, 0.767);
-    border-style: solid;
-    border-width: thin;
-    display: flex;
-    justify-content: space-between;
-    margin-left: 5%;
-    margin-bottom: 1%;
-
-}
-.profile-pic {
-    width: 100%;
-    display: flex;
-
-
-
-
-.picture {
-    border-radius:15px;
-    zoom: 2;
-    width: 25px;
-    height: 25px;
-    margin-right: 5%;
-    margin-left: 5%;
-
-
-}
-.responsive-box {
-    width: 50%;
-    height: auto;
-
-}
-.profile-main-box {
-
-    list-style-type: none; 
-    display: flex;
-    flex-direction: column;
-}
-.profile-box {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 18%;
-    margin-left: 5%;
-
-} 
- .stylist-name {
-    margin-top: 5%;
-
-}
-.view-photos {
-    font-size: 14px;
-    font-weight: bold;
-    color: rgb(0, 80, 83);
-    right: 3%;
-    top: 5%;
-    cursor: pointer;
-    position: absolute;
-}
-.availability-filter {
-    border-color: #00D7CC;
-    color: #00D7CC;
-    border-style: solid;
-    border-width: thin;
-    width: 40%;
-    height: 60%;
-    font-size: 17px;
-    left: 5px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5%;
-    
-
-}
-span.availability-text:hover {
-    cursor: pointer;
-    background-color: #00D7CC;
-    color: white;
-
-}
-
-.service-filter {
-    position: absolute;
-    display: flex;
-    font-size: 18px;
-    width: 40%;
-    margin-left: 3%; 
-
-   
-}
-.service-menu {
-    position: absolute;
-    width: 20%;
-    height: 30px;
-    overflow: hidden;
-    margin-top: 10px;
-
-}
-
-.profile-main-box {
-    margin-top: 2%;
-    width: 60%
-}
-
-.availability {
-    position: absolute; 
-     border-style: solid;
-    border-width: thin;
-    border-top-color: rgb(160, 160, 160);
-    border-bottom: none;
-    border-right: none;
-    border-left: none;
-    text-align: center;
-    width: 50%;
-    height: 30%;
-    bottom: 7%;
-    margin-left: 3%;
-
-}
-img.down {
-   cursor: pointer;
-   margin-left: 5%;
-   margin-top: 2%;
-
-}
-
-@media screen and (min-width: 1200px) and (max-width: 1519px) {
-    .schedule {
-        display: none;
-    }
-    .search-header {
-        width: 100vw;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(126, 126, 126, 0.609);
-        border-width: thin;
-        display: flex;
-        height: 80px;
-        align-items: center;
-        position: relative;
-    }
-    
-    .logo {
-       margin-left: 50px; 
-       width: 160px;
-       height: 60px;
-    
-    }
-    .name-input, .location-input {
-        height: 30px;
-        width: 20%;
-        font-size: 14px;
-        text-indent: 30px;
-    
-    }
-    #date {
-        height: 32px;
-        width: 15%;
-        font-size: 14px;
-        text-indent: 5px;
-        color: rgb(107, 107, 107);
-    }
-    .header-inputs {
-        position: relative;
-        width: 80%;
-        display: flex;
-        flex-direction: row;
-       
-    }
-    
-    .search-icon1 {
-        position: absolute;
-        display: inline;
-        left: 5px;
-        top: 5px;
-    } 
-    
-    .marker-icon {
-        position: absolute;
-        left: 21.5%;
-        top: 8px;
-    }
-    .search-button {
-        width: 12%;
-        height: 36px;
-        color: white;
-        background-color: #00D7CC; 
-        font-weight: bolder;
-        font-size: 16px;
-    }
-    
-    .nav-links {
-        position: absolute;
-        right: 2%;
-        display: flex;
-        justify-content: space-evenly;
-        width: 20%;
-        font-size: 16px;
-       
-    }
-    .signup-link, .login-link, .help-link {
-        cursor: pointer;
-    }
-    
-    .toggle {
-        width: 20px;
-        height: 20px;
-        border-radius: 15px;
-        border-color: black;
-        border-style: solid;
-        border-width: thin;
-        margin-left: 10px;
-    }
-    
-    .payments-text {
-        margin-left: 5%;
-        display: flex;
-        font-size: 16px;
-        font-weight: lighter;
-        margin-top: 3%;
-    }
-    
-    .search-top-container {
-        width: 100%;
-        height: 50px;
-        display: flex;
-        margin-left: 1%;
-        margin-bottom: 5%;
-    
-    }
-    
-    .filter-text {
-        margin-left: 5%;
-        margin-top: 3%;
-        font-weight: bolder;
-        font-size: 18px;
-    }
-    
-    .stylist-card {
-        width: 70%;
-        height: 22vw;
-        position: relative;
-        border-color: rgba(156, 156, 156, 0.767);
-        border-style: solid;
-        border-width: thin;
-        display: flex;
-        justify-content: space-between;
-        margin-left: 5%;
-        margin-bottom: 1%;
-    
-    }
-    .profile-pic {
-        width: 100%;
-        display: flex;
-    }
-    .picture {
-        border-radius:15px;
-        zoom: 2;
-        width: 30px;
-        height: 30px;
-        margin-top: 12%;
-
-    }
-    .responsive-box {
-        width: 55%;
-        height: auto;
-
-    }
-    .profile-main-box {
-        margin-right: 5%;
-        list-style-type: none; 
-        display: flex;
-        flex-direction: column;
-    }
-    .profile-box {
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 8%;
-        margin-left: 7%;
-
-    } 
-     .stylist-name {
-        margin-top: 15%;
-        margin-left: 5%;
-
-    }
-    .view-photos {
-        font-size: 18px;
-        font-weight: bold;
-        color: rgb(0, 80, 83);
-        right: 5%;
-        top: 5%;
-        cursor: pointer;
-        position: absolute;
-    }
-    .availability-filter {
-        border-color: #00D7CC;
-        color: #00D7CC;
-        border-style: solid;
-        border-width: thin;
-        width: 35%;
-        height: 3.5vw;
-        font-size: 20px;
-        left: 5px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-    
-    }
-    span.availability-text:hover {
-        background-color: #00D7CC;
-        color: white;
-        cursor: pointer;
  
-    }
-    
-    .service-filter {
-        position: absolute;
-        display: flex;
-        font-size: 18px;
-        width: 50%;
-        margin-left: 5%; 
-       
-    }
-    .service-menu {
-        position: absolute;
-        width: 20%;
-        height: 30px;
-        overflow: hidden;
-        margin-top: 10px;
-    
-    }
-    
-    .profile-main-box {
-        margin-top: 2%;
-        width: 60%
-    }
-  
-    .availability {
-        position: absolute; 
-         border-style: solid;
-        border-width: thin;
-        border-top-color: rgb(160, 160, 160);
-        border-bottom: none;
-        border-right: none;
-        border-left: none;
-        text-align: center;
-        width: 50%;
-        bottom: 17%;
-        padding-top: 15px;
-        margin-left: 3%;
-
-    }
-    img.down {
-       cursor: pointer;
-       margin-left: 5%;
-       margin-top: 1%;
-
-    }
-}
-@media screen and (min-width: 1520px) and (max-width: 2200px) {
-    .menu-icon, .menu-container {
-        display: none;
-    }
+@media (min-width: 900px) and (max-width: 1200px){
     .search-header {
-        width: 100vw;
-        border-bottom-style: solid;
-        border-bottom-color: rgba(126, 126, 126, 0.609);
-        border-width: thin;
-        display: flex;
-        height: 100px;
-        align-items: center;
-        position: relative;
+        height: 160px;
     }
-    
-    .logo {
-       margin-left: 50px; 
-        width: 190px;
-        height: 80px;
-
-    
+    .menu-icon {
+        height: 70px;
+        width: auto;
     }
-    .name-input, .location-input {
-        height: 30px;
-        width: 22%; 
-        font-size: 14px;
-        text-indent: 30px;
-    
-    }
-    #date {
-        height: 32px;
-        width: 19%; 
-        font-size: 14px;
-        text-indent: 5px;
-        color: rgb(107, 107, 107);
-    }
-    .header-inputs {
-        position: relative;
-        width: 80%;
-        display: flex;
-        flex-direction: row;
-       
-    }
-    
-    .search-icon1 {
-        position: absolute;
-        left: 5px;
-        top: 5px;
-    } 
-    
-    .marker-icon {
-        position: absolute;
-        left: 23%;
-        top: 8px;
-    }
-    .search-button {
-        width: 7%;
-        height: 37px;
-        color: white;
-        background-color: #00D7CC; 
-        font-weight: bolder;
-        font-size: 18px;
-    }
-    
-    .nav-links {
-        position: absolute;
-        right: 5px;
-        display: flex;
-        justify-content: space-evenly;
-        width: 20%;
-        font-size: 22px;
-       
-    }
-    .signup-link, .login-link, .help-link {
-        cursor: pointer;
-    }
-    
-    .toggle {
-        width: 1.5vw;
-        height: 1.5vw;
-        border-radius: 15px;
-        border-color: black;
-        border-style: solid;
-        border-width: thin;
-        margin-left: 2%;
-    }
-    
-    .payments-text {
-        display: flex;
-        font-size: 18px;
-        font-weight: lighter;
-        margin-top: 3%;
-        margin-left: 5%;
-        width: 50%;
-
-    }
-    
-    .search-top-container {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        margin-left: 1%;
-        margin-bottom: 5%;
-
-    
-    }
-    
-    .filter-text {
-        margin-left: 5%;
-        margin-top: 3%;
-        font-weight: bolder;
-        font-size: 22px;
-    }
-    
-    .stylist-card {
-        width: 60%;
-        height: 20vw;
-        border-color: rgba(156, 156, 156, 0.767);
-        border-style: solid;
-        border-width: thin;
-        display: flex;
-        justify-content: space-between;
-        margin-left: 5%;
-        margin-bottom: 1%;
-        position: relative;
-    
-    }
-    
-    .picture {
+    .location-input {
+        height: 70px;
         border-radius: 50px;
-        zoom: 2;
-        width: 22%;
-        height: 50%;
-        position: absolute;
-        bottom: 10%;
-    }
-    .profile-pic {
-        height: 10vw;
-        display: flex;
-    }
-    .picture-box {
-        width: 60%;
-        height: 100%;
-
-    
-    }
-    .profile-main-box {
-        margin-right: 5%;
-        margin-top: 2%;
-        width: 60%;
-        list-style-type: none; 
-        display: flex;
-        flex-direction: column;
-    }
-    .profile-box {
-        font-size: 26px;
-        font-weight: bold;
-        position: relative;
-        margin-top: 10px;
-
-    } 
-    .stylist-name {
-        font-size: 22px;
-        position: absolute;
-        bottom: 20%;
-        left: 30%;
-
-       
-
-    }
-    .view-photos {
-        height: 20%;
-        width: 30%;
-        font-size: 22px;
-        font-weight: bold;
-        color: rgb(1, 100, 104);
-        margin: 2%;
-        cursor: pointer;
-        text-align: center;
-    }
-    .availability-filter {
-        border-color: #00D7CC;
-        color: #00D7CC;
-        border-style: solid;
-        border-width: thin;
-        width: 12vw;
-        height: 3vw;
-        font-size: 20px;
-        left: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-       
-    }
-    .time {
-        border-color: #00D7CC;
-        color: #00D7CC;
-        border-style: solid;
-        border-width: thin;
-        width: 100%;
-        height: 30%;
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
+        font-size: 16px;
         
     }
-    .time:hover {
-        background-color: #00D7CC;
+    .search-icon1 {
+        width: 7%;
+        top: 13%;
+    }
+    .payment-checkbox {
+        height: 90px;
+        width: auto;
+
+    }
+    .payments-text {
+        font-size: 2.5rem;
+    }
+    .no-results {
+        font-size: 3em;
+    }
+    .results-logo {
+        height: 160px;
+        width: 25rem;
+    }
+    .stylist-card {
+        height: 60vh;
+        width: 80%;
+    }
+    .view-photos {
+        font-size: 2em;
+    }
+    .picture {
+        height: 80px;
+        width: 9vw;
+        border-radius: 60px; 
+        right: 6%;
+    }
+    .availability {
+        height: 15vh;
+    }
+    span.stylist-name {
+        font-size: 3em;
+    }
+    .availability-filter {
+        font-size: 1.5em;
+        height: 7vh;
+        width: 60%;
+    }
+    .availability-filter:hover {
+        cursor: pointer;
+        background: rgb(30, 228, 228);
         color: white;
     }
-    .timeList {
-        width: 30%;
-        height: 20%;
-    }
-    .stylist-card2 {
-        width: 60%;
-        height: 20vw;
-        border-color: rgba(156, 156, 156, 0.767);
-        border-style: solid;
-        border-width: thin;
-        display: flex;
-        justify-content: space-between;
-        margin-left: 5%;
-        margin-bottom: 1%;
-        position: relative;
-    }
-   
-
-    span.availability-text {
-        position: absolute;
-        cursor: pointer;
-      
-    }
-    .no-search {
-        font-size: 32px;
-        text-align:center;
-    }
-    .service-filter {
-        position: absolute;
-        display: flex;
-        font-size: 20px;
-        width: 50%;
-        margin-left: 15%;
-       
-    }
-    .service-menu {
-        position: absolute;
-        width: 20%;
-        height: 30px;
-        overflow: hidden;
-        margin-top: 10px;
-    
-    }
-    .time-filter {
-        width: 100%;
-        display: flex;
-    }
-    .availability{
-        position: absolute;
-        border-style: solid;
-        border-width: thin;
-        border-top-color: rgb(160, 160, 160);
-        border-bottom: none;
-        border-right: none;
-        border-left: none;
-        text-align: center;
-        width: 57%;
-        padding-top: 2%;
-        bottom: 20%;
-        overflow: scroll;
-        right: 0%;
-        bottom: 0%;
-
-
-    }
-    img.down {
-       cursor: pointer;
-       margin-left: 5%;
-       margin-top: 1%;
-    }
 }
-@media screen and (min-width: 2200px) and (max-width: 3200px) {
-    .menu-icon, .menu-container {
-        display: none;
-    }
+
     
-}
-@media screen and (max-width: 9000px){
-    .menu-container, .menu-icon {
-        display: none;
-    }
-} */  

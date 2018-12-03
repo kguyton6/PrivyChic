@@ -21,13 +21,15 @@ const routes = (
 
            
           <Route exact path='/' component={Home}/>
-          <Route exact path='/dashboard/:id' component={Dashboard}/>
+          <Route exact path='/dashboard/:user/:id' component={Dashboard}/>
           <Route path='/help' component={help}/>
           <Route path='/login' component={Login}/>
           <Route path='/search' component={Search}/>
           <Route path='/profile/:id' component={Profile} />
           <Route path='/business' component={Business} />
           <Route path='/appointments/:id/:service_id' component={TakeMoney} />
+          <Route path='/calendar/:id' component={Profile} />
+          
         </Switch>
 )
 

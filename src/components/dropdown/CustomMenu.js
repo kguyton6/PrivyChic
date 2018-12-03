@@ -1,9 +1,10 @@
 import React from 'react'
-import {Button, Collapse, Well, Fade, Navbar, Nav, MenuItem, NavDropdown, NavItem} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import { Button, Collapse, Well, Fade, Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import './dropdown.css'
-import {connect} from 'react-redux'
-import { stat } from 'fs';
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { addPicture, getUserInfo } from '../../ducks/actions/action_creators';
 
 
 // const wellStyle = {
@@ -36,35 +37,58 @@ import { stat } from 'fs';
 class CustomMenu extends React.Component {
 
 
+  componentDidMount = () => {
+    axios.get('/checkSession')
+      .then((res) => {
+        this.props.getUserInfo(res.data)
+      })
+  }
 
-render () {
-  console.log(this.props.children)
- return (
-   this.props.userInfo ?
-   <Fade in={this.props.open} >
-<div>
-    <Well className='width' style={this.props.wellStyle}>
-    <span style={this.props.menuStyle} onClick={this.props.login}>Log out</span>
-  <Link to={`/dashboard/${this.props.userInfo.user_type}`}><span style={this.props.menuStyle}>My Account</span></Link>  
-    <Link to='/'><span style={this.props.menuStyle}>Home</span></Link>
-    
-    </Well>
-    </div>
-</Fade>
-  :
-<Fade in={this.props.open} >
-<div>
-    <Well className='width' style={this.props.wellStyle}>
-    <span style={this.props.menuStyle} onClick={this.props.login}>Login</span>
-  <Link to='/business'><span style={this.props.menuStyle}>Business</span></Link>  
-    <Link to='/'><span style={this.props.menuStyle}>Home</span></Link>
-    
-    </Well>
-    </div>
-</Fade>
-  
-)
-}
+ 
+  showUserMenu = () => {
+    if (this.props.userInfo) {
+      return (
+        <Fade in={this.props.open} >
+          <div>
+            <Well className='width' >
+              <span id='login' onClick={this.props.logout}>Log Out</span>
+              <Link id='business' to='/business'>Business</Link>
+              <Link id='account'to={`/dashboard/${this.props.userInfo.user_type}/${this.props.userInfo.user_id}`}>Account</Link>
+              <Link id='home' to='/'>Home</Link>
+
+            </Well>
+          </div>
+        </Fade>
+      )
+    }
+  }
+
+  showMenu = () => {
+    return (
+      <Fade in={this.props.open} >
+        <div>
+          <Well className='width' >
+            <span id='login'  onClick={this.props.login}>Login</span>
+            <Link id='business'to='/business'>Business</Link>
+            <Link id='home' to='/'>Home</Link>
+
+          </Well>
+        </div>
+      </Fade>
+    )
+  }
+
+  render() {
+    console.log(this.props)
+    return (
+      <React.Fragment>
+        {this.props.userInfo ?
+          this.showUserMenu() :
+          this.showMenu()}
+      </React.Fragment>
+
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -72,5 +96,5 @@ const mapStateToProps = (state) => {
     userInfo: state.userInfo
   }
 }
-
-export default connect(mapStateToProps)(CustomMenu)
+const bindActionCreators = { getUserInfo }
+export default connect(mapStateToProps, bindActionCreators)(CustomMenu)

@@ -5,10 +5,7 @@ import TakeMoney from '../stripe/TakeMoney'
 import './profile.css'
 
 
-const listElement = {
-   fontSize: '12px'
-    
-}
+
 const serviceList = {
     // width: '100%',
     display: 'flex',
@@ -46,9 +43,9 @@ class Availability extends Component {
            time.push(
             <div key={availability[i].id} id='timeList'>
             <ul style={serviceList} id='time-ul'>
-                <li style={listElement} id='day-name'>{availability[i].day_name}</li>
-                <li style={listElement} id='day-number'>{`12/${availability[i].day}`}</li>
-                <li style={listElement} id='time'>{availability[i].time}</li>
+                <li id='day-name'>{availability[i].day_name}</li>
+                <li id='day-number'>{`12/${availability[i].day}`}</li>
+                <li id='time'>{availability[i].time}</li>
             </ul>
                 <TakeMoney stylist_name={this.props.stylist_name} business_id={availability[i].business_id} calendar_id={availability[i].id} service_id={this.props.service_id} month_name={availability[i].month_name} day={availability[i].day} appointment_time={availability[i].time}full_name={this.props.userInfo.full_name}/>
             </div>

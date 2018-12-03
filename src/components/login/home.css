@@ -15,22 +15,15 @@
    justify-content: space-between;
    align-items: center;
  }
-.wrapper {
-    display: hidden;
-}
-/* .icon {
-    position: absolute;
-    left: 50px;
-    top: 7px;
-} */
- 
 
-.business, .nav-link-container, .nav-link, .search-input, .header-search-box, .home-header {
+.business, .nav-link-container, .nav-link, .search-input, .header-search-box, .home-header, .search-link-container, .wrapper,  {
     display: none;
 
 }
-
-
+.buttonStyle, .btn.btn-default {
+    background-color: transparent;
+    border-color: transparent;
+}
 .top-box{
     display: flex;
     height: auto;
@@ -55,22 +48,7 @@ background-position-y: -140px;
     background-size: 120%;
     
 }
-.search-link-container{
-    /* display: flex;
-    flex-direction: row;
-    background-color: rgba(65, 65, 65, 0.596);
-    font-size: 14px;
-    text-decoration-color: white;
-    text-decoration: none;
-    margin-top: 45px;
-    justify-content: space-between;
-    margin-right: 15px;
-    align-items: center;
-    padding: 10px;
-    width: 80%;
-    height: 10px; */
-    display: none;
-}
+
 a {
     text-decoration: none;
     color: white;
@@ -105,10 +83,6 @@ a {
     margin: 5%;
 }
 .name, .location {
-    /* height: 45px;
-    width: 50%;
-    text-indent: 35px;
-    font-size: 14px; */
     display: none;
 
 }
@@ -124,9 +98,11 @@ a {
     margin-top: 5%;
 }
 .profile-img {
-    width: 150px;
-    height: 35px;
+    width: 30%;
+    position: absolute;
     font-size: 16px;
+    left: -1%;
+    top: 2%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,8 +112,9 @@ a {
 .bell {
     margin-top: 5px;
 }
-.menu-icon{
-    height: inherit;
+.home-menu-icon{
+    height: 40px;
+    width: auto;
     margin-left: 5%;
 }
 .down-arrow {
@@ -147,15 +124,6 @@ a {
 }
 .search {
     display: none;
-    /* background-color: rgb(100, 209, 195);
-    color: white;
-    align-items: center;
-    border-color: rgb(100, 209, 195);
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center; */
-
 }
    
  .search-img, .search-link { 
@@ -167,7 +135,6 @@ span.motto {
     margin-top: 10%;
     margin-bottom: 20px;
     width: 90%;
-    /* font-weight: lighter; */
     letter-spacing: 2px;
     font-size: 2rem;
     line-height: 1.2em;
@@ -270,16 +237,52 @@ span.float1:hover {
     color: black;
 
 }
-.home-width {
-    position: absolute;
-    width: auto;
-    padding-right: 5px;
-    padding-left: 5px;
+.width.well {
+position: absolute;
+
      height: 100px;
     left: 5%;
+    width: 15%;
     z-index: -10;
     top: 8%;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: space-evenly;
+     flex-direction: column;
+    background-color: rgba(226, 226, 226, 0.918);
+    display: flex;
+    z-index: 100;
+    border-radius: 3px;
+ overflow-wrap: break-word;
+ color: black;
+
+    cursor: pointer;
+
+}
+#homeMenu {
+    cursor: pointer;
+    position: absolute;
+    color: rgb(56, 56, 56);
+    font-size: 18px;
+    text-align: left;
+    letter-spacing: 1px;
+    text-indent: 5px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    top: 75px;
+    height: 20%;
+    left: 5%;
+
+}
+/* #width {
+    position: relative;
+    width: 130px;
+     height: 70px;
+    left: 5%;
+    z-index: -10;
     font-size: 10px;
+    top: 15%;
     font-weight: bold;
     justify-content: space-evenly;
      flex-direction: column;
@@ -292,86 +295,215 @@ span.float1:hover {
 
     cursor: pointer;
 
-}
-.home-menu-well {
+} */
+.menu-well{
     cursor: pointer;
     color: rgb(56, 56, 56);
     font-size: 18px;
     text-align: left;
     letter-spacing: 1px;
     text-indent: 5px;
+    position: absolute;
 
 }
-/* @media (max-width: 400px){
+.buttonStyle {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px){
      .search, .business, .search-input, .name, .location, .location-icon, .search-link-container, .nav-link-container, .App-logo, .header-search-box {
         display: none;
     }
-    
-
-} */
-/* @media (max-width: 950px) {
+    .home-header-responsive {
+         height: 150px;
+    }
     .search-box {
         font-size: 35px;
     background-position-y: 80%;
     background-position-x: 0px;
-        background-size: 100%;
+        background-size: 120%;
         height: 400px;
+    }
+    .responsive-home-title {
+        font-size: 3rem;
+    }
+    .home-menu-icon {
+        height: 60px;
+        margin-left: 20%;
     }
     .right-box {
         width: 100%;
-        height: 300px;
+        height: 45vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
         text-align: center;
     }
-}  */
+    span.motto {
+        font-size: 3.5rem;
+        height: 200px;
+    }
+    .location-1{
+        height: 70px;
+        font-size: 20px;
+        text-indent: 10%;
+    }
+    .icon2 {
+        width: 10%;
+        left: 4%;
+        top: 10%;
+    }
+    .bold-text {
+        font-size: 2.5rem;
+    }
+    .booking-text {
+        font-size: 20px;
+    }
+    .setup-link {
+        height: 90px;
+        width: 50%;
+    }
+    .setup {
+        height: 90%;
+        font-size: 22px;
+        margin-bottom: 5%;
+        margin-top: 0%;
+    }
+    .trial-text {
+        font-size: 16px;
+    }
+    .img-container {
+        height: 40%;
+    }
+    .float1 {
+        height: 50%;
+        width: 70%;
+        top: 25%;
+        font-size: 24px;
+    }
+    .float-text {
+        font-size: 2em;
+    }
+    .float1:hover {
+        height: 75%;
+        width: 80%;
 
- /* @media screen and (min-width: 706px) and (max-width: 899px) {
+    }
+}  
+
+ @media screen and (min-width: 900px) and (max-width: 1200px) {
+    .home-header-responsive {
+        height: 160px;
+       
+    }
+    .home-menu-icon {
+        height: 80px;
+        width: auto;
+        margin-left: 20px;
+    }
+    .responsive-home-title {
+        font-size: 5em;
+        margin-top: 3%;
+    }
     .search-box {
-        font-size: 40px;
+        font-size: 3em;
     background-position-y: 85%;
     background-position-x: 0px;
-        background-size: 105%;
+        background-size: 115%;
         height: 400px;
+        width: 100vw;
 
     }
     .right-box {
         width: 100%;
-        height: 300px;
+        height: 44vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
         text-align: center;
+        padding-bottom: 5%;
     }
-}   */
+    span.motto {
+        font-size: 4rem;
+        margin-bottom:7%;
+    }
+    .location-1 {
+        height: 70px;
+        text-indent: 10%;
+        font-size: 30px;
+    }
+    .icon2 {
+        width: 8%;
+        left: 5%;
+        top: 10%;
+        
+    }
+
+    .bold-text {
+        font-size: 2.7rem;
+    }
+    .setup-link {
+        width: 40%;
+        height: 25%;
+        margin-bottom: 5%;
+
+    }
+    .setup {
+        width: 100%;
+        height: 100%;
+        font-size: 1.7rem;
+        margin-bottom: 0%;
+    }
+    .booking-text {
+        font-size: 1.5rem;
+        margin-bottom: 5%;
+    }
+    .float1 {
+        height: 50%;
+        font-size: 30px;
+    }
+    .float-text {
+        font-size: 3rem;
+    }
+
+}   
 
  
-/* @media screen and (min-width: 900px) and (max-width: 1100px){
-    .responsive, .responsive-title, .menu, .search-img {
+@media (min-width: 1200px) and (max-width: 1500px){ 
+    .responsive, .responsive-home-title, .home-header-responsive, .menu-icon, .search-img, .icon2 {
         display: none;
     }
-   .home-header {
+    .btn.btn-default {
+        display: none;
+    }
+   /* header.home-header-responsive {
     display: flex;
     align-items: center;
     width: 100%;
+    height: 150%;
     background-color: white;
     justify-content: space-between;
-
-   }
+    color: black;
+   } */
   
 .search-input {
     text-indent: 33px;
     font-size: 14px;
+    height: 100px;
     color: rgb(168, 168, 168);
     border: #E9ECEB solid .2px;
 
 }
+.App-logo {
+    height: 100px;
+    width: 170px;
+}
 .header-search-box {
     display: flex;
     align-items: center;
+    height: 200px;
 
 }
 .icon {
@@ -380,13 +512,15 @@ span.float1:hover {
     top: 7px;
 }
 .nav-link-container {
-    width: 40%;
+    width: 30%;
+    height: auto;
+
 }
 .nav-link-container, .nav-link {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: row;
-    font-size: 18px;
+    font-size: 2rem;
     align-items: center;
 }
 .business {
@@ -395,7 +529,9 @@ span.float1:hover {
     font-weight: bold;
     font-size: 13px;
     margin-top: 15px;
-    margin-right: 10%;
+    height: 100px;
+    width: 100px;
+    /* margin-right: 10%; */
 }
 
 .top-box{
@@ -412,6 +548,7 @@ span.float1:hover {
     background-position-x: 0px;
         background-size: 110%;
         height: 400px;
+
  
 }
 .motto, .search-link-container, .input-container {
@@ -466,7 +603,7 @@ span.float1:hover {
     }
 
      
-} */
+} 
 
 /* @media screen and (min-width: 1099px) and (max-width: 2100px){
     .responsive, .responsive-title, .menu, .search-img {

@@ -9,10 +9,10 @@ render () {
  return (
 <Fade in={this.props.open} >
 <div>
-    <Well className='width1'>
-    <span className='menu-well1'>Login</span>
-  <Link to='/business'><span className='menu-well1'>Business</span></Link>  
-    <Link to='/'><span className='menu-well1'>Home</span></Link>
+    <Well className='width'>
+    <span id='login' onClick={this.props.login}>Login</span>
+  <Link to='/business'><span id='business'>Business</span></Link>  
+    <Link to='/'><span id='home'>Home</span></Link>
     
     </Well>
     </div>

@@ -166,8 +166,8 @@ app.get('/checkSession', (req, res) => {
   app.get('/api/zipcode/:id', ctrl.stylist_zip)
   app.get('/api/date/:id', ctrl.get_availablility)
   app.get('/api/profile/:id', ctrl.getStylist)
-  app.get('/api/calendar', ctrl.get_calendar)
-  app.get('/api/appointments', ctrl.myAppointments)
+  app.get('/api/calendar/:id', ctrl.get_calendar)
+  app.get('/api/appointments/:id', ctrl.myAppointments)
   app.get('/api/services/:id', ctrl.allServices)
   app.get('/api/payments', ctrl.accept_payments)
   app.post('/auth/signup/business', ctrl.create_business)
@@ -175,6 +175,7 @@ app.get('/checkSession', (req, res) => {
   app.post('/api/appointments/:id', ctrl.create_booking)
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
+  app.delete('/api/delete/appointment/:id', ctrl.delete_appointment)
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build/index.html'));

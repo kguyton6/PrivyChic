@@ -14,8 +14,11 @@ import menu from '../assets/menu.png'
 import search from '../assets/search.png'
 import Search from '../search/Search'
 import { getUserInfo, addStylistName, addZip } from '../../ducks/actions/action_creators'
-import { Button, Collapse, Well, Fade, FadeDropdown, FadeItem } from 'react-bootstrap'
+import { Button,Collapse, Well, Fade, FadeDropdown, FadeItem } from 'react-bootstrap'
 import CustomMenu from '../dropdown/CustomMenu'
+import DropDown from '../dropdown/DropDown'
+import SignUp from '../login/modal/signup/SignUp'
+
 
 const homeWell = {
   position: 'absolute',
@@ -45,6 +48,7 @@ const homeMenu = {
   display: 'flex'
 }
 
+
 const availableTimes = {
   fontColor: 'black',
   borderStyle: 'solid',
@@ -73,7 +77,7 @@ class Home extends Component {
     }
   }
 
-  componentDidMount = () => {
+  componentDidUpdate = () => {
     axios.get('/checkSession')
       .then((res) => {
         this.props.getUserInfo(res.data)
@@ -104,7 +108,7 @@ class Home extends Component {
       )
     } else if (this.state.showSignUp) {
       return (
-        <Login onClose={this.toggleSignUp} />
+        <Login showSignUp={this.toggleSignUp} />
       )
     }
   }
@@ -114,7 +118,11 @@ class Home extends Component {
     axios.get('/api/logout')
       .then((res) => {
         if (res.status === 200) {
-          return this.componentDidMount()
+          return (
+            this.menu()
+
+          )
+
         }
       })
   }
@@ -126,18 +134,25 @@ class Home extends Component {
     })
   }
   dropdown = () => {
+    if(this.props.userInfo !== null){
     if(this.state.open) {
       return (
-        <CustomMenu open={this.state.open} menuStyle={homeMenu} wellStyle={homeWell} login={this.toggleModal}/>
+        <DropDown open={this.state.open} userInfo={this.props.userInfo}  logout={this.logout} login={this.toggleModal}  toggleMenu={this.menu} name={this.state.full_name}/>
+      )
+    } 
+  }else {
+    if(this.state.open){
+      return (
+        <CustomMenu  open={this.state.open} userInfo={this.props.userInfo}  logout={this.logout} login={this.toggleModal}  toggleMenu={this.menu}/>
       )
     }
+  }
   }
   
  
     
 
   render() {
-    console.log(this.props.userInfo.full_name)
     const { addStylistName, addZip } = this.props
     return (
       <div className="App">
@@ -156,14 +171,14 @@ class Home extends Component {
               <div className='Fade-dropdown' >
                 <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
                 <span className='profile-img'>{this.props.userInfo.full_name}</span>
-                {this.dropdown()}
+                <div className='homeMenu'>{this.dropdown()}</div>
               </div>
             </div>
           </header> :
           <header className="home-header-responsive">
-            <Button onClick={this.menu}><img src={menu} className='menu-icon' width='40px' />
-            {this.dropdown()}
+            <Button id='styledButton' onClick={this.menu}><img src={menu} className='home-menu-icon' width='40px' />
             </Button>
+            <div id='homeMenu'>{this.dropdown()}</div>
             <span className='responsive-home-title'>PrivyChic</span>
             <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link>
 
@@ -196,7 +211,7 @@ class Home extends Component {
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
               </div>
-
+  {this.showModal()}
               <div className='search-link-container'>Popular Searches
         <a className='search-links' href='https://www.google.com/search?biw=1920&bih=921&tbm=isch&sa=1&ei=uWYAXLe6FtKwzwLv1LdA&q=hair+cuts&oq=hair+cuts&gs_l=img.3..0l4j0i10j0l4j0i10.5617.7012..7331...0.0..0.98.187.2......1....1..gws-wiz-img.......0i10i67j0i67.0J0ci9N9uiM'>Haircut</a>
                 <a className='search-links' href='https://www.google.com/search?biw=1920&bih=921&tbm=isch&sa=1&ei=wmYAXOOfAoOyzwLWx4iYAg&q=barber&oq=barber&gs_l=img.3..0i67l3j0j0i67l4j0j0i67.64825.66958..67110...0.0..0.105.1342.12j2......1....1..gws-wiz-img.....0..35i39j0i10i67.M1iKbUSzHmM'>Barber</a>

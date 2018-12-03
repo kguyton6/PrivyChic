@@ -11,37 +11,14 @@ import axios from 'axios';
 import { Link, Route } from 'react-router-dom'
 import profile from '../assets/profile.png'
 import menu from '../assets/menu.png'
-import Availability from '../profile/Availability'
+import Services from '../profile/Services'
 import CustomMenu from '../dropdown/CustomMenu'
 import { addTimes, addZip, addStylistName, getUserInfo } from '../../ducks/actions/action_creators'
 import {Button, Collapse, Well, Fade, Navbar, Nav, MenuItem, NavDropdown, NavItem} from 'react-bootstrap'
+import Schedule from '../dropdown/Schedule';
 
-const well = {
-    position: 'absolute',
-    width: '150px',
-     height: '90px',
-    left: '5%',
-    zIndex: '10',
-    fontSize: '10px',
-    marginTop: '12%',
-    fontWeight: 'bold',
-    justifyContent: 'space-evenly',
-     flexDirection: 'column',
-    backgroundColor: 'rgba(226, 226, 226, 0.918)',
-    display: 'flex',
-    bordeRadius: '3px',
-  overflowWrap: 'break-word',
-    boxShadow: 'rgba(128, 128, 128, 0.431)',
-    cursor: 'pointer',
-  }
-  const searchMenu = {
-    cursor: 'pointer',
-    color: 'rgb(56, 56, 56)',
-    fontSize: '18px',
-    textAlign: 'left',
-    letterSpacing: '1px',
-    textIndent: '5px',
-  }
+
+
 
 const availableTimes = {
     fontColor: 'black',
@@ -65,8 +42,9 @@ class Search extends Component {
             business_id: null,
             calendar: [],
             profileImage: profile,
-            open: false
-        
+            open: false,
+            stylistSchedule: false,
+            service_id: null
 
 
         }
@@ -97,7 +75,7 @@ class Search extends Component {
         } else if (this.props.zipcode) {
             axios.get(`/api/zipcode/${this.props.zipcode}`)
                 .then((res) => {
-                    this.setState({ stylists: res.data, profileImage: res.data[0].picture, full_name: res.data[0].full_name })
+                    this.setState({ stylists: res.data, full_name: res.data[0].full_name })
                 })
         } else {
             axios.get(`/api/date/${this.props.date}`)
@@ -114,7 +92,6 @@ class Search extends Component {
         let stylist = []
         for (let i in stylists) {
             stylist.push(
-                this.state.showStylist ?
                     <div key={i} className='stylist-card' >
                         <div className='responsive-box'>
                             <img src={stylists[i].portfolio} width='100%' height='100%' />
@@ -135,39 +112,20 @@ class Search extends Component {
                             </div>
                             <div className='availability'>
                                 <div className='availability-filter'>
-                                    <span onClick={() => this.showAvailability(stylists[i].business_id)} className='availability-text'>Check Availability</span>
-
+                                   <button className='search-button' onClick={() => this.showAvailability(stylists[i].business_id, stylists[i].service_id)}>Check Availability</button> 
+                               
                                 </div>
                                
                             </div>
                         </div>
                         <Link to={`/profile/${stylists[i].business_id}`} className='view-photos'>View Profile</Link>
-                    </div> :
-                    <div className='stylist-card2'>
-                        <div className='responsive-box'>
-                            <img src={stylists[i].portfolio} width='100%' height='100%' />
-                            </div>
-
-                            <div className='profile-main-box'>
-                                <div className='profile-box'>
-                                    <div className='profile-pic'>
-                                        <img src={stylists[i].picture} alt='profile' className='picture' width='100%' height='100%' />
-                                        <span className='stylist-name'>{this.stylists[i].full_name.toUpperCase()}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className='availability'>
-                                    <div className='time-filter'>
-                                        {this.showAvailability()}</div>
-
-                                </div>
-                            </div>
-                            </div>
+                    </div> 
+                    
 
             )
+            return stylist
         }
 
-    return stylist
         } else {
             return <div className='no-results'>
                 No Search Results
@@ -194,15 +152,12 @@ class Search extends Component {
     }
 
     showAvailability = (id) => {
-       this.state.calendar.filter((time) => {
-           if(time.business_id === id){
-              return (
-              <div key={id}>
-                {time.month_name}
-              </div>
-              )
-          }
-        })        
+        this.setState(prevState => {
+            return {
+                stylistSchedule: !prevState.stylistSchedule,
+                service_id: id
+            }
+        })      
     }
     showPaymentFilter = () => {
          axios.get(`/api/payments`)
@@ -230,23 +185,30 @@ class Search extends Component {
     dropdown = () => {
         if(this.state.open) {
           return (
-            <CustomMenu open={this.state.open} menuStyle={searchMenu} wellStyle={well} login={this.toggleModal}/>
+            <CustomMenu open={this.state.open} login={this.toggleModal}/>
           )
         }
       }
-   
-   
+      
+      showSchedule = (id, business_id) => {
+          if(this.state.open){
+              return (
+                  <Schedule onClose={this.showAvailability} business_id={business_id}service_id={id}/>
+              )
+          }
+      }
     render() {
         console.log(this.state.calendar)
         const { addDate, addStylistName, addZip, stylist_name, date, zipcode } = this.props
         return (
             <div className='Search'>
-                <div className='search-header' width='100%'>
+                <div className='responsive-header' width='100%'>
                     <Link to='/'><img src={logo} alt='logo' width='100%' height='60px' className='logo' /></Link>
                     <div className='header-inputs'>
-                        <Button onClick={this.menu}><img className='menu-icon' width='40px'src={menu}/></Button>
+                        <div className='searchMenu'>
+                        <Button onClick={this.menu} id='styledButton'><img className='menu-icon' width='40px'src={menu}/></Button>
                         {this.dropdown()}
-
+                        </div> 
                     <div className='search-menu-container'>
                         <span>Login</span>
                         <span>Signup</span>
@@ -285,7 +247,8 @@ class Search extends Component {
                 </div>
                 <div className='stylist-container'>
                     {this.showStylist()}
-                    {this.showAvailability()}
+                    {this.showSchedule()}
+
                 </div>
             </div>
            </div>

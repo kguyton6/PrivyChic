@@ -11,6 +11,7 @@ import Login from '../login/modal/login/Login'
 import {Button} from 'react-bootstrap'
 import CustomMenu from '../dropdown/CustomMenu'
 import {addStylistName} from '../../ducks/actions/action_creators'
+import star from '../assets/star.png'
 
 
 
@@ -124,33 +125,32 @@ class Profile extends Component {
         let profile = this.state.profile
         let stylist = []
         for (let i in profile) {
+            console.log(profile[i].portfolio)
         
-            var sectionStyle = {
+            const sectionStyle = {
                 width: "100%",
-                height: "40vh",
-                backgroundImage: `url(${profile[i].portfolio})`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '100%',
-                backgroundPositionY: '40%',
-                zoom: '-2',
-                position:'relative',
-                zIndex: '-10'
+                height: "100%",
+                position: 'relative',
+                zIndex: '-100',
+                zoom: -4
 
-              };
+        }
+
               var profilePic = {
-                  width: '100px',
-                  height: '100px',
-                  borderRadius:'60px'
+                  width: '9rem',
+                  height: '9rem',
+                  borderRadius:'70px'
               }
 
              
 
             stylist.push(
-                <React.Fragment key={i}>
-                <section  style={sectionStyle} id='banner-container'>
-                    <img src={profile[i].picture} alt='profile-pic' id='profile-pic1'  style={profilePic}/>
+                <React.Fragment  key={i}>
+                <div id='banner-container'>
+                <img style={sectionStyle} src={profile[i].portfolio} />
+                <img src={profile[i].picture} alt='profile-pic' id='profile-pic1'  style={profilePic} />
                     <span className='profile-fullname'>{profile[i].full_name.toUpperCase()}</span>
-                </section>
+    </div>
                 <div key={profile[i].id} className='profile-top-container'>
                     <div className='name-title'>
                         {`${profile[i].full_name} - Hair Stylist`}<br/>
@@ -226,11 +226,10 @@ class Profile extends Component {
             }
         })
     }
-  
+    
     
 
     render() {
-        console.log(this.state)
         return (
             <div className='App'>
 
@@ -245,18 +244,22 @@ class Profile extends Component {
                         <Link to='/business' ><button className='business-button'>For Business</button></Link>
                         <NavLink to='/help' ><span className='profile-link'>Help</span></NavLink>
                     </div>
-                <Link to='/search' className='search-icon'><img src={search}  width='30px'/></Link> 
+                <Link to='/search' className='profile-search-icon'><img src={search}  width='100%'/></Link> 
                                  </div>
                 {this.showProfile()}
                 <div className='profile-main-container'>
+
+                
+                <div><span className='reviews'>Rating</span><img src={star} width='25px'className='star'/> <img src={star} width='25px'className='star'/><img src={star} width='25px'/></div> 
+
                 <div className='service-container'>
                 <h4 className='service-menu-title'>{`${this.state.stylist_name}'s Service Menu`}</h4>
                 {!this.state.showTitles ?
                 <div className='labels'>
-                <label style={title}className='service_name-title'>Service </label>
-                <label style={title} className='description-title'>Description</label>
-                <label style={title} className='price-title'>Price</label>
-                <label style={title} className='duration-title'>Duration</label>
+                <label  className='service_name-title'>Service </label>
+                <label   className='description-title'>Description</label>
+                <label   className='price-title'>Price</label>
+                <label   className='duration-title'>Duration</label>
                 </div> :
                 <div className='labels'> </div>}
                  <div className='services' id='available'>  

@@ -1,8 +1,7 @@
-.width {
+/* .width.well {
     position: absolute;
     width: 130px;
      height: 70px;
-    left: 5%;
     z-index: -10;
     font-size: 10px;
     top: 15%;
@@ -19,12 +18,17 @@
     cursor: pointer;
 
 }
-.menu-well, .menu-well1 a {
+.fade.in{
     cursor: pointer;
     color: rgb(56, 56, 56);
     font-size: 18px;
     text-align: left;
     letter-spacing: 1px;
     text-indent: 5px;
+    position: absolute;
+    left: 5%;
 
 }
+.buttonStyle {
+    font-size: 16px;
+} */

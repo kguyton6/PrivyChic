@@ -1,7 +1,73 @@
 
 
 .appointments {
-    width: 100%;
+    width: 60%;
     border: black solid thin;
     color: black;
+    height: 10vh;
+}
+.dashboard-header-responsive {
+    background-color: black;
+    color: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.App-logo {
+    display: none;
+}
+.responsive-dashboard-title {
+    font-size: 2em;
+    font-family: fantasy;
+    margin-right: 15%;
+}
+.dashboard-search-img {
+    width: 100%;
+}
+.dashboard-search-link {
+    width: 8%;
+    position: absolute;
+    right: 5%;
+}
+.dashboard-menu-icon {
+    margin-left: 5%;
+    margin-top: 15%;
+}
+.btn.btn-default  {
+    display: unset;
+
+
+}
+div.width.well {
+    text-align: left;
+    text-indent: 5px;
+    font-size: 14px;
+    left: 5%;
+}
+
+
+
+@media (min-width: 600px) and (max-width: 900px) {
+    .dashboard-header-responsive {
+        height: 90px;
+    }
+    .dashboard-search-link {
+        width: 6%;
+    }
+    .dashboard-menu-icon {
+        height: 50px;
+        width: auto;
+        
+    }
+    .responsive-dashboard-title {
+        font-size: 3rem;
+        margin-top: 3%;
+    }
+    .dashboard-menu {
+        height: 80px;
+        width: 100px;
+        color: black;
+    }
 }

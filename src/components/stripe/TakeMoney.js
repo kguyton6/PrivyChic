@@ -103,12 +103,7 @@ appointment = () => {
      calendar_id: this.props.calendar_id, 
      client_id: this.props.userInfo.user_id,
     token:  `${this.props.calendar_id}${this.props.userInfo.user_id}`})
-    .then((res) => {
-        if(res.status === 200){
-            this.props.addAppointment(res.data.appointment)
-            this.props.history.push(`/dashboard/${this.props.userInfo.user_type}`)
-           alert(`Appointment booked with ${this.props.stylist_name}`)  
-        
+    .then(() => {
             axios.post('/sendEmail', 
             { email: this.props.userInfo.email, 
             full_name: this.props.userInfo.full_name, 
@@ -116,14 +111,16 @@ appointment = () => {
             month_name: this.props.month_name,
             day:  this.props.day, 
             time: this.props.appointment_time })
-            .then((res) => {
-                console.log(res)
-               
+         .then((res) => {
+               if(res.status=== 200){
+                        this.props.history.push(`/dashboard/${this.props.userInfo.user_type}/${this.props.userInfo.user_id}` + this.props.calendar_id)
+                       alert(`Appointment booked with ${this.props.stylist_name}`)  
+                
+                    } else {
+                         alert('Please Login and Try again')
+                    }
             })
          
-           } else {
-                alert('Please Login and Try again')
-           }
            
         })
 }
