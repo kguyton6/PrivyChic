@@ -12,7 +12,7 @@ import {Button} from 'react-bootstrap'
 import CustomMenu from '../dropdown/CustomMenu'
 import {addStylistName} from '../../ducks/actions/action_creators'
 import star from '../assets/star.png'
-
+import DropDown from '../dropdown/DropDown'
 
 
 const title = {
@@ -116,7 +116,7 @@ class Profile extends Component {
         
         if(this.state.open) {
           return (
-            <CustomMenu open={this.state.open} menuStyle={searchMenu} wellStyle={well} login={this.toggleLogin} showLogin={this.state.showLogin} />
+            <DropDown open={this.state.open} menuStyle={searchMenu} wellStyle={well} login={this.toggleLogin} showLogin={this.state.showLogin} />
           )
         }
       }
@@ -250,7 +250,7 @@ class Profile extends Component {
                 <div className='profile-main-container'>
 
                 
-                <div><span className='reviews'>Rating</span><img src={star} width='25px'className='star'/> <img src={star} width='25px'className='star'/><img src={star} width='25px'/></div> 
+                <div className='review-container'><span className='reviews'></span><img src={star} width='25px'className='star'/> <img src={star} width='25px'className='star'/><img src={star} width='25px'/></div> 
 
                 <div className='service-container'>
                 <h4 className='service-menu-title'>{`${this.state.stylist_name}'s Service Menu`}</h4>

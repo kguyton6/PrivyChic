@@ -40,20 +40,6 @@ class Business_Form extends Component {
             }
         })
     }
-//     businessSignup = () => {
-//         const {full_name, email, password, business_name, phone, address, city, State, zipcode, portfolio, profession, first_name, last_name, description, picture } = this.props  
-        
-//         axios.post(`/auth/signup/business`, {
-//             full_name: full_name, email: email, password: password, business_name: business_name, phone_number: phone, streetaddress: address,  city: city, state: State, zipcode: zipcode, portfolio: portfolio })
-//             .then((res) => {
-//                 if(res.status === 200) {
-//                     this.props.history.push('/dashboard')
-//                } else {
-//                    console.log(res.statusText)
-//              }
-             
-//     })
-// }
 
     render() {
         const { addAddress, addZip, addBusinessName, addCity, addPhone, addState, addPortfolio } = this.props
@@ -62,7 +48,7 @@ class Business_Form extends Component {
                 <div className='form-modal'>
                     <form className='form'>
                         <div className='form-header'>
-                            <span onClick={this.props.onClose} className='form-cancel'>CANCEL</span>
+                            <span onClick={this.props.onClose()} className='form-cancel'>CANCEL</span>
                             <span className='form-title'>Add Business Info</span>
                             <span onClick={this.toggleModal} className='form-save'>Save</span>
 

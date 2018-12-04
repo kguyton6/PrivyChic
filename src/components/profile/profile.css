@@ -182,19 +182,23 @@ li {
     #banner-container {
         position: absolute;
         top: 0px;
-        height: 50vh;
+        height: 65vh;
         width: 100vw;
     }
 
     .profile-logo-title {
         margin-left: 0%;
-        margin-right: 37%;
+        margin-right: 3%;
         font-size: 3.5rem;
         /* margin-bottom: 2%; */
         font-family: fantasy;
     }
     .prices-service-container {
         display: flex;
+    }
+    .profile-main-container {
+        top: 55%;
+
     }
     .profile-menu{ 
         cursor: pointer;
@@ -224,20 +228,19 @@ li {
     img.star {
         margin-top: 20px;
     }
-   
     img.profile-pic {
         width: 15vw;
         height: 15vw;
         border-radius: 60px;
         position: absolute;
-        left: 5vw;
-        top: 40vh;
+        left: 8vw;
+        top: 45vh;
         z-index: 10;
     }
     .profile-fullname {
         font-size: 36px;
-        left: 27%;
-        top: 40vh;
+        left: 25%;
+        top: 50vh;
     }
 
 
@@ -284,8 +287,10 @@ ul.business_hours {
 .service-container {
     font-size: 13px;
     width: 90vw;
+    height: 40vh;
     text-align: left;
-    padding-bottom: 15%;
+
+    
     padding-top: 5px;
     background-color: white;
 
@@ -293,8 +298,8 @@ ul.business_hours {
 }
 .availability-list {
     display: flex;
-    height: 150px;
-
+    height: 300px;
+    padding-bottom: 50px;
     justify-content: center;
     overflow: scroll;
 
@@ -333,6 +338,8 @@ ul.business_hours {
     justify-content: space-between;
     flex-direction: column;
     position: relative;
+    padding-bottom: 5%;
+    
 }
 .wrapper {
     justify-content: center;
@@ -340,6 +347,8 @@ ul.business_hours {
     flex-direction: column;
     align-content: center;
     width: 90%;
+    height:300px;
+
     margin-top: 3%;
     text-align: center;
 }
@@ -353,17 +362,21 @@ ul.business_hours {
 
 #service_name, .service_name-title {
     left: 5%;
-    width: 100px;
+    width: 130px;
     overflow-wrap: break-word;
     text-align: left;
     
 }
 #service_name, #price, #available {
-    font-size: 24px;
+    font-size: 20px;
     display: flex;
 }
-
-
+.review-container {
+    margin-right: 42%;
+}
+#available-services {
+    height: 300px;
+}
 #price, .price-title {
     left: 55%
 }
@@ -387,7 +400,7 @@ ul.business_hours {
 
 }
 }
- @media screen and (min-width: 900px) and (max-width: 1200){ 
+ /* @media screen and (min-width: 900px) and (max-width: 1200){ 
    .profile-head {
        height: 160px;
        background-color: transparent;
@@ -422,4 +435,4 @@ ul.business_hours {
        top: -10%;
     }
 }
-
+ */

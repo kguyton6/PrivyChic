@@ -6,8 +6,9 @@ export default class CustomMenu extends React.Component {
 
 
 render () {
+
  return (
-<Fade in={this.props.open} >
+<Collapse in={this.props.open} >
 <div>
     <Well className='width'>
     <span id='login' onClick={this.props.login}>Login</span>
@@ -16,7 +17,7 @@ render () {
     
     </Well>
     </div>
-</Fade>
+</Collapse>
   
 )
 }

@@ -266,7 +266,7 @@
     }
     .width.well {
         width: 100px;
-        top: 30px;
+        top: 4%;
         position: absolute;
     }
     #business, #account, #login, #home {
@@ -274,12 +274,12 @@
 
     }
     .menu-icon {
-        height: 50px;
+        height: 55px;
         width: auto;
         cursor: pointer;
         position: absolute;
         left: 3%; 
-        top: 5%;
+        top: 3%;
 
         z-index: 10;
 
@@ -302,8 +302,8 @@
     
     .search-icon1 {
         position: absolute;
-        left: 110px;
-        top: 7px;
+        left: 130px;
+        top: 5px;
         width: 6%;
     } 
    
@@ -448,7 +448,7 @@
    
 }
  
-@media (min-width: 900px) and (max-width: 1200px){
+/* @media (min-width: 900px) and (max-width: 1200px){
     .search-header {
         height: 160px;
     }
@@ -512,4 +512,4 @@
     }
 }
 
-    
+     */

@@ -46,8 +46,8 @@ class CustomMenu extends React.Component {
 
  
   showUserMenu = () => {
-    if (this.props.userInfo) {
-      return (
+   if(this.props.userInfo.user_type === 'client'){
+       return (
         <Fade in={this.props.open} >
           <div>
             <Well className='width' >
@@ -60,10 +60,8 @@ class CustomMenu extends React.Component {
           </div>
         </Fade>
       )
-    }
-  }
+    } else {
 
-  showMenu = () => {
     return (
       <Fade in={this.props.open} >
         <div>
@@ -76,6 +74,8 @@ class CustomMenu extends React.Component {
         </div>
       </Fade>
     )
+  
+}
   }
 
   render() {

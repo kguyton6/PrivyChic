@@ -163,8 +163,8 @@
 
 
 @media screen and (min-width: 600px) and (max-width: 900px) {
-    .business-menu, .search-icon-link, .business-title {
-        display: visible;
+    .business-logo, .business-nav-links, .profile-menu-name, .bell, .down-arrow {
+        display: none;
     }
     .responsive-header {
         height: 120px;
@@ -176,7 +176,7 @@
     }
     .business-title {
         font-size: 3.5rem;
-        margin-left: 20px;
+        margin-left: 15%;
 
 
     }
@@ -186,9 +186,12 @@
         margin-right: 0%;
 
     }
+    .width.well {
+        margin-top: 60px;
+    }
     .top-business-box{
         width: 100%;
-        height: 42vh;
+        height: 50vh;
         color: white;
         font-weight: bold;
         background-image: url('https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg');
@@ -294,6 +297,7 @@
         width: auto;
         height: 60px;
         z-index: 10;
+
     }
     .search-icon-link {
         margin-right: 5%;

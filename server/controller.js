@@ -79,7 +79,7 @@ module.exports = {
         const { full_name, email, password, business_name, phone_number, streetaddress, city, state, zipcode, portfolio, first_name, last_name, profession, about, picture, accept_payment } = req.body
 
         let user = await dbInstance.check_user(email)
-        // let result = await bcrypt.compareSync(password, user[0].password)
+
         if (user[0]) {
             req.session.user = user[0]
 

@@ -14,7 +14,7 @@ import menu from '../assets/menu.png'
 import search from '../assets/search.png'
 import Search from '../search/Search'
 import { getUserInfo, addStylistName, addZip } from '../../ducks/actions/action_creators'
-import { Button,Collapse, Well, Fade, FadeDropdown, FadeItem } from 'react-bootstrap'
+import { Button, Collapse, Well, Fade, FadeDropdown, FadeItem } from 'react-bootstrap'
 import CustomMenu from '../dropdown/CustomMenu'
 import DropDown from '../dropdown/DropDown'
 import SignUp from '../login/modal/signup/SignUp'
@@ -23,18 +23,18 @@ import SignUp from '../login/modal/signup/SignUp'
 const homeWell = {
   position: 'absolute',
   width: '150px',
-   height: '90px',
+  height: '90px',
   left: '5%',
   zIndex: '10',
   fontSize: '10px',
   top: '5%',
   fontWeight: 'bold',
   justifyContent: 'space-evenly',
-   flexDirection: 'column',
+  flexDirection: 'column',
   backgroundColor: 'rgba(226, 226, 226, 0.918)',
   display: 'flex',
   bordeRadius: '3px',
-overflowWrap: 'break-word',
+  overflowWrap: 'break-word',
   boxShadow: 'rgba(128, 128, 128, 0.431)',
   cursor: 'pointer',
 }
@@ -134,67 +134,66 @@ class Home extends Component {
     })
   }
   dropdown = () => {
-    if(this.props.userInfo !== null){
-    if(this.state.open) {
-      return (
-        <DropDown open={this.state.open} userInfo={this.props.userInfo}  logout={this.logout} login={this.toggleModal}  toggleMenu={this.menu} name={this.state.full_name}/>
-      )
-    } 
-  }else {
-    if(this.state.open){
-      return (
-        <CustomMenu  open={this.state.open} userInfo={this.props.userInfo}  logout={this.logout} login={this.toggleModal}  toggleMenu={this.menu}/>
-      )
+    if (this.props.userInfo !== null) {
+      if (this.state.open) {
+        return (
+          <CustomMenu open={this.state.open} logout={this.logout} login={this.toggleModal} toggleMenu={this.menu} name={this.state.full_name} />
+        )
+      }
+    } else {
+      if (this.state.open) {
+        return (
+          <CustomMenu open={this.state.open} userInfo={this.props.userInfo} logout={this.logout} login={this.toggleModal} toggleMenu={this.menu} />
+        )
+      }
     }
   }
-  }
-  
- 
-    
+
+
+
 
   render() {
     const { addStylistName, addZip } = this.props
     return (
       <div className="App">
-        {this.props.userInfo && this.props.userInfo.length ?
-          <header className="home-header">
-            <div className='header-search-box'>
-              <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
-              <div className='wrapper'>
-                <input className='search-input' placeholder='Search' />
-                <img src={icon} alt='icon' className='icon' width='25px' />
-              </div>
+        <header className="home-header-responsive">
+          <div className='header-search-box'>
+            <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
+            <div className='wrapper'>
+              <input className='search-input' placeholder='Search' />
+              <img src={icon} alt='icon' className='icon' width='25px' />
             </div>
+          </div>
 
+          {this.props.userInfo && this.props.userInfo.length ?
             <div className='icons-container'>
               <img className='bell' src={bell} width='30px' height='30px' />
               <div className='Fade-dropdown' >
-                <img onClick={this.toggleMenu} src={down} className='down-arrow' width='15px' />
+                <Button ><img onClick={this.menu} src={down} className='down-arrow' width='15px' /></Button>
                 <span className='profile-img'>{this.props.userInfo.full_name}</span>
                 <div className='homeMenu'>{this.dropdown()}</div>
               </div>
+            </div> :
+            <React.Fragment>
+              <Button id='styledButton' onClick={this.menu}><img src={menu} className='home-menu-icon' width='40px' />
+                {this.dropdown()}
+              </Button>
+              <span className='responsive-home-title'>PrivyChic</span>
+              <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link>
+            </React.Fragment>}
+          <div className='header-search-box'>
+            <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
+              <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)} />
+              <img src={icon} alt='icon' className='icon' width='25px' />
             </div>
-          </header> :
-          <header className="home-header-responsive">
-            <Button id='styledButton' onClick={this.menu}><img src={menu} className='home-menu-icon' width='40px' />
-            </Button>
-            <div id='homeMenu'>{this.dropdown()}</div>
-            <span className='responsive-home-title'>PrivyChic</span>
-            <Link to='/search' className='search-link'><img src={search} className='search-img' /></Link>
-
-            <div className='header-search-box'>
-              <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
-                <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)} />
-                <img src={icon} alt='icon' className='icon' width='25px' />
-              </div>
-            </div>
-            <div className='nav-link-container'>
-              <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
-              <span onClick={this.toggleModal} className='nav-link' >Login</span>
-              <Link to='/business' ><button className='business'>For Business</button></Link>
-              <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
-            </div>
-          </header>}
+          </div>
+          <div className='nav-link-container'>
+            <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
+            <span onClick={this.toggleModal} className='nav-link' >Login</span>
+            <Link to='/business' ><button className='business'>For Business</button></Link>
+            <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
+          </div>
+        </header>
         <div className='home'>
           <div className='top-box'>
             <div className='search-box'>
@@ -206,12 +205,12 @@ class Home extends Component {
                   <Link to='/search'> <img className='icon2' src={icon} /> </Link>
                   <input onChange={(e) => addZip(e.target.value)} placeholder='Enter city, state, or zipcode' className='location-1' />
                   <img src={location} className='location-icon' />
-                
+
                 </div>
 
                 <Link to='/search' className='search'><button className='search'>Search</button></Link>
               </div>
-  {this.showModal()}
+              {this.showModal()}
               <div className='search-link-container'>Popular Searches
         <a className='search-links' href='https://www.google.com/search?biw=1920&bih=921&tbm=isch&sa=1&ei=uWYAXLe6FtKwzwLv1LdA&q=hair+cuts&oq=hair+cuts&gs_l=img.3..0l4j0i10j0l4j0i10.5617.7012..7331...0.0..0.98.187.2......1....1..gws-wiz-img.......0i10i67j0i67.0J0ci9N9uiM'>Haircut</a>
                 <a className='search-links' href='https://www.google.com/search?biw=1920&bih=921&tbm=isch&sa=1&ei=wmYAXOOfAoOyzwLWx4iYAg&q=barber&oq=barber&gs_l=img.3..0i67l3j0j0i67l4j0j0i67.64825.66958..67110...0.0..0.105.1342.12j2......1....1..gws-wiz-img.....0..35i39j0i10i67.M1iKbUSzHmM'>Barber</a>
