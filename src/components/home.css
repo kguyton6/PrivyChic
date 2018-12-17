@@ -1,0 +1,70 @@
+.rightBox {
+    width: 30%;
+}
+
+a img {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+    text-decoration-color: unset;
+}
+
+div.floatBox {
+    width: 80%;
+    height: 50%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.774);
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    text-align: center;
+    justify-content: center;
+    font-weight: lighter;
+
+}
+div.floatBox:hover {
+    height: 60%;
+    width: 85%;
+   
+}
+.float-text {
+    font-size: 1.5rem;
+    line-height: 40px;
+
+}
+h2 {
+    font-weight: normal;
+}
+
+.link-box {
+    padding: 10px; 
+    width: 60%;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(15, 15, 15, 0.753);
+    z-index: 10;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}  
+.link-box a {
+    font-weight: lighter;
+    color: rgba(255, 255, 255, 0.733);
+    text-decoration: none;
+    letter-spacing: 2px;
+
+}
+.searchInput {
+    display: none;
+}
+
+img.search {
+    display: none;
+}
+
+
+
+

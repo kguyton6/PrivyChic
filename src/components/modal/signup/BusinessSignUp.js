@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import '../login/login.css'
 import axios from 'axios'
-import close from '../../../assets/close.png'
+import close from '../../assets/close.png'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router'
-import Business_Form from '../../../forms/Business_Form';
-import {getUserInfo, addEmail, addFullName} from '../../../../ducks/actions/action_creators'
+import Business_Form from '../../forms/Business_Form';
+import {getUserInfo, addEmail, addFullName} from '../../../ducks/actions/action_creators'
 // import bindActionCreators from 'redux'
 
 class BusinessSignUp extends Component {

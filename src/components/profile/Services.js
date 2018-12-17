@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import TakeMoney from '../stripe/TakeMoney';
 import {getUserInfo} from '../../ducks/actions/action_creators'
 import {connect} from 'react-redux'
-import Login from '../login/modal/login/Login'
+import Login from '../modal/login/Login'
 import Availability from './Availability';
 
 const serviceList = {

@@ -18,7 +18,7 @@ const {
   APP_CODE
 } = process.env
 
-app.use(express.static(`${__dirname}/../build`))
+// app.use(express.static(`${__dirname}/../build`))
 
 
 
@@ -171,9 +171,9 @@ app.get('/checkSession', (req, res) => {
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
   app.delete('/api/delete/appointment/:id', ctrl.delete_appointment)
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'));
-  });
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, '../build/index.html'));
+  // });
 
   const PORT = SERVER_PORT || 9000
 

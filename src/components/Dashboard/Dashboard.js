@@ -11,7 +11,7 @@ import menu from '../assets/menu.png'
 import search from '../assets/search.png'
 import icon from '../assets/icon.svg'
 import CustomMenu from '../dropdown/CustomMenu';
-import Login from '../login/modal/login/Login'
+import Login from '../modal/login/Login'
 import DropDown from '../dropdown/DropDown'
 import { withRouter} from 'react-router'
 
