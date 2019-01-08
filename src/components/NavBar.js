@@ -9,10 +9,11 @@ export const Nav = styled.nav `
     font-family: Arial, Helvetica, sans-serif;
     align-items: center;
     cursor: pointer;
-    margin-right: 3%;
+    right: 3%;
     width: 30%;
     display: flex;
     justify-content: space-evenly;
+    position: absolute;
 
     a {
         color: black;
@@ -24,11 +25,11 @@ export const Nav = styled.nav `
 
 
   const NavBar = props => {
+    console.log(props)
 
     return (
 
-            <Nav {...props}>
-               {props.render.props.children}
+            <Nav >
                {props.children}
              
             </Nav>

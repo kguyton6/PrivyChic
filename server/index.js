@@ -14,8 +14,6 @@ const {
 
   DATABASE_URL,
   SERVER_PORT,
-  APP_ID,
-  APP_CODE
 } = process.env
 
 // app.use(express.static(`${__dirname}/../build`))

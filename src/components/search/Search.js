@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import downArrow from "../assets/down-arrow.png";
-import logo from "../assets/Artboard1.png";
 import location from "../assets/location.png";
-import icon from "../assets/icon.svg";
 import "./search.css";
-import check from "../assets/checkmark.png";
 import Login from "../modal/login/Login";
 import axios from "axios";
 import { Link, Route } from "react-router-dom";
-import profile from "../assets/profile.png";
 import Input from "../Input";
 import Header from "../Header";
 import CustomMenu from "../dropdown/CustomMenu";
@@ -18,28 +13,20 @@ import Button from "../buttons/Button";
 import Schedule from "../dropdown/Schedule";
 import styled from 'styled-components'
 import NavBar from '../NavBar'
+import search from '.././assets/search.png'
+import StylistCard from './StylistCard'
+import Banner from '../Banner'
 
-const availableTimes = {
-  fontColor: "black",
-  borderStyle: "solid",
-  borderColor: "black",
-  fontSize: "12px",
-  height: "50%"
-};
-const Logo = styled.img`
-  margin-left: 5%;
-  width: 200px;
-  height: 80px;
 
-`;
-
-const StyledDiv = styled.div `
-    width: 80%;
-
+const StyledHeader = styled(Header)`
     input {
-        width: 15%;
-        height: 35px;
+        width: 10%;
+        border: solid .1px rgb(230, 230, 230);
 
+    }
+    button {
+        width: 8%;
+        height: 42px;
     }
 `
 
@@ -50,13 +37,10 @@ class Search extends Component {
     this.state = {
       stylists: [],
       acceptsPayment: false,
-      showLoginModal: false,
+      showLogin: false,
       appointments: false,
       availability: [],
-      showStylist: true,
-      business_id: null,
       calendar: [],
-      profileImage: profile,
       open: false,
       stylistSchedule: false,
       service_id: null
@@ -75,8 +59,7 @@ class Search extends Component {
         axios.get("/checkSession").then(res => {
           this.props.getUserInfo(res.data);
         })
-      );
-    }
+      )}
   };
 
   findStylist = () => {
@@ -111,66 +94,18 @@ class Search extends Component {
       let stylist = [];
       for (let i in stylists) {
         stylist.push(
-          <div key={i} className="stylist-card">
-            <div className="responsive-box">
-              <img src={stylists[i].portfolio} width="100%" height="100%" />
-            </div>
-            <div className="profile-main-box">
-              <div className="responsive-title">
-                {`${stylists[i].full_name}-${stylists[i].profession}`}
-              </div>
-              <span className="service-filter">
-                Multiple Services
-                <img
-                  src={downArrow}
-                  alt="down"
-                  className="down"
-                  width="15px"
-                  height="10px"
-                />
-              </span>
-              <div className="profile-box">
-                <div className="search-profile-pic">
-                  <img
-                    src={stylists[i].picture}
-                    alt="profile"
-                    className="picture"
-                    width="100%"
-                    height="100%"
-                  />
-                  <span className="stylist-name">{stylists[i].full_name}</span>
-                </div>
-              </div>
-              <div className="availability">
-                <div className="availability-filter">
-                  <Button
-                    onClick={() =>
-                      this.showAvailability(stylists[i].business_id)
-                    }
-                    className="availability-text"
-                  >
-                    Check Availability
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <Link
-              to={`/profile/${stylists[i].business_id}`}
-              className="view-photos"
-            >
-              View Profile
-            </Link>
-          </div>
+          <StylistCard stylist={stylists[i] } id={stylists[i].business_id}/>
+
+
         );
       }
 
       return stylist;
     } else {
       return (
-        <div className="no-results">
+        <h1>
           No Search Results
-          <Logo src={logo} alt='logo'/>
-        </div>
+        </h1>
       );
     }
   };
@@ -182,19 +117,12 @@ class Search extends Component {
   toggleModal = () => {
     this.setState(prevState => {
       return {
-        showLoginModal: !prevState.showLoginModal
+        showLogin: !prevState.showLogin
       };
     });
   };
 
-  showAvailability = id => {
-    this.setState(prevState => {
-      return {
-        availability: !prevState.availability,
-        service_id: id
-      };
-    });
-  };
+
   showPaymentFilter = () => {
     axios.get(`/api/payments`).then(res => {
       this.setState({ stylists: res.data });
@@ -235,11 +163,24 @@ class Search extends Component {
     return (
       <div >
 
-          <Header>
+          <StyledHeader>
             <Input type='text' placeholder='Search by name' />        
             <Input type='text' placeholder='Search by zipcode' image={location} size='14px' positionX='5px'/>
-            <Input type='Date' image='none' indent='10px'/> 
-         </Header> 
+            <Input type='Date' image='none' indent='10px' height='43px'/> 
+            <Button>Search</Button>
+            <NavBar>
+
+              <Link to="/search"> 
+                <img
+                  src={search}
+                  className="search"
+                  width="25px"
+                  alt="search"
+                />
+              </Link>
+
+         </NavBar>
+         </StyledHeader> 
            
 
 

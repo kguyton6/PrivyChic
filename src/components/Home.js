@@ -22,12 +22,8 @@ import menu from "./assets/menu.png";
 import search from "./assets/search.png";
 import logo from "./assets/Artboard3.png";
 import CustomMenu from "./dropdown/CustomMenu";
+import LinkBox from './LinkBox'
 
-const Logo = styled.img`
-  margin-left: 5%;
-  width: 200px;
-  height: 80px;
-`;
 
 const MenuButton = styled.button`
   display: none;
@@ -110,7 +106,6 @@ class Home extends Component {
     this.state = {
       showLogin: false,
       showSignUp: false,
-      keyword: "",
       user: [],
       firstName: "",
       lastName: "",
@@ -120,10 +115,10 @@ class Home extends Component {
       showMenu: false,
       input: "",
       full_name: this.props.userInfo.full_name,
-      open: false
+      open: false,
+      disabled: true
     };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.showModal = this.showModal.bind(this);
+
   }
 
   componentDidUpdate = () => {
@@ -138,19 +133,18 @@ class Home extends Component {
       [name]: event.target.checked
     });
   };
-
-  toggleModal = value => {
+  toggleModal = () => {
     this.setState(prevState => {
       return {
         showLogin: !prevState.showLogin,
-        keyword: value
       };
     });
   };
   toggleSignUp = () => {
     this.setState(prevState => {
       return {
-        showSignUp: !prevState.showSignUp
+        showLogin: !prevState.showLogin,
+        disabled: !prevState.disabled
       };
     });
   };
@@ -160,13 +154,15 @@ class Home extends Component {
       return (
         <Login
           onClose={this.toggleModal}
-          keyword={this.state.keyword}
-          showLogin={this.state.showLogin}
-          onClick={this.login}
+          disabled={this.state.disabled}
+          onClick={() => this.setState(prevState => {return {disabled: !prevState.disabled }})}
+
         />
       );
     }
   };
+  
+ 
 
   logout = () => {
     axios.get("/api/logout").then(res => {
@@ -211,34 +207,37 @@ class Home extends Component {
     }
   };
 
+
   render() {
     return (
       <div>
          <Header>
          <Input placeholder="Search..." />
-        </Header>
 
-        {this.showModal()}
+         <NavBar>
+
+              <span onClick={() => this.toggleSignUp()}>Sign Up</span>
+              <span onClick={() => this.toggleModal()}>Login</span>
+              <Link to="/business">
+                {" "}
+                <Button backgroundColor="#242622">For Business</Button>{" "}
+              </Link>
+              <Link to="/help">Help</Link>
+              <Link to="/search">
+                <img
+                  src={search}
+                  className="search"
+                  width="25px"
+                  alt="search"
+                />
+              </Link>
+
+         </NavBar>
+        </Header>
+{this.showModal()}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Banner>
-            <h1> {`Discover & book beauty and barber appointments.`}</h1>
-            <Container>
-              <Input
-                onChange={e => addStylistName(e.target.value)}
-                name="name"
-                placeholder="Haircut, salon name, stylist name"
-              />
-              <Input
-                size="15px"
-                positionX="5px"
-                image={location}
-                onChange={e => addZip(e.target.value)}
-                placeholder="Enter city, state, or zipcode"
-              />
-              <Link to="/search">
-                <Button>Search</Button>
-              </Link>
-            </Container>
+          <LinkBox />
           </Banner>
 
           <RightBox>

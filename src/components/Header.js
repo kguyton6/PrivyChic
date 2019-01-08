@@ -9,10 +9,11 @@ import Input from "./Input";
 import search from "./assets/search.png";
 import NavBar from "./NavBar";
 import Button from "./buttons/Button";
+import Axios from "axios";
 
 
 const Logo = styled.img`
-  margin-left: 5%;
+  margin-left: 3%;
   width: 200px;
   height: 80px;
   cursor: pointer;
@@ -41,13 +42,47 @@ const StyledHeader = styled.header`
   height: 120px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
 `;
 
 class Header extends React.Component {
   state = {
-    open: false
+    open: false,
+    showLogin: false,
+    disabled: true
   };
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {
+        showLogin: !prevState.showLogin,
+        disabled: !prevState.disabled
+      };
+    });
+  };
+  toggleSignUp = () => {
+    this.setState(prevState => {
+      return {
+        showLogin: !prevState.showLogin,
+        disabled: false
+      };
+    });
+  };
+
+  showModal = () => {
+    if (this.state.showLogin) {
+      return (
+        <Login
+          onClose={this.toggleModal}
+          disabled={this.state.disabled}
+          showLogin={this.state.showLogin}
+          toggle={this.state.disabled}
+          disableLogin={() => this.setState({disabled: false})}
+          disableSignUp={() => this.setState({disabled: true})}
+        />
+      );
+    }
+  };
+  
 
   menu = () => {
     this.setState(prevState => {
@@ -89,31 +124,10 @@ class Header extends React.Component {
     return (
       <StyledHeader {...this.props}>
         <MenuButton onClick={menu}>{this.dropdown()}</MenuButton>
-        <div style={styledDiv}>
          <Logo src={logo} alt="logo"/>
           {this.props.children}
-        </div>
-        <NavBar
-          render={
-            <>
-              <span onClick={login => this.toggleModal(login)}>Sign Up</span>
-              <span onClick={login => this.toggleModal(login)}>Login</span>
-              <Link to="/business">
-                {" "}
-                <Button backgroundColor="#242622">For Business</Button>{" "}
-              </Link>
-              <Link to="/help">Help</Link>
-              <Link to="/search">
-                <img
-                  src={search}
-                  className="search"
-                  width="25px"
-                  alt="search"
-                />
-              </Link>
-            </>
-          }
-        />
+
+        <NavBar render={this.props.render}/>
       </StyledHeader>
     );
   }

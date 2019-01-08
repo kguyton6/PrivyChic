@@ -25,4 +25,4 @@ class ShowTheLocation extends React.Component {
 // terminology) to the router.
 const ShowTheLocationWithRouter = withRouter(ShowTheLocation);
 
-// export default ShowTheLocationWithRouter
+export default ShowTheLocationWithRouter

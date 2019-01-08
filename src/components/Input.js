@@ -11,6 +11,7 @@ export const StyledInput = styled.input `
         background-position-y: 10px;
         background-position-x: ${props => props.positionX };
         text-indent: ${props => props.indent || '25px'};
+        border: ${props => props.border };
 
         @media(max-width: 1200px){
             height: 25px;

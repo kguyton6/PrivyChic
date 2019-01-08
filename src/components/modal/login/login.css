@@ -1,4 +1,4 @@
-
+/* 
 .forgot-pw {
     font-size: 12px;
     color: rgb(28, 118, 173);
@@ -40,7 +40,6 @@
 }
  .login-span-active, .signup-span-active {
     color:#2876AD;
-    /* margin-right: 15%; */
     cursor: pointer;
     margin-right: 13%;   
 } 
@@ -50,8 +49,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    /* margin-top: 5%; */
-    /* margin-bottom: 50px; */
+ 
 }
 .signup-container {
     display: flex;
@@ -261,4 +259,4 @@
         margin-top: 5%;
     }
     
-} 
+}  */
