@@ -1,23 +1,47 @@
 import React, { Component } from "react";
 import businessLogo from "../assets/Artboard3.png";
-import "./business.css";
-import { Link } from "react-router-dom";
-import BusinessSignUp from "../modal/signup/BusinessSignUp";
-import menu from "../assets/menu.png";
-import search from "../assets/search.png";
-import Login from "../modal/login/Login";
-import bell from "../assets/bell.png";
-import down from "../assets/down-arrow.png";
-import axios from "axios";
+
 import { getUserInfo } from "../../ducks/actions/action_creators";
 import { connect } from "react-redux";
-import Button from "../buttons/Button";
+import {StyledBtn as Button} from "../buttons/Button";
 import CustomMenu from "../dropdown/CustomMenu";
 import Header from "../Header";
 import Banner from "../Banner";
 import styled from 'styled-components'
-import NavBar from "../NavBar";
+import Login from "../modal/login/Login";
+const Title = styled.div`
+margin-top: 3%;
+text-align: center;
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h1, h2{
+font-family: sans-serif;
+line-height: 42px;
 
+
+  }
+`
+const Boxes = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3%;
+
+  div {
+    margin: 3%;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+`
 const Container = styled.div`
   position: relative;
   border: solid transparent;
@@ -50,62 +74,38 @@ class Business extends Component {
       businessLogin: false,
       showLogin: false,
       open: false,
-      disabled: true
+      disabled: true,
+      isBusiness: true
     };
   }
 
-  componentDidMount = () => {
-    axios.get("/checkSession").then(res => {
-      this.props.getUserInfo(res.data);
-      console.log(this.props.getUserInfo.full_name);
-    });
-  };
-
   toggleSignUp = () => {
-    this.setState(prevState => {
-      return {
-        showSignUp: !prevState.showSignUp
-      };
-    });
-  };
- 
-  logout = () => {
-    axios.get("/api/logout").then(res => {
-      if (res.status === 200) {
-        return this.menu();
-      }
-    });
-  };
-  dropdown = () => {
-    if (this.state.open) {
-      return (
-        <CustomMenu
-          login={this.toggleLogin}
-          open={this.menu}
-          logout={this.logout}
-        />
-      );
-    }
-  };
+    this.setState( prevState => {
+      return { showSignUp: !prevState.showSignUp,
+      disabled: false }
+    })
+  }
   showModal = () => {
     if (this.state.showSignUp) {
       return (
         <Login
-          onClose={this.toggleSignUp} />
-
-      )
+          isBusiness={this.state.isBusiness}
+          onClose={this.toggleSignUp}
+          disabled={this.state.disabled}
+        />
+      );
     }
- }
+  };
 
+
+    
+  
   render() {
     return (
-      <>
-        <Header >
-            <NavBar >
-            <span>Login</span>
-            <span>Sign Up</span>
-            </NavBar> 
-            </Header>
+      <div>
+        <Header links={<><span key={1}>Pricing</span><span>Blog</span></> }
+        /> 
+        {this.showModal()}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Banner
             backgroundImage="https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg"
@@ -113,39 +113,34 @@ class Business extends Component {
             width="80%"
             positionY="-100px"
           >
-          <Container>
-            <h1 marginTop='2%'>
+            <h1 >
               Be Independent.
               <br />
               Invest in Yourself.
               <br />
               Trust PrivyChic with the rest.
             </h1>
-            <h4>
+            <h3>
               #1 Appointment booking and online scheduling software for
               independent professionals.
-            </h4>
-            <Button onClick={() => this.toggleSignUp()}>
-              Try It Now
-            </Button>
-            <h6 className="trial-text">
+            </h3><br/>
+            <Button onClick={this.toggleSignUp} name='Try It Now' height='60px' width='210px'/><br/><br/>
+            <h4>
               30 day free trial, no card required
-            </h6>
-            </Container>
-        {this.showModal()}
+            </h4>
           </Banner>
         </div>
 
-          <div >
+          <Title>
             <h1>Why PrivyChic?</h1>
             <h2>
               Get the freedom to do what you love
             </h2>
-          </div>
-          <div className="boxes">
+          </Title>
+          <Boxes>
             <div className="outer-box">
               <span className="box1">1</span>
-              <span className="box-title">Get Online</span>
+              <h1>Get Online</h1>
               <p className="paragraph">
                 Set up your professional website and let clients know you're
                 available to be booked online. Include your services, business
@@ -154,7 +149,7 @@ class Business extends Component {
             </div>
             <div className="outer-box">
               <span className="box1">2</span>
-              <span className="box-title">Get Organized</span>
+              <h1>Get Organized</h1>
               <p className="paragraph">
                 Manage your schedule and client notes. Appointment reminders are
                 sent automatically.
@@ -162,7 +157,7 @@ class Business extends Component {
             </div>
             <div className="outer-box">
               <span className="box1">3</span>
-              <span className="box-title">Get Booked</span>
+              <h1>Get Booked</h1>
               <p className="paragraph">
                 Use your new VIP link to promote yourself online through social
                 media, email marketing or by running a promotion. Make it easy
@@ -172,27 +167,25 @@ class Business extends Component {
             <div className="outer-box">
               <span className="box1">4</span>
 
-              <span className="box-title">Get Paid</span>
+              <h1>Get Paid</h1>
               <p className="paragraph">
                 Instantly accept credit card payments or set up a no-show late
                 cancellation policy. Get next day payouts directly to your bank
                 account.
               </p>
             </div>
-          </div>
-      </>
+          </Boxes>
+      </div>
     );
   }
 }
 const mapStateToProps = state => {
-  const { userInfo } = state;
+  const { user } = state;
   return {
-    userInfo
+    user
   };
 };
 
-const bindActionCreators = { getUserInfo };
 export default connect(
-  mapStateToProps,
-  bindActionCreators
+  mapStateToProps
 )(Business);

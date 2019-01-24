@@ -4,8 +4,8 @@ import './profile_form.css'
 import {connect} from 'react-redux'
 import axios from 'axios';
 import Dashboard from '../Dashboard/Dashboard'
-import {withRouter, Redirect} from 'react-router'
-import {getUserInfo, addFirstName, addLastName, addEmail, addFullName, addPicture,addDescription, addProfession } from '../../ducks/actions/action_creators'
+import {withRouter } from 'react-router'
+import {getUserInfo, addPicture,addDescription, addProfession } from '../../ducks/actions/action_creators'
 
 class Profile_Form extends Component {
     constructor(props){
@@ -13,7 +13,12 @@ class Profile_Form extends Component {
 
         this.state = {
             appointment: false,
-            payment: false
+            payment: false,
+            first_name: '',
+            last_name: '',
+            description: '',
+            profession: '',
+            image: ''
     }
 }
 
@@ -25,6 +30,9 @@ class Profile_Form extends Component {
                 this.props.onClose()
             }
         })
+    }
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
     }
     businessSignUp = () => {
         const {full_name, email, password, business_name, phone, address, city, State, zipcode, portfolio, profession, first_name, last_name, description, picture } = this.props  
@@ -43,8 +51,6 @@ class Profile_Form extends Component {
         this.setState({payment: true})
     }
     render() {
-        console.log(this.props)
-        const {addFirstName, addLastName, addProfession, addEmail, addDescription, addPicture} = this.props
         return (
             <div className='App'>
                 <div className='profile-modal'>
@@ -55,13 +61,28 @@ class Profile_Form extends Component {
                     <span onClick={this.businessSignUp}className='profile-save'>Save</span>
                     </div>
                                <div className='profile-inputs'>
-                                <input placeholder='First Name' className='profile-name' onChange={(e) => addFirstName(e.target.value)} />
-                                <input placeholder='Last Name' className='profile-name' onChange={(e) => addLastName(e.target.value)} />
-                                <input className='profession' placeholder='My Profession' onChange={(e) => addProfession(e.target.value)}/>
+                                <input placeholder='First Name' 
+                                name='first_name'
+                                 onChange={this.handleChange} />
+                                <input 
+                                name='last_name'
+                                placeholder='Last Name' 
+                                 onChange={this.handleChange} />
+                                <input 
+                                name='profession'
+                                placeholder='My Profession' 
+                                onChange={this.handleChange}/>
                                
-                                <textarea placeholder='About Me' className='about-input' onChange={(e) => addDescription(e.target.value)} />
-                                <input placeholder='Add Email' value={this.props.email}className='email-input' onChange={(e) => addEmail(e.target.value)} />
-                                <input placeholder='Picture URL' className='website-input' onChange={(e) => addPicture(e.target.value)} />
+                                <textarea placeholder='About Me' className='about-input' name='description' onChange={this.handleChange} />
+                                <input 
+                                name='email'
+                                    placeholder='Add Email' 
+                                 value={this.props.email}
+                                 onChange={this.handleChange} />
+                                <input 
+                                placeholder='Picture URL' 
+                                name='image'
+                                onChange={this.handleChange}/>
                                 <span className='accept-payment'>Accept Online Payments <input type='checkbox' onChange={this.handleCheckBox}/></span>
                             </div>
                     </form>
@@ -74,27 +95,12 @@ class Profile_Form extends Component {
 }
 
 export function mapStateToProps(state){
-    const {business_name, phone, city, State, address, zipcode, full_name, first_name, last_name, email, description, userInfo} = state
-    return {
-       business_name,
-       phone,
-        address, 
-        city,
-        State,
-        zipcode,
-        first_name, 
-        last_name, 
-        email,
-        description,
-        full_name,
-        userInfo
-
-
-    }
+    const {user} = state
+    return { user }
 }
 
 
-const bindActionCreators = {addFullName, addDescription, addLastName, addFirstName, addPicture, addProfession, addEmail, getUserInfo}
 
-export default withRouter(connect(mapStateToProps, bindActionCreators)(Profile_Form))
+
+export default withRouter(connect(mapStateToProps )(Profile_Form))
 

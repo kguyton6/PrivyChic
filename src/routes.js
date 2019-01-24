@@ -7,7 +7,6 @@ import Login from "./components/modal/login/Login";
 import Search from "./components/search/Search";
 import Profile from "./components/profile/Profile";
 import Business from "./components/business/Business";
-import ShowTheLocationWithRouter from "./components/ShowTheLocation";
 import Business_Form from "./components/forms/Business_Form";
 import Appointment from "./components/forms/Appointment";
 import TakeMoney from "./components/stripe/TakeMoney";

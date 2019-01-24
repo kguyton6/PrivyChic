@@ -1,33 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import location from "../assets/location.png";
-import "./search.css";
-import Login from "../modal/login/Login";
 import axios from "axios";
-import { Link, Route } from "react-router-dom";
 import Input from "../Input";
 import Header from "../Header";
 import CustomMenu from "../dropdown/CustomMenu";
-import { addTimes,addZip,addStylistName, getUserInfo } from "../../ducks/actions/action_creators";
-import Button from "../buttons/Button";
+import {
+  addTimes,
+  addZip,
+  addStylistName,
+  getUserInfo
+} from "../../ducks/actions/action_creators";
+import { StyledBtn as Button } from "../buttons/Button";
 import Schedule from "../dropdown/Schedule";
-import styled from 'styled-components'
-import NavBar from '../NavBar'
-import search from '.././assets/search.png'
-import StylistCard from './StylistCard'
-import Banner from '../Banner'
+import styled from "styled-components";
+import StylistCard from "./StylistCard";
 
 
 const StyledHeader = styled(Header)`
-    input {
-        width: 10%;
-        border: solid .1px rgb(230, 230, 230);
+  input {
+    width: 20%;
+    height: 35px;
+    border: solid 0.1px rgb(230, 230, 230);
+    background-position-y: 5px;
+    ::placeholder{
+      color: gray;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+    }
+  }
+  button {
+    width: 10%;
+    height:35px;
+    text-transform: uppercase;
+  }
+`;
+const NoResults = styled.h1`
+  text-align: center;
+  margin-top: 10%;
+`;
 
-    }
-    button {
-        width: 8%;
-        height: 42px;
-    }
+const InputWrapper = styled.div`
+  width: 60%;
 `
 
 class Search extends Component {
@@ -43,50 +57,83 @@ class Search extends Component {
       calendar: [],
       open: false,
       stylistSchedule: false,
-      service_id: null
+      service_id: null,
+      stylist_name: this.props.stylist_name,
+      zip: this.props.zipcode,
+      keyword: '',
+      date:  '',
+      results: 'No Results'
     };
   }
 
   componentDidMount = () => {
-    if (this.props.zipcode) {
-      axios.get(`/api/zipcode/${this.props.zipcode}`).then(
-        res => {
-          this.setState({
-            stylists: res.data,
-            full_name: res.data[0].full_name
-          });
-        },
-        axios.get("/checkSession").then(res => {
-          this.props.getUserInfo(res.data);
-        })
-      )}
-  };
+    const {zipcode, stylist_name} = this.props
+    if(zipcode){
+    return this.findByZip(zipcode)
 
-  findStylist = () => {
-    if (this.props.stylist_name) {
+  } else {
+    return this.findStylist(stylist_name)
+  }
+}
+  
+  findByZip = (val) => {
       axios
-        .get(`/api/name/${this.props.stylist_name.toUpperCase()}`)
+        .get(`/api/zipcode/${val}`)
         .then(res => {
           this.setState({
             stylists: res.data,
             profileImage: res.data[0].picture,
-            full_name: res.data[0].full_name
+            full_name: res.data[0].full_name,
+            zipcode: null,
           });
-        });
-    } else if (this.props.zipcode) {
-      axios.get(`/api/zipcode/${this.props.zipcode}`).then(res => {
-        this.setState({ stylists: res.data, full_name: res.data[0].full_name });
-      });
-    } else {
-      axios.get(`/api/date/${this.props.date}`).then(res => {
-        this.setState({
-          stylists: res.data,
-          profileImage: res.data[0].picture,
-          full_name: res.data[0].full_name
-        });
-      });
-    }
+          this.props.addZip(null)
+        }).catch(err => console.log(err))
   };
+
+
+findStylist = (val) => {
+  if(this.state.date){
+    return this.getAvailability()
+  } else {
+  if(val === undefined){
+    var value = this.state.stylist_name
+  } else {
+    value = val
+  }
+  console.log(value)
+  axios
+    .get(`/api/availability/${value}`)
+    .then(res => {
+      this.setState({
+        stylists: res.data,
+        profileImage: res.data[0].picture,
+        full_name: res.data[0].full_name,
+        stylist_name: ''
+      });
+      this.props.addStylistName('')
+    }).catch(err => console.log(err))
+  }
+};
+getAvailability = () => {
+  axios.get(`/api/date/${this.state.date}`)
+  .then((res) => {
+    if(res.data.user_id){
+    this.setState({
+      stylists: res.data,
+      profileImage: res.data[0].picture,
+      full_name: res.data[0].full_name,
+      date: ''
+    });
+  } else {
+    this.setState({results: 'Sorry, no availibility'})
+  }
+})
+}
+
+  handleChange = (e) => {
+    this.setState({[e.target.name]:e.target.value})
+     
+  }
 
   showStylist = () => {
     if (this.state.stylists && this.state.stylists.length) {
@@ -94,34 +141,17 @@ class Search extends Component {
       let stylist = [];
       for (let i in stylists) {
         stylist.push(
-          <StylistCard stylist={stylists[i] } id={stylists[i].business_id}/>
-
-
+          <StylistCard key={stylists[i].business_id} stylist={stylists[i]} id={stylists[i].business_id} />
         );
       }
-
       return stylist;
-    } else {
-      return (
-        <h1>
-          No Search Results
-        </h1>
-      );
     }
   };
+  
 
   paymentFilter = () => {
     this.setState({ acceptsPayment: true });
   };
-
-  toggleModal = () => {
-    this.setState(prevState => {
-      return {
-        showLogin: !prevState.showLogin
-      };
-    });
-  };
-
 
   showPaymentFilter = () => {
     axios.get(`/api/payments`).then(res => {
@@ -129,23 +159,6 @@ class Search extends Component {
     });
   };
 
-  showModal = () => {
-    if (this.state.showLoginModal) {
-      return (
-        <Login
-          onClose={this.toggleModal}
-          showLogin={this.state.showLoginModal}
-        />
-      );
-    }
-  };
-  menu = () => {
-    this.setState(prevState => {
-      return {
-        open: !prevState.open
-      };
-    });
-  };
   dropdown = () => {
     if (this.state.open) {
       return <CustomMenu open={this.state.open} login={this.toggleModal} />;
@@ -158,45 +171,54 @@ class Search extends Component {
     }
   };
   render() {
-    console.log(this.state.calendar);
-    const { addDate, addStylistName, addZip, stylist_name, date, zipcode } = this.props;
+
     return (
-      <div >
-
-          <StyledHeader>
-            <Input type='text' placeholder='Search by name' />        
-            <Input type='text' placeholder='Search by zipcode' image={location} size='14px' positionX='5px'/>
-            <Input type='Date' image='none' indent='10px' height='43px'/> 
-            <Button>Search</Button>
-            <NavBar>
-
-              <Link to="/search"> 
-                <img
-                  src={search}
-                  className="search"
-                  width="25px"
-                  alt="search"
-                />
-              </Link>
-
-         </NavBar>
-         </StyledHeader> 
-           
-
-
-        <span className="filter-text">FILTERS</span>
-        <span className="payments-text">
-          Accepts Payment
-          <input
-            onChange={this.showPaymentFilter}
-            type="checkbox"
-            width="15px"
-            className="payment-checkbox"
+      <div>
+        <StyledHeader title={<h1 aria-label='Home'className='title'>PrivyChic</h1>} links={<span>Features</span>}>
+        <InputWrapper>
+          <Input
+            name='stylist_name'
+            value={this.state.stylist_name}
+           type="text" 
+           placeholder="Search by name" 
+           onChange={this.handleChange}/>
+          <Input
+            type="text"
+            placeholder="Search by zipcode"
+            image={location}
+            size="13px"
+            positionX="5px"
+            name='zip'
+            value={this.state.zip}
+            onChange={this.handleChange}
           />
-        </span>
-        {this.showModal()}
+          <Input 
+          name='date'
+          value={this.state.date}
+          onChange={this.handleChange}
+          style={{color: 'grey', fontWeight: 'lighter'}}
+          type="Date" image="none" indent="10px" />
+          <Button onClick={() => this.findStylist(this.state.zipcode)} fontWeight="bolder" fontSize="14px" name="Search"
+           />
+           </InputWrapper>
+        </StyledHeader>
 
+        <div style={{ display: "flex", flexDirection: "column", margin: "3%" }}>
+          <span className="payments-text">
+            Accepts Payment
+            <input
+              onChange={this.showPaymentFilter}
+              type="checkbox"
+              width="15px"
+              className="payment-checkbox"
+            />
+          </span>
+        </div>
+        {this.state.stylists.length > 0 ? ( 
         <div className="stylist-container">{this.showStylist()}</div>
+        ) : (
+        <NoResults>{this.state.results}</NoResults>
+        )}
       </div>
     );
   }
@@ -206,7 +228,8 @@ const mapStateToProps = state => {
   return {
     zipcode: state.zipcode,
     stylist_name: state.stylist_name,
-    date: state.date
+    date: state.date,
+    keyword: ''
   };
 };
 

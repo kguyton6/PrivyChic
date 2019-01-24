@@ -1,100 +1,67 @@
 import React from 'react'
 import { Button, Collapse, Well, Fade, Navbar, Nav, MenuItem, NavDropdown, NavItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import './dropdown.css'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { addPicture, getUserInfo } from '../../ducks/actions/action_creators';
+import styled from 'styled-components'
 
-
-// const wellStyle = {
-//   position: 'absolute',
-//   width: '150px',
-//    height: '90px',
-//   left: '5%',
-//   zIndex: '10',
-//   fontSize: '10px',
-//   top: '10%',
-//   fontWeight: 'bold',
-//   justifyContent: 'space-evenly',
-//    flexDirection: 'column',
-//   backgroundColor: 'rgba(226, 226, 226, 0.918)',
-//   display: 'flex',
-//   bordeRadius: '3px',
-// overflowWrap: 'break-word',
-//   boxShadow: 'rgba(128, 128, 128, 0.431)',
-//   cursor: 'pointer'
-// }
-// const menuStyle = {
-//   cursor: 'pointer',
-//   color: 'rgb(56, 56, 56)',
-//   fontSize: '18px',
-//   textAlign: 'left',
-//   letterSpacing: '1px',
-//   textIndent: '5px'
-// }
+const StyledWell = styled(Well)`
+  color: black;
+  font-size: 14px;
+  line-height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  a:hover, span:hover {
+    font-size: 18px;
+    
+  }
+`
+ const Dropdown = styled.div`
+ width: 330px;
+  height: 50px;
+  position: absolute;
+  right: 15%;
+  box-shadow: 0 .5px 1px 0 rgba(190, 199, 198);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 4px;
+ `
 
 class CustomMenu extends React.Component {
 
-
-  componentDidMount = () => {
-    axios.get('/checkSession')
-      .then((res) => {
-        this.props.getUserInfo(res.data)
-      })
-  }
-
- 
-  showUserMenu = () => {
-   if(this.props.userInfo.user_type === 'client'){
-       return (
-        <Fade in={this.props.open} >
-          <div>
-            <Well className='width' >
-              <span id='login' onClick={this.props.logout}>Log Out</span>
-              <Link id='business' to='/business'>Business</Link>
-              <Link id='account'to={`/dashboard/${this.props.userInfo.user_type}/${this.props.userInfo.user_id}`}>Account</Link>
-              <Link id='home' to='/'>Home</Link>
-
-            </Well>
-          </div>
-        </Fade>
-      )
-    } else {
-
-    return (
-      <Fade in={this.props.open} >
-        <div>
-          <Well className='width' >
-            <span id='login'  onClick={this.props.login}>Login</span>
-            <Link id='business'to='/business'>Business</Link>
-            <Link id='home' to='/'>Home</Link>
-
-          </Well>
-        </div>
-      </Fade>
-    )
-  
-}
-  }
-
   render() {
     console.log(this.props)
-    return (
-      <React.Fragment>
-        {this.props.userInfo ?
-          this.showUserMenu() :
-          this.showMenu()}
-      </React.Fragment>
+    return this.props.user.email ? (
+      <Dropdown>
+        <Fade in={this.props.open} >
+          <div>
+            <StyledWell>
+              <Link  to='/'>Home</Link>
+              <Link to={`/dashboard/${this.props.user.user_type}/${this.props.user.user_id}`}>Account</Link>
+              <span  onClick={this.props.logout}>Log Out</span>
+              <Link to='/business'>Business</Link>
 
+            </StyledWell>
+          </div>
+        </Fade>
+        </Dropdown>
+    ) : (
+      <Dropdown>
+      <Fade in={this.props.open} >
+      <div>
+        <StyledWell >
+          <Link to='/'>Home</Link>
+          <span onClick={this.props.login}>Login</span>
+          <Link to={`/dashboard/${this.props.user.user_type}`}>Business</Link>
+
+        </StyledWell>
+      </div>
+    </Fade>
+    </Dropdown>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userInfo: state.userInfo
-  }
-}
-const bindActionCreators = { getUserInfo }
-export default connect(mapStateToProps, bindActionCreators)(CustomMenu)
+
+export default CustomMenu

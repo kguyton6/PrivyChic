@@ -1,4 +1,5 @@
-select * from calendar
+select * from business
 join profile
-on calendar.business_id = profile.business_id
-where six_digit_date = $1
+on business.user_id = profile.user_id
+where upper(full_name) like $1  or lower(full_name) like $1
+

@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-
-const StyledBtn = styled.button `
+export const BusinessButton = styled.button `
         width: ${props => props.width || '160px'};
         height: ${props => props.height || '45px'};
         color: ${props => props.color || 'white'};
@@ -16,17 +15,29 @@ const StyledBtn = styled.button `
             font-size: 18px;
         }
 `
-
-
-
 const Button = (props) => {
 
     return (
-        <>
-        <Button onClick={props.onClick} >{props.name}</Button>
-        </>
+
+        <button {...props} onClick={props.onClick} >{props.name}</button> 
     )
 }
+export default Button
 
-export default StyledBtn
+export const StyledBtn = styled(Button) `
+        width: ${props => props.width || '160px'};
+        height: ${props => props.height || '46px'};
+        color: ${props => props.color || 'white'};
+        font-size: ${props => props.fontSize || '16px'};
+        background-color: ${ props => props.backgroundColor || '#5CD3CA'};
+        border: none;
+        box-sizing: border-box;
+        margin-top: ${props => props.marginTop};
+        text-transform: uppercase;
+        font-family: sans-serif;
+        font-weight: bold;
+
+        
+`
+
 

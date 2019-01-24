@@ -1,4 +1,4 @@
-  
+/*   
  
 
    .App {
@@ -107,39 +107,9 @@
        align-items: center;
        font-size: 16px;
     }
-    .box1 {
-        width: 20%;
-        height: 25%;
-        font-size: 28px;
-        line-height: 60px;
-        border-style: solid;
-        border-color: black;
-        border-width: 2px;
-        text-align: center;
-        font-family: Arial, Helvetica, sans-serif;
-        vertical-align: center;
-        position: absolute;
-        top: -25px;
-        left: 40%;
-        background-color: white;
-    }
     
-    .outer-box {
-        width: 80%;
-        height: 250px;
-        position: relative;
-        display: flex;
-        border-style: solid;
-        border-width: thin;
-        border-color: rgb(226, 226, 226);
-        margin-top: 5%;
-        font-size: 12px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     
-    }
+    
     .paragraph {
         padding: 30px;
         letter-spacing: 1px;
@@ -525,7 +495,7 @@ a.business-logo-link {
    width: 100%;
    align-content: center;
 }
-.box1 {
+/* .box1 {
     width: 50px;
     height: 50px;
     font-size: 28px;
@@ -572,9 +542,9 @@ a.business-logo-link {
     justify-content: space-evenly;
 
     }
-} 
+}  */
 
-@media screen and (min-width: 1500px) and (max-width: 2200px) {
+/* @media screen and (min-width: 1500px) and (max-width: 2200px) { */
 
     .business-title, .search-icon, .business-menu {
         display: none;
@@ -690,15 +660,14 @@ a.business-logo-link {
     width: 50px;
     height: 50px;
     font-size: 28px;
-    border-style: solid;
-    border-color: black;
-    border-width: 2px;
-    text-align: center;
+    border: solid black 2px;
     font-family: Arial, Helvetica, sans-serif;
-    vertical-align: center;
     position: absolute;
     top: -30px;
     left: 38%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: white;
 }
 
@@ -707,13 +676,10 @@ a.business-logo-link {
     height: 220px;
     position: relative;
     display: flex;
-    border-style: solid;
-    border-width: thin;
-    border-color: rgb(226, 226, 226);
+    border: thin solid rgb(226, 226, 226);
     margin-top: 30px;
     font-size: 12px;
     text-align: center;
-    display: flex;
     flex-direction: column;
     justify-content: center;
 
@@ -733,7 +699,7 @@ a.business-logo-link {
     justify-content: space-evenly;
 
     }
-} 
+/* }  */
 
 /* @media screen and (min-width: 1600px) and (max-width: 2200px) {
 
@@ -904,4 +870,4 @@ a.business-logo-link {
     justify-content: space-evenly;
 
     }
-} */
+} */ 

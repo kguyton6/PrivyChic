@@ -12,9 +12,23 @@ import search from '../assets/search.png'
 import icon from '../assets/icon.svg'
 import CustomMenu from '../dropdown/CustomMenu';
 import Login from '../modal/login/Login'
-import DropDown from '../dropdown/DropDown'
+import Header from '../Header'
 import { withRouter} from 'react-router'
+import styled from 'styled-components'
 
+
+const Main = styled.main`
+    height: 30vh;
+    width: 60%;
+    margin-top: 10%;
+    border: #06D8CC thin solid;
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+`
 
 class Dashboard extends Component {
     constructor(props) {
@@ -33,13 +47,6 @@ class Dashboard extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/checkSession')
-            .then((res) => {
-                console.log(res.data)
-                this.props.getUserInfo(res.data)
-                this.setState({ name: this.props.userInfo.full_name, client_id: this.props.userInfo.user_id })
-
-            },
                 axios.get(`/api/appointments/${this.props.match.params.id}`)
                     .then((res) => {
                         console.log(res.data)
@@ -49,8 +56,9 @@ class Dashboard extends Component {
                         } else {
                             return false
                         }
-                    }))
-    }
+                    })
+                }
+
     cancel = () => {
         axios.delete(`/api/delete/appointment/${this.state.id}`)
             .then((res) => {
@@ -97,76 +105,26 @@ class Dashboard extends Component {
         }
     }
 
-    login = () => {
-        if (this.state.showLogin) {
-            return (
-                <Login showLogin={this.state.login} />
-
-            )
-        }
-    }
-    dropdown = () => {
-        if (this.state.open) {
-            return (
-                <CustomMenu menu={this.state.open} logout={this.logout} />
-            )
-        }
-    }
-
+   
     render() {
-        console.log(this.state.user_id, this.state.calendar_id)
         return (
 
-            <div className='App'>
-                <header className="dashboard-header-responsive">
-                    <div className='dashboard-menu'>
-                        <Button onClick={this.menu}><img src={menu} className='dashboard-menu-icon' width='40px' />
-                            {this.dropdown()}
-                        </Button>
-                    </div>
-                    <span className='responsive-dashboard-title'>PrivyChic</span>
-                    <Link to='/search' className='dashboard-search-link'><img src={search} className='dashboard-search-img' /></Link>
-
-                    <div className='header-dashboard-box'>
-                        <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />
-                    </div>
-                    <div className='nav-link-container'>
-                        <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
-                        <span onClick={this.toggleModal} className='nav-link' >Login</span>
-                        <Link to='/business' ><button className='business'>For Business</button></Link>
-                        <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
-                    </div>
-                </header>
-
-
-
-
-                {/* <div className='header-search-box'>
-              <img src={logo} className="App-logo" alt="logo" width='170px' height='50px' />   <div className='wrapper'>
-                <input className='search-input' placeholder='Search' onChange={(e) => addZip(e.target.value)} />
-                <img src={icon} alt='icon' className='icon' width='25px' />
-              </div>
-            <div className='nav-link-container'>
-              <span onClick={this.toggleSignUp} className='nav-link' >Sign Up</span>
-              <span onClick={this.toggleModal} className='nav-link' >Login</span>
-              <Link to='/business' ><button className='business'>For Business</button></Link>
-              <Link to='/help' className='nav-link'><span className='nav-link'>Help</span></Link>
-            </div>
-        </div>  */}
-
-
-                <div className='dashboard-main-box'>
-                    <span className='user-title'>{`${this.props.userInfo.full_name}'s Appointments`}</span>
+            <div  >
+               <Header color='black'/>
+                <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+                <Main >
+                    <span className='user-title'>{`${this.props.user.full_name}'s Appointments`}</span>
                     {this.appointments()}
-                </div>
+                </Main>
+                    </div>
             </div>
         )
     }
 }
 const mapStateToProps = (state) => {
-    const { userInfo, appointment } = state
+    const { user, appointment } = state
     return {
-        userInfo,
+        user,
         appointment
     }
 }

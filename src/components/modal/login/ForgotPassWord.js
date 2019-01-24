@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import './forgot.css'
 import { addFullName, addEmail } from '../../../../ducks/actions/action_creators';
 import {connect} from 'react-redux'
 import close from '../../../assets/close.png'

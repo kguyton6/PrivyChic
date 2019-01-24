@@ -1,36 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import menu from "./assets/menu.png";
+import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "./modal/login/Login";
 import CustomMenu from "./dropdown/CustomMenu";
-import logo from "./assets/Artboard3.png";
-import Input from "./Input";
-import search from "./assets/search.png";
+import Logo from "./utils/Logo";
+import { BusinessButton } from "./buttons/Button";
 import NavBar from "./NavBar";
-import Button from "./buttons/Button";
-import Axios from "axios";
-
-
-const Logo = styled.img`
-  margin-left: 3%;
-  width: 200px;
-  height: 80px;
-  cursor: pointer;
-
-  @media (max-width: 1200px) {
-    width: 180;
-    height: 60px;
-    
-  }
-`;
-
-const styledDiv = {
-  display: "flex",
-  alignItems: "center",
-  width: "60%"
-};
-
+import axios from 'axios'
 const MenuButton = styled.button`
   display: none;
   @media (max-width: 900px) {
@@ -39,26 +17,52 @@ const MenuButton = styled.button`
   }
 `;
 const StyledHeader = styled.header`
-  height: 120px;
+  height: 90px;
   display: flex;
   align-items: center;
-
+  /* justify-content: space-between; */
+  .title {
+    font-size: ${props => props.fontSize || '27px'};
+    font-family: 'Abril Fatface', cursive;
+    color: ${props => props.color || '#393B3A'};
+    margin-left: 40px;
+    font-weight: 300;
+    letter-spacing: .5px;
+    padding-right: 30px;
+  }
+  .title:hover {
+    color: #5CD3CA;
+    font-size: 30px;
+  }
+  a,
+  span {
+    color: ${props => props.color || "black"};
+  }
 `;
 
 class Header extends React.Component {
   state = {
     open: false,
     showLogin: false,
-    disabled: true
+    disabled: true,
+    keyword: ""
   };
+
+  modalHandler = val => {
+    this.setState({ keyword: val });
+    if (val === "login") {
+      return this.toggleModal();
+    } else {
+      return this.toggleSignUp();
+    }
+  };
+
   toggleModal = () => {
     this.setState(prevState => {
-      return {
-        showLogin: !prevState.showLogin,
-        disabled: !prevState.disabled
-      };
+      return { showLogin: !prevState.showLogin };
     });
   };
+
   toggleSignUp = () => {
     this.setState(prevState => {
       return {
@@ -72,65 +76,52 @@ class Header extends React.Component {
     if (this.state.showLogin) {
       return (
         <Login
+          keyword={this.state.keyword}
           onClose={this.toggleModal}
           disabled={this.state.disabled}
           showLogin={this.state.showLogin}
-          toggle={this.state.disabled}
-          disableLogin={() => this.setState({disabled: false})}
-          disableSignUp={() => this.setState({disabled: true})}
+          onClick={() => this.setState({ disabled: !this.state.disabled })}
         />
       );
     }
   };
-  
 
   menu = () => {
     this.setState(prevState => {
-      return {
-        open: !prevState.open
-      };
+      return { open: !prevState.open };
     });
   };
-  dropdown = () => {
-    if (this.props.userInfo !== null) {
-      if (this.state.open) {
-        return (
-          <CustomMenu
-            open={this.state.open}
-            logout={this.logout}
-            login={this.toggleModal}
-            toggleMenu={this.menu}
-            name={this.state.full_name}
-          />
-        );
-      }
-    } else {
-      if (this.state.open) {
-        return (
-          <CustomMenu
-            open={this.state.open}
-            userInfo={this.props.userInfo}
-            logout={this.logout}
-            login={this.toggleModal}
-            toggleMenu={this.menu}
-          />
-        );
-      }
-    }
+    
+
+  handleClick = () => {
+    return this.props.history.push("/");
   };
 
   render() {
     console.log(this.props);
+
     return (
       <StyledHeader {...this.props}>
-        <MenuButton onClick={menu}>{this.dropdown()}</MenuButton>
-         <Logo src={logo} alt="logo"/>
-          {this.props.children}
+        <MenuButton onClick={this.menu} />
+        {this.props.title ?
+        <Link to='/'>{this.props.title}</Link>
+        :
+        <Logo newLogo={this.props.newLogo} onClick={this.handleClick} />
+        }
+        {this.props.children}
+        <NavBar
+          open={this.state.open}
+          logout={this.logout}
+          toggleMenu={this.menu}
+          toggle={this.modalHandler}
+          render={this.props.Button}
+          {...this.props}
+        />
 
-        <NavBar render={this.props.render}/>
+        {this.showModal()}
       </StyledHeader>
     );
   }
 }
 
-export default Header;
+export default withRouter(Header);

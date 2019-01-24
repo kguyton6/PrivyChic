@@ -9,9 +9,18 @@ a img {
 a {
     text-decoration: none;
     text-decoration-color: unset;
-}
 
-div.floatBox {
+}
+/* font-family: 'Fira Sans', sans-serif;
+font-family: 'Quattrocento Sans', sans-serif;
+font-family: 'Racing Sans One', cursive;
+font-family: 'Alegreya Sans SC', sans-serif;
+font-family: 'Amatic SC', cursive;
+font-family: 'Abril Fatface', cursive;
+font-family: 'Lobster', cursive;
+font-family: 'Poiret One', cursive; */
+
+/* div.floatBox {
     width: 80%;
     height: 50%;
     position: absolute;
@@ -23,7 +32,7 @@ div.floatBox {
     justify-content: center;
     font-weight: lighter;
 
-}
+} */
 div.floatBox:hover {
     height: 60%;
     width: 85%;

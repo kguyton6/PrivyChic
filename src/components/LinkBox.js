@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Input from './Input'
-import Button from './buttons/Button'
+import {StyledBtn} from './buttons/Button'
 import {addZip, addStylistName} from '../ducks/actions/action_creators'
 import {Link} from 'react-router-dom'
 import location from './assets/location.png'
@@ -10,10 +10,9 @@ import {connect} from 'react-redux'
 
 const Container = styled.div `
     padding: 10px; 
-    width: 75%;
-    height: 15px;
+    width: 70%;
+    height: 14px;
     color: white;
-    font-size: 16px;
     display: flex;
     justify-content: space-between;
     background-color: rgba(15, 15, 15, 0.753);
@@ -24,9 +23,13 @@ const Container = styled.div `
     margin-top: 3%;
 
     a {
-      color: rgba(255, 255, 255, 0.733);
       letter-spacing: 1px;
-      font-weight: lighter;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-family: 'Thasadith';
+
+    color: white;
+
 
     }
     h6 {
@@ -41,22 +44,25 @@ const LinkBox = (props) => {
     return (
         <>
           <h1> {`Discover & book beauty and barber appointments.`}</h1>
+            <div style={{display: 'flex', flexGrow: 'grow'}}>
               <Input
+                border='none'
                 onChange={e => addStylistName(e.target.value)}
                 name="name"
                 placeholder="Haircut, salon name, stylist name"
                 />
               <Input
-                size="15px"
-                positionX="5px"
+              border='none'
+                size="13px"
+                positionX="6px"
                 image={location}
                 onChange={e => addZip(e.target.value)}
                 placeholder="Enter city, state, or zipcode"
                 />
               <Link to="/search">
-                <Button>Search</Button>
+                <StyledBtn name='Search' height='100%'/>
               </Link><br/>
-
+              </div>
                 <Container>
              <h6>Popular Searches </h6>
              

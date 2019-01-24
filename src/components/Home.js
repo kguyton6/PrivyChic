@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./home.css";
 import icon from "./assets/icon.svg";
 import location from "./assets/location.png";
 import { Link, Route } from "react-router-dom";
@@ -8,7 +7,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import Login from "./modal/login/Login";
 import Banner from "./Banner";
-import Button from "./buttons/Button";
+import Button, {BusinessButton, StyledBtn} from "./buttons/Button";
 import Input from "./Input";
 import {
   getUserInfo,
@@ -20,8 +19,6 @@ import styled from "styled-components";
 import NavBar from "./NavBar";
 import menu from "./assets/menu.png";
 import search from "./assets/search.png";
-import logo from "./assets/Artboard3.png";
-import CustomMenu from "./dropdown/CustomMenu";
 import LinkBox from './LinkBox'
 
 
@@ -32,14 +29,52 @@ const MenuButton = styled.button`
     width: 60px;
   }
 `;
+
 const Box = styled.div`
+background-image: url(${props => props.image});
+background-repeat:no-repeat;
+box-sizing: border-box;
+background-position-y: ${props => props.y };
+background-size: ${props => props.size || '100%'};
   height: 375px;
-  width: 27%;
-  margin: 40px;
+  width: 25%;
+  margin: 20px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  h2 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 26px;
+    line-height: 35px;
+  }
+  span {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+  }
+    .inner-box{
+    width: 60%;
+    height: 30%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.774);
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    text-align: center;
+    justify-content: center;
+    font-weight: lighter;
+    transition-property: width, height;
+    transition-duration: .5s;
+  }
+  .inner-box:hover {
+    height: 40%;
+    width: 65%;
+    transition-duration: .25s;
+  }
+
 `;
 const RightBox = styled.div`
   width: 20%;
@@ -49,12 +84,13 @@ const RightBox = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
   h1 {
     font-size: 26px;
+
   }
   h4 {
     font-size: 20px;
@@ -69,6 +105,7 @@ const RightBox = styled.div`
   h6 {
     font-size: 16px;
   }
+  
 `;
 
 const Wrapper = styled.div`
@@ -80,8 +117,8 @@ const Wrapper = styled.div`
 const H1 = styled.h1`
   font-size: 48px;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
+  font-family: 'Work Sans', sans-serif;
+
   margin-top: 3%;
 `;
 const Container = styled.div`
@@ -114,130 +151,31 @@ class Home extends Component {
       showUser: false,
       showMenu: false,
       input: "",
-      full_name: this.props.userInfo.full_name,
+      full_name: '',
       open: false,
       disabled: true
     };
 
   }
 
-  componentDidUpdate = () => {
-    axios.get("/checkSession").then(res => {
-      this.props.getUserInfo(res.data);
-    });
-  };
-
-  handleInput = event => {
-    let name = event.target.name;
-    this.setState({
-      [name]: event.target.checked
-    });
-  };
-  toggleModal = () => {
-    this.setState(prevState => {
-      return {
-        showLogin: !prevState.showLogin,
-      };
-    });
-  };
-  toggleSignUp = () => {
-    this.setState(prevState => {
-      return {
-        showLogin: !prevState.showLogin,
-        disabled: !prevState.disabled
-      };
-    });
-  };
-
-  showModal = () => {
-    if (this.state.showLogin) {
-      return (
-        <Login
-          onClose={this.toggleModal}
-          disabled={this.state.disabled}
-          onClick={() => this.setState(prevState => {return {disabled: !prevState.disabled }})}
-
-        />
-      );
-    }
-  };
-  
  
 
-  logout = () => {
-    axios.get("/api/logout").then(res => {
-      if (res.status === 200) {
-        return this.menu();
-      }
+  handleInput = event => {
+    this.setState({
+      keyword: event.target.value
     });
   };
-
-  menu = () => {
-    this.setState(prevState => {
-      return {
-        open: !prevState.open
-      };
-    });
-  };
-  dropdown = () => {
-    if (this.props.userInfo !== null) {
-      if (this.state.open) {
-        return (
-          <CustomMenu
-            open={this.state.open}
-            logout={this.logout}
-            login={this.toggleModal}
-            toggleMenu={this.menu}
-            name={this.state.full_name}
-          />
-        );
-      }
-    } else {
-      if (this.state.open) {
-        return (
-          <CustomMenu
-            open={this.state.open}
-            userInfo={this.props.userInfo}
-            logout={this.logout}
-            login={this.toggleModal}
-            toggleMenu={this.menu}
-          />
-        );
-      }
-    }
-  };
-
-
+ 
+  
   render() {
     return (
       <div>
-         <Header>
-         <Input placeholder="Search..." />
-
-         <NavBar>
-
-              <span onClick={() => this.toggleSignUp()}>Sign Up</span>
-              <span onClick={() => this.toggleModal()}>Login</span>
-              <Link to="/business">
-                {" "}
-                <Button backgroundColor="#242622">For Business</Button>{" "}
-              </Link>
-              <Link to="/help">Help</Link>
-              <Link to="/search">
-                <img
-                  src={search}
-                  className="search"
-                  width="25px"
-                  alt="search"
-                />
-              </Link>
-
-         </NavBar>
+         <Header Button={<Link to='/business'><BusinessButton backgroundColor='#353737'>For Business</BusinessButton></Link>}>
+         <Input placeholder="Search" />
         </Header>
-{this.showModal()}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Banner>
-          <LinkBox />
+          <LinkBox value={this.state.keyword} onChange={this.handleInput}/>
           </Banner>
 
           <RightBox>
@@ -246,135 +184,78 @@ class Home extends Component {
               #1 Appointment booking software for independent professionals
             </h4>
             <Link to="/business">
-              <Button>Set Up My Business</Button>
+              <StyledBtn name='Set Up My Business'></StyledBtn>
             </Link>
             <h6>30 day free trial, no card required.</h6>
           </RightBox>
         </div>
         <H1>{`Browse & Discover`}</H1>
         <Wrapper>
-          <Box>
-            <div className="floatBox">
-              <h2>Top Barber </h2>
-              <span className="float-text">Near You </span>
-            </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/a-l-l-e-f-v-i-n-i-c-i-u-s-354911-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />
-          </Box>
-
-          <Box>
-            <div className="floatBox">
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/wedding.jpeg">
+            <div className="inner-box">
               <h2> Special Event</h2>
-              <span className="float-text">Look Great</span>
+              <span >Look Great</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/colette-allen-480460-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />{" "}
           </Box>
 
-          <Box>
-            <div className="floatBox">
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/freshcut.jpeg">
+            <div className="inner-box">
               <h2> Fresh Cuts</h2>
-              <span className="float-text">Looks You'll Love</span>
+              <span >Looks You'll Love</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/element5-digital-611462-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />{" "}
+           
           </Box>
 
-          <Box>
-            <div className="floatBox">
-              {" "}
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/fezbot2000-365718-unsplash.jpg">
+            <div className="inner-box">
               <h2>Most Booked</h2>
-              <span className="float-text">This Week</span>
+              <span >This Week</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/fezbot2000-365718-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />{" "}
+          </Box>
+          <Box 
+          y='-150px'
+          image="https://s3.us-east-2.amazonaws.com/styleseat/beard.jpeg">
+          <div className='inner-box'>
+              <h2>Top Barber </h2>
+              <span >Near You </span>
+              </div>
           </Box>
 
-          <Box>
-            <div className="floatBox">
-              {" "}
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/ivan-dodig-361699-unsplash.jpg">
+            <div className="inner-box">
               <h2>Brighten Up</h2>
-              <span className="float-text"> Stunning Hues Are In</span>
+              <span > Stunning Hues Are In</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/ivan-dodig-361699-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />
           </Box>
 
-          <Box>
-            <div className="floatBox">
-              {" "}
+          <Box image='"https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b65afe192a0efba2046ab14531040e06&auto=format&fit=crop&w=634&q=80"'>
+            <div className="inner-box">
               <h2>New Stylists</h2>
-              <span className="float-text">This Week</span>
+              <span >This Week</span>
             </div>
-            <img
-              src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b65afe192a0efba2046ab14531040e06&auto=format&fit=crop&w=634&q=80"
-              width="100%"
-              height="100%"
-              alt=""
-            />{" "}
+  
           </Box>
 
-          <Box>
-            {" "}
-            <div className="floatBox">
-              {" "}
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/nail.jpeg">
+            <div className="inner-box">
               <h2>Top Nail Artists</h2>
-              <span className="float-text">Near You</span>
+              <span >Near You</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/sharon-mccutcheon-666323-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />
+        
           </Box>
 
-          <Box>
-            <div className="floatBox">
-              {" "}
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/michael-dam-258165-unsplash.jpg">
+            <div className="inner-box">
               <h2>Color</h2>
-              <span className="float-text">Highlight Your Season</span>
+              <span >Highlight Your Season</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/michael-dam-258165-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />
           </Box>
 
-          <Box>
-            <div className="floatBox">
-              {" "}
+          <Box image="https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg">
+            <div className="inner-box">
               <h2>Available Today</h2>
-              <span className="float-text">Near You</span>
+              <span >Near You</span>
             </div>
-            <img
-              src="https://s3.us-east-2.amazonaws.com/styleseat/kal-loftus-596319-unsplash.jpg"
-              width="100%"
-              height="100%"
-              alt=""
-            />
           </Box>
         </Wrapper>
       </div>

@@ -1,0 +1,15 @@
+<svg width="1177" height="525" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="527" width="1179" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path stroke="#A4FFFF" id="svg_1" d="m184.602509,472.978431l394.500035,-438.999985l394.500035,438.999985l-789.000069,0z" stroke-width="1.5" fill="#A4FFFF"/>
+  <text font-weight="bold" stroke="#A4FFFF" transform="matrix(12.12734768679841,0,0,9.10762686457997,-1545.249963166482,-1301.346590108315) " xml:space="preserve" text-anchor="start" font-family="'Abril Fatface', cursive" font-size="20" id="svg_2" y="182.087914" x="136.273627" fill-opacity="null" stroke-width="0" fill="#000000">PrivyChic</text>
+ </g>
+</svg>

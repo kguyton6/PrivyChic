@@ -90,16 +90,7 @@ a.profile-search-icon {
     color: black;
 }
 .service-container {
-    width: 60vw; 
-    height: 30vh;
-    padding-bottom: 10%;
-    border: solid #06D8CC thin;
-    padding-top: 5%;
-    margin-bottom: 5%;
-    margin-top: 10%;
-    z-index: 100;
-    position: relative;
-
+   
 
 }
 li {

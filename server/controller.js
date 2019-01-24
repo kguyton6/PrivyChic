@@ -54,13 +54,19 @@ module.exports = {
     },
     get_availablility: async (req, res) => {
         const dbInstance = req.app.get('db')
+        const {id} = req.params
+        console.log(req.params.id)
 
-        let match = await dbInstance.get_availability(req.params.id)
-        if (match) {
-            let id = match[0].business_id
-            let data = await dbInstance.getStylist(id)
-            res.status(200).send(data)
-        }
+        let response = await dbInstance.get_availability(`${id}%`)
+         return res.status(200).send(response)
+
+    },
+    get_date: (req, res) => {
+        const dbInstance = req.app.get('db')
+
+        dbInstance.get_date(req.params.id)
+        .then((data) => res.status(200).send(data))
+        .catch(err => console.log(err))
     },
 
     getStylist: async (req, res) => {

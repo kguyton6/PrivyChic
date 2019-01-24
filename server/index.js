@@ -72,7 +72,6 @@ app.post('/auth/signup', async (req, res) => {
   const dbInstance = req.app.get('db')
   const { full_name, email, password } = req.body
   console.log(full_name, email, password)
-
   let user = await dbInstance.check_user(email)
   if (user[0]) {
     return res.status(401).send('Email already in use')
@@ -92,28 +91,19 @@ app.post('/auth/login', async (req, res) => {
   const dbInstance = req.app.get('db')
   const { email, password } = req.body
   console.log(email, password)
+  try {
 
   let user = await dbInstance.check_user(email)
-
+  if(!user[0]) return res.status(404).send('No user with that email')
   let result = await bcrypt.compareSync(password, user[0].password);
   console.log(result)
   if (result) {
-    if (user[0].user_type === 'client') {
     req.session.user = user[0]
       console.log(req.session.user)
-      res.status(200).send(req.session.user)
-      
-    } else {
-      console.log(user[0].user_id)
-     let  businessUser = await dbInstance.loginbusiness(user[0].user_id)
-      if(businessUser){
-      req.session.user = businessUser[0]
-      }
-      console.log(req.session)
-      res.status(200).send(req.session.user)
+      return res.status(200).send(req.session.user)
     }
-  } else {
-    res.status(401).send('wrong password')
+} catch({err}){
+    return res.status(401).send(err)
   }
 })
 
@@ -157,7 +147,8 @@ app.get('/checkSession', (req, res) => {
   app.get('/api/logout', ctrl.logout)
   app.get('/api/name/:id', ctrl.stylist_name)
   app.get('/api/zipcode/:id', ctrl.stylist_zip)
-  app.get('/api/date/:id', ctrl.get_availablility)
+  app.get('/api/date/:id', ctrl.get_date)
+  app.get('/api/availability/:id', ctrl.get_availablility)
   app.get('/api/profile/:id', ctrl.getStylist)
   app.get('/api/calendar/:id', ctrl.get_calendar)
   app.get('/api/appointments/:id', ctrl.myAppointments)

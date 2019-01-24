@@ -1,8 +1,3 @@
-select * from profile
-join business
-on profile.user_id = business.user_id 
-join business_hours
-on business_hours.business_id = business.business_id
-join priv_users
-on business.user_id = priv_users.user_id 
-where business.business_id = $1
+select * from calendar
+where calendar.business_id not in(select business_id from bookings
+where calendar.business_id = $1)
