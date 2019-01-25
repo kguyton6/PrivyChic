@@ -11,20 +11,16 @@ import {addZip, addStylistName} from '../ducks/actions/action_creators'
 
 const StyledBanner = styled.section `
     background-image: url(${props => props.backgroundImage ||' https://s3.us-east-2.amazonaws.com/styleseat/fezbot2000-365718-unsplash.jpg'});
-    background-size: ${props => props.size || '130%'};
-    background-position-y: ${props => props.positionY || '-430px'};
+    background-size: ${props => props.size || '115%'};
+    background-position-y: ${props => props.positionY || '-400px'};
 
     background-repeat: no-repeat;
-    width: ${props => props.width || '60%'};
+    width: ${props => props.width || '55%'};
     padding: 50px;
-    height: 400px;
+    height: 350px;
     position: relative;
     text-decoration-color: white;
     align-items: center;
-    
-
-
-
     h1 {
         font-size: 37px;
         font-family: Verdana, Geneva, Tahoma, sans-serif;

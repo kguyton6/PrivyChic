@@ -39,7 +39,7 @@ const Portfolio = props => {
         <>
         <Banner background={background} >
         </Banner>
-         <Div>
+           <Div>
             {props.children}
             </Div>
         </>

@@ -9,7 +9,8 @@ import {
   addTimes,
   addZip,
   addStylistName,
-  getUserInfo
+  getUserInfo,
+  addStylist
 } from "../../ducks/actions/action_creators";
 import { StyledBtn as Button } from "../buttons/Button";
 import Schedule from "../dropdown/Schedule";
@@ -75,6 +76,15 @@ class Search extends Component {
     return this.findStylist(stylist_name)
   }
 }
+findMethod = () => {
+  if(this.state.zip){
+    return this.findByZip(this.state.zip)
+  } else if(this.state.stylist_name){
+    return this.findStylist(this.state.stylist_name)
+  } else {
+    return this.getAvailability(this.state.date)
+  }
+}
   
   findByZip = (val) => {
       axios
@@ -91,15 +101,7 @@ class Search extends Component {
   };
 
 
-findStylist = (val) => {
-  if(this.state.date){
-    return this.getAvailability()
-  } else {
-  if(val === undefined){
-    var value = this.state.stylist_name
-  } else {
-    value = val
-  }
+findStylist = (value) => {
   console.log(value)
   axios
     .get(`/api/availability/${value}`)
@@ -113,19 +115,19 @@ findStylist = (val) => {
       this.props.addStylistName('')
     }).catch(err => console.log(err))
   }
-};
+
 getAvailability = () => {
   axios.get(`/api/date/${this.state.date}`)
   .then((res) => {
-    if(res.data.user_id){
+    if(res.data.length > 0){
     this.setState({
       stylists: res.data,
-      profileImage: res.data[0].picture,
-      full_name: res.data[0].full_name,
+      // profileImage: res.data[0].picture,
+      // full_name: res.data[0].full_name,
       date: ''
     });
   } else {
-    this.setState({results: 'Sorry, no availibility'})
+    this.setState({results: 'Sorry, no availibility', stylists: []})
   }
 })
 }
@@ -148,6 +150,7 @@ getAvailability = () => {
     }
   };
   
+
 
   paymentFilter = () => {
     this.setState({ acceptsPayment: true });
@@ -183,10 +186,12 @@ getAvailability = () => {
            placeholder="Search by name" 
            onChange={this.handleChange}/>
           <Input
+           color='lightgrey'
+            y='30px'
             type="text"
             placeholder="Search by zipcode"
             image={location}
-            size="13px"
+            size="20px"
             positionX="5px"
             name='zip'
             value={this.state.zip}
@@ -198,24 +203,24 @@ getAvailability = () => {
           onChange={this.handleChange}
           style={{color: 'grey', fontWeight: 'lighter'}}
           type="Date" image="none" indent="10px" />
-          <Button onClick={() => this.findStylist(this.state.zipcode)} fontWeight="bolder" fontSize="14px" name="Search"
+          <Button onClick={this.findMethod} fontWeight="bolder" fontSize="14px" name="Search"
            />
            </InputWrapper>
         </StyledHeader>
 
         <div style={{ display: "flex", flexDirection: "column", margin: "3%" }}>
-          <span className="payments-text">
+          <span>
             Accepts Payment
             <input
               onChange={this.showPaymentFilter}
               type="checkbox"
               width="15px"
-              className="payment-checkbox"
+
             />
           </span>
         </div>
         {this.state.stylists.length > 0 ? ( 
-        <div className="stylist-container">{this.showStylist()}</div>
+        <div>{this.showStylist()}</div>
         ) : (
         <NoResults>{this.state.results}</NoResults>
         )}
@@ -233,7 +238,7 @@ const mapStateToProps = state => {
   };
 };
 
-const bindActionCreators = { addTimes, addZip, addStylistName, getUserInfo };
+const bindActionCreators = { addStylist, addTimes, addZip, addStylistName, getUserInfo };
 
 export default connect(
   mapStateToProps,

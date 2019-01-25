@@ -9,23 +9,27 @@ const StyledWell = styled(Well)`
   font-size: 14px;
   line-height: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+
   a:hover, span:hover {
     font-size: 18px;
-    
+    background-color: #F2F5F5;
   }
 `
  const Dropdown = styled.div`
- width: 330px;
-  height: 50px;
+ width: 140px;
+  height: 250px;
   position: absolute;
-  right: 15%;
-  box-shadow: 0 .5px 1px 0 rgba(190, 199, 198);
+  right: 5%;
+  top: 32px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-radius: 4px;
+  box-shadow: 1px 1px 3px 1px rgba(190, 199, 198);
+  text-indent: 25px;
  `
 
 class CustomMenu extends React.Component {

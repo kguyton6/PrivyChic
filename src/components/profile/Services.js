@@ -1,13 +1,9 @@
 import React, {Component} from 'react'
-import axios from 'axios';
 import './profile.css'
-import Appointment from '../forms/Appointment'
-import {Link} from 'react-router-dom'
-import TakeMoney from '../stripe/TakeMoney';
 import {getUserInfo} from '../../ducks/actions/action_creators'
 import {connect} from 'react-redux'
-import Login from '../modal/login/Login'
 import Availability from './Availability';
+import styled from 'styled-components'
 
 const serviceList = {
     width: '100%',
@@ -16,21 +12,15 @@ const serviceList = {
 
 }
 
-const menuStyle = {
-    width: '90%',
-    fontSize: '14px'
-
-}
-
 const buttonStyle = {
     padding: '0px 10px',
     backgroundColor: '#5CD3CA',
     color: 'white'
 }
-const listElement = {
-    height: '30px'
-    
-}
+const Wrapper = styled.div`
+    width: 100%;
+  overflow: scroll;
+`
 
 class Services extends Component {
     constructor(props){
@@ -53,6 +43,7 @@ class Services extends Component {
                  service_id: id
                     }
                 })
+                return this.props.title()
             }
 
                 showAvailability = () => {
@@ -67,7 +58,6 @@ class Services extends Component {
                 
             
         showServices = () => {
-            // if(this.state.showServices === true){
             let services = this.props.services
             let service = []
             for(let i in services){
@@ -92,22 +82,22 @@ class Services extends Component {
     
        
     render(){
-        console.log(this.props.userInfo)
+
 
         return (
 
             
-            <React.Fragment>
+            <Wrapper>
                 {/* {this.showTimes()} */}
             {!this.state.showAvailable ?
-            <div className='services'>
-            {this.showServices()} 
-            </div>:
-             <div className='services'>
-            {this.showAvailability()}
-           </div>}
+
+            this.showServices()
+        :
+
+            this.showAvailability()
+           }
         
-        </React.Fragment> 
+        </Wrapper> 
 
 
 
@@ -116,7 +106,7 @@ class Services extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        userInfo: state.userInfo
+
     }
 }
 

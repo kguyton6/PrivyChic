@@ -37,7 +37,7 @@ box-sizing: border-box;
 background-position-y: ${props => props.y };
 background-size: ${props => props.size || '100%'};
   height: 375px;
-  width: 25%;
+  width: 320px;
   margin: 20px;
   position: relative;
   display: flex;
@@ -77,14 +77,14 @@ background-size: ${props => props.size || '100%'};
 
 `;
 const RightBox = styled.div`
-  width: 20%;
+  width:20%;
   padding: 35px;
   background-color: rgb(36, 36, 36);
   height: auto;
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
@@ -113,6 +113,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
+  width: 80%;
 `;
 const H1 = styled.h1`
   font-size: 48px;
@@ -165,15 +166,25 @@ class Home extends Component {
       keyword: event.target.value
     });
   };
- 
+ handleSearch = (e) => {
+   e.preventDefault();
+   console.log(e.target.value)
+   this.props.addStylistName(e.target.value)
+  return this.props.history.push('/search')
+ }
   
   render() {
     return (
       <div>
-         <Header Button={<Link to='/business'><BusinessButton backgroundColor='#353737'>For Business</BusinessButton></Link>}>
-         <Input placeholder="Search" />
+         <Header
+          Button={<Link to='/business'><BusinessButton backgroundColor='#353737'>For Business</BusinessButton></Link>}>
+         <Input
+          onSubmit={this.handleSearch} 
+         onChange={(e) => this.setState({input: e.target.value})}
+         placeholder="Search" 
+        />
         </Header>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", flexWrap:'wrap' }}>
           <Banner>
           <LinkBox value={this.state.keyword} onChange={this.handleInput}/>
           </Banner>
@@ -188,7 +199,6 @@ class Home extends Component {
             </Link>
             <h6>30 day free trial, no card required.</h6>
           </RightBox>
-        </div>
         <H1>{`Browse & Discover`}</H1>
         <Wrapper>
           <Box image="https://s3.us-east-2.amazonaws.com/styleseat/wedding.jpeg">
@@ -213,7 +223,7 @@ class Home extends Component {
             </div>
           </Box>
           <Box 
-          y='-150px'
+          y='-50px'
           image="https://s3.us-east-2.amazonaws.com/styleseat/beard.jpeg">
           <div className='inner-box'>
               <h2>Top Barber </h2>
@@ -258,6 +268,8 @@ class Home extends Component {
             </div>
           </Box>
         </Wrapper>
+        </div>
+
       </div>
     );
   }

@@ -69,13 +69,16 @@ module.exports = {
         .catch(err => console.log(err))
     },
 
-    getStylist: async (req, res) => {
+    stylist_profile: async (req, res) => {
         const dbInstance = req.app.get('db')
 
-        dbInstance.getStylist(req.params.id)
-            .then((data) => {
+        let profile = await dbInstance.stylist_profile(req.params.id)
+        console.log(profile)
+        let hours = await dbInstance.get_hours(req.params.id)
+        let data = {profile, hours}
+        console.log(data)
                 res.status(200).send(data)
-            })
+
         //    let responseStylist = { stylist, availability }  
     },
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import TakeMoney from "../stripe/TakeMoney";
 import styled from "styled-components";
-
+import moment from 'moment'
 const AvailableTimes = styled.div`
   height: 100%;
   display: flex;
@@ -33,47 +33,60 @@ const required = {
   marginTop: "2%"
 };
 
-class Availability extends Component {
+
+class date extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      availability: []
+      date: [],
+      month: '',
+      dayNames: [],
+      dates:[]
     };
   }
-
+  componentDidMount = () => {
+    let dateArray = []
+    let date = this.props.calendar.map((day) => {
+       dateArray.push(moment(day.date).format('MM-DD'))
+    })
+    console.log(dateArray)
+    let dayOfweek = moment()._locale._weekdays
+    let month = moment().format('MMMM')
+    this.setState({dates: date, dayNames: dayOfweek, month: month})
+  }
   availability = () => {
-    let availability = this.props.calendar;
+    let dates = this.props.calendar;
     let time = [];
-
-    for (let i in availability) {
+    for (let i in dates) {
+      let date = moment(dates[i].date).format('MM-DD')
+      console.log(date)
       time.push(
-        <Time key={availability[i].id}>
+        <Time key={i}>
           <ul>
-            <li id="day-name">{availability[i].day_name}</li>
-            <li id="day-number">{`12/${availability[i].day}`}</li>
-            <li id="time">{availability[i].time}</li>
+            <li id="day-name">{date}</li>
+            <li id="time">{dates[i].time}</li>
           </ul>
           <TakeMoney
             stylist_name={this.props.stylist_name}
-            business_id={availability[i].business_id}
-            calendar_id={availability[i].id}
+            business_id={dates[i].business_id}
+            calendar_id={dates[i].id}
             service_id={this.props.service_id}
-            month_name={availability[i].month_name}
-            day={availability[i].day}
-            appointment_time={availability[i].time}
-            full_name={this.props.userInfo.full_name}
+            month_name={this.state.month}
+            day={dates[i].date}
+            appointment_time={dates[i].time}
+            full_name={this.props.user.full_name}
           />
         </Time>
       );
-      console.log(availability[i].id);
     }
     return time;
   };
 
   render() {
+    console.log(this.props)
     return (
-      <div id="wrapper">
+      <>
         <span onClick={this.props.goBack} style={goBack}>{`< Go Back `}</span>
         <span className="current-month">December</span>
 
@@ -81,14 +94,14 @@ class Availability extends Component {
         <span style={required}>
           CLIENTS REQUIRED TO PROVIDE CREDIT CARD TO BOOK
         </span>
-      </div>
+      </>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    userInfo: state.userInfo,
+    user: state.user,
     stylist_name: state.stylist_name
   };
 };
-export default connect(mapStateToProps)(Availability);
+export default connect(mapStateToProps)(date);

@@ -35,6 +35,7 @@ const Container = styled.div `
     h6 {
         font-weight: lighter;
     }
+   
 `
 
 
@@ -53,14 +54,14 @@ const LinkBox = (props) => {
                 />
               <Input
               border='none'
-                size="13px"
+                size="20px"
                 positionX="6px"
                 image={location}
                 onChange={e => addZip(e.target.value)}
                 placeholder="Enter city, state, or zipcode"
                 />
               <Link to="/search">
-                <StyledBtn name='Search' height='100%'/>
+                <StyledBtn name='Search' width='100px' height='100%'/>
               </Link><br/>
               </div>
                 <Container>

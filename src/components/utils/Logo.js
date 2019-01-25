@@ -6,8 +6,8 @@ import logo from "../assets/priv.svg";
 const HomeLogo = styled.img`
   margin-left: 3%;
   margin-right: 20px;
-  width: 140px;
-  height: 70px;
+  width: 110px;
+  height: 120px;
   cursor: pointer;
 
   @media (max-width: 1200px) {

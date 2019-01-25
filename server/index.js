@@ -16,7 +16,7 @@ const {
   SERVER_PORT,
 } = process.env
 
-// app.use(express.static(`${__dirname}/../build`))
+app.use(express.static(`${__dirname}/../build`))
 
 
 
@@ -145,11 +145,11 @@ app.get('/checkSession', (req, res) => {
 
   app.get('/api/getuser', ctrl.get_user)
   app.get('/api/logout', ctrl.logout)
-  app.get('/api/name/:id', ctrl.stylist_name)
+  // app.get('/api/name/:id', ctrl.stylist_name)
   app.get('/api/zipcode/:id', ctrl.stylist_zip)
   app.get('/api/date/:id', ctrl.get_date)
   app.get('/api/availability/:id', ctrl.get_availablility)
-  app.get('/api/profile/:id', ctrl.getStylist)
+  app.get('/api/profile/:id', ctrl.stylist_profile)
   app.get('/api/calendar/:id', ctrl.get_calendar)
   app.get('/api/appointments/:id', ctrl.myAppointments)
   app.get('/api/services/:id', ctrl.allServices)
@@ -160,9 +160,9 @@ app.get('/checkSession', (req, res) => {
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
   app.delete('/api/delete/appointment/:id', ctrl.delete_appointment)
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(__dirname, '../build/index.html'));
-  // });
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  });
 
   const PORT = SERVER_PORT || 9000
 
