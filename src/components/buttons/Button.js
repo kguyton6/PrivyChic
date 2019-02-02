@@ -14,6 +14,7 @@ export const BusinessButton = styled.button `
             height: 35px;
             font-size: 18px;
         }
+
 `
 const Button = (props) => {
 
@@ -36,6 +37,10 @@ export const StyledBtn = styled(Button) `
         text-transform: uppercase;
         font-family: sans-serif;
         font-weight: bold;
+        @media (max-width: 1200px){
+            height: 35px;
+            font-size: 13px;
+        }
 
         
 `

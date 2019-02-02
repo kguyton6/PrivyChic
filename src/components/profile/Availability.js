@@ -8,6 +8,20 @@ const AvailableTimes = styled.div`
   height: 100%;
   display: flex;
   width: 100%;
+  position: relative;
+  text-align: center;
+  flex-direction: column;
+
+   h6 {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    width: 100%;
+  }
+  h3 {font-size: 18px; margin-top: 10px;}
+  @media(max-width: 900px){
+    h3{font-size: 16px;}
+  }
 `;
 const Time = styled.div`
   line-height: 30px;
@@ -20,18 +34,6 @@ const Time = styled.div`
   }
 `;
 
-
-const goBack = {
-  fontSize: "12px",
-  color: "black",
-  cursor: "pointer",
-  position: "absolute",
-  left: "3%"
-};
-const required = {
-  fontSize: "10px",
-  marginTop: "2%"
-};
 
 
 class date extends Component {
@@ -86,15 +88,12 @@ class date extends Component {
   render() {
     console.log(this.props)
     return (
-      <>
-        <span onClick={this.props.goBack} style={goBack}>{`< Go Back `}</span>
-        <span className="current-month">December</span>
-
-        <AvailableTimes>{this.availability()}</AvailableTimes>
-        <span style={required}>
+        <AvailableTimes>{this.availability()}
+        <h3>No Availablility, Sorry</h3>
+        <h6 >
           CLIENTS REQUIRED TO PROVIDE CREDIT CARD TO BOOK
-        </span>
-      </>
+        </h6>
+        </AvailableTimes>
     );
   }
 }

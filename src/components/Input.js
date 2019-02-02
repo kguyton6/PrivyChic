@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import icon from "./assets/icon.svg";
+import searchIcon from './assets/search.png'
 
 export const StyledInput = styled.input`
   height: ${props => props.height || "45px"};
@@ -21,13 +22,43 @@ export const StyledInput = styled.input`
     letter-spacing: 1px;
     font-weight: lighter;
   }
+  @media (max-width: 1200px){
+            height: 35px;
+            font-size: 13px;
+            background-position-y: 5px;
+        }
 
-  @media (max-width: 1000px) {
-    height: 25px;
-    width: 165px;
-    background-position-y: 0px;
+  @media (max-width: 900px) {
+    display: ${props => props.display || 'none'};
   }
 `;
+export const SearchInput = styled.input `
+  display: none;
+  @media (max-width: 900px){
+    display: inline;
+    background-image: url(${searchIcon});
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 10px;
+    background-size: 20px;
+  width: 50%;
+  height: 40px;
+  border-radius: 20px;
+  background-color: gray;
+  border: transparent;
+  color: lightgrey;
+  text-indent: 35px;
+
+  ::placeholder {
+    color: lightgrey;
+    font-size: 18px;
+  }
+  }
+  @media(max-width: 750px){
+    display: ${props => props.display || 'none'};
+  }
+
+`
 
 const Input = props => {
   return (

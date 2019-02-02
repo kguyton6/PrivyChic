@@ -4,11 +4,11 @@ import menu from "./assets/menu.png";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "./modal/login/Login";
-import CustomMenu from "./dropdown/CustomMenu";
 import Logo from "./utils/Logo";
 import { BusinessButton } from "./buttons/Button";
 import NavBar from "./NavBar";
-import axios from 'axios'
+
+
 const MenuButton = styled.button`
   display: none;
   @media (max-width: 900px) {
@@ -20,15 +20,20 @@ const StyledHeader = styled.header`
   height: 90px;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
+  color: #393B3A;
+  position: ${props => props.position};
+  width: 100%;
+
   .title {
     font-size: ${props => props.fontSize || '27px'};
     font-family: 'Abril Fatface', cursive;
     color: ${props => props.color || '#393B3A'};
-    margin-left: 40px;
+    margin-left: 30px;
     font-weight: 300;
     letter-spacing: .5px;
     padding-right: 30px;
+    z-index: 100;
+
   }
   .title:hover {
     color: #5CD3CA;
@@ -38,7 +43,17 @@ const StyledHeader = styled.header`
   span {
     color: ${props => props.color || "black"};
   }
+  @media(max-width: 900px){
+    background-color: ${props => props.background || 'hsl(0, 0%, 14%)'};
+    margin-bottom: 3%;
+    .title {
+    color: white;
+    padding-right: 10px;
+    margin-left: 20px;
+    }
+  }
 `;
+
 
 class Header extends React.Component {
   state = {
@@ -94,17 +109,15 @@ class Header extends React.Component {
     
 
   handleClick = () => {
-    return this.props.history.push("/");
+    return this.props.history.push('/');
   };
 
   render() {
-    console.log(this.props);
-
     return (
-      <StyledHeader {...this.props}>
+      <StyledHeader {...this.props} >
         <MenuButton onClick={this.menu} />
         {this.props.title ?
-        <Link to='/'>{this.props.title}</Link>
+            this.props.title
         :
         <Logo newLogo={this.props.newLogo} onClick={this.handleClick} />
         }
@@ -115,6 +128,7 @@ class Header extends React.Component {
           toggleMenu={this.menu}
           toggle={this.modalHandler}
           render={this.props.Button}
+          background={this.props.backgroundColor ? true : false}
           {...this.props}
         />
 

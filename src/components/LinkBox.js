@@ -6,7 +6,7 @@ import {addZip, addStylistName} from '../ducks/actions/action_creators'
 import {Link} from 'react-router-dom'
 import location from './assets/location.png'
 import {connect} from 'react-redux'
-
+import {withRouter} from 'react-router'
 
 const Container = styled.div `
     padding: 10px; 
@@ -27,43 +27,74 @@ const Container = styled.div `
     font-size: 12px;
     text-transform: uppercase;
     font-family: 'Thasadith';
-
     color: white;
-
 
     }
     h6 {
         font-weight: lighter;
     }
-   
+    @media(max-width: 1200px){
+      input {
+        height: 35px;
+      
+      }
+      a {
+        font-size: 8px;
+      }
+      font-size: 10px;     
+    }
+    @media(max-width: 768px){
+      display: none;
+    }  
+
+
+    
+    
+`
+const InputWrapper = styled.div `
+  display: flex;
+  @media (max-width: 500px ){
+      #button {display: none;}
+      width: 90%;
+    }
+
 `
 
-
+const StyledInput = styled(Input)`
+ @media(max-width: 768px){
+   width: 100%;
+ }
+`
 
 const LinkBox = (props) => {
     const {addStylistName, addZip} = props
+    const submit = (e) => {
+      e.preventDefault()
+      return props.history.push('/search')
+    }
     return (
         <>
           <h1> {`Discover & book beauty and barber appointments.`}</h1>
-            <div style={{display: 'flex', flexGrow: 'grow'}}>
+            <InputWrapper onSubmit={(e) => submit(e)}>
               <Input
                 border='none'
                 onChange={e => addStylistName(e.target.value)}
                 name="name"
-                placeholder="Haircut, salon name, stylist name"
+                placeholder="Search by stylist name"
                 />
-              <Input
-              border='none'
+              <StyledInput
+                display='inline'
+                border='none'
                 size="20px"
                 positionX="6px"
                 image={location}
                 onChange={e => addZip(e.target.value)}
-                placeholder="Enter city, state, or zipcode"
+                placeholder="Enter zipcode"
                 />
               <Link to="/search">
-                <StyledBtn name='Search' width='100px' height='100%'/>
+                <StyledBtn id='button' name='Search' width='100px' height='100%'/>
               </Link><br/>
-              </div>
+              </InputWrapper>
                 <Container>
              <h6>Popular Searches </h6>
              
@@ -86,4 +117,4 @@ const mapStateToProps = (state) => {
 }
 
 const bindActionCreators = {addZip, addStylistName}
-export default connect(mapStateToProps, bindActionCreators)(LinkBox)
+export default withRouter(connect(mapStateToProps, bindActionCreators)(LinkBox))

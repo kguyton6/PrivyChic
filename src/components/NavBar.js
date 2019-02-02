@@ -5,8 +5,15 @@ import axios from 'axios'
 import search from "./assets/search.png";
 import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
-import CustomMenu from "./dropdown/CustomMenu";
+import CustomMenu from "./menu/CustomMenu";
 import {getUserInfo} from '../ducks/actions/action_creators'
+import menu from './assets/menu.png'
+const Menu = styled.img `
+display: none;
+  @media(max-width: 900px){
+    display: block;
+  }
+`
 export const Nav = styled.nav`
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
@@ -27,6 +34,7 @@ export const Nav = styled.nav`
   }
   @media (max-width: 1200px) {
     font-size: 1rem;
+    a > span {display: none;}
   }
   i {
       margin: 10px;
@@ -34,23 +42,43 @@ export const Nav = styled.nav`
 `;
 const Link = styled(NavLink)`
   background-image: url(${search});
+  @media(max-width: 900px){
+    display: none;
+  }
 `;
 const Circle = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: lightgray;
+    background-color: ${props => props.backgroundColor || 'lightgray'};
     color: darkgrey;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 3%;
     position: fixed;
+    @media(max-width:500px){
+      width: 40px;
+      height: 40px;
+    }
 ` 
 
 class NavBar extends Component { 
     state = {initials: ''}
 
+    initials = () => {
+        if(this.props.user.full_name){
+            var last_name = this.props.user.full_name.split(' ')
+                last_name = last_name[1]
+            var lastInitial = last_name.split('')
+            const firstInitial = this.props.user.full_name.split('')
+                var letters = firstInitial[0] + lastInitial[0]
+                return letters
+                
+            } else {
+                return null
+            }
+    }
     
    
     logout = () => {
@@ -74,25 +102,16 @@ class NavBar extends Component {
             />
           )}
       }
-      render(){
-        const initials = () => {
-            if(this.props.user.full_name){
-                var last_name = this.props.user.full_name.split(' ')
-                    last_name = last_name[1]
-                var lastInitial = last_name.split('')
-                const firstInitial = this.props.user.full_name.split('')
-                    var letters = firstInitial[0] + lastInitial[0]
-                    return letters
-                    
-                } else {
-                    return null
-                }
-        }
-          console.log(this.state)
-    return this.props.user.full_name ? (
+      render(){       
+          console.log(this.props)
+
+           var { background } = this.props
+          
+    return this.props.user ? (
+
         <Nav style={{justifyContent: 'flex-end', marginRight: '3%'}}>
         {this.props.user.user_type === 'client' ? 
-    <Circle onClick={this.props.toggleMenu}>{initials()}</Circle>
+      <Circle backgroundColor={background}{...this.props} onClick={this.props.toggleMenu}>{this.initials()}</Circle>
     :
     <span onClick={this.props.toggleMenu}>{this.props.user.full_name}<i className="fas fa-chevron-down"></i></span> }
        {this.dropdown()}
@@ -104,7 +123,7 @@ class NavBar extends Component {
       <span onClick={() => this.props.toggle("login")}>Login</span>
       {this.props.render}
       <NavLink to="/help">Help</NavLink>
-      <Link to="/search" />
+
     </Nav>
   );
     }

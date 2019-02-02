@@ -1,4 +1,4 @@
-.App {
+/* .App {
     height: auto;
 }
 .profile-logo {
@@ -79,7 +79,7 @@ a.profile-search-icon {
 }
 .business-address-box {
     width: 30%;
-    height: auto;
+    height: 150px;
     font-size: 16px;
     font-weight: lighter;
     color: rgb(9, 173, 165);
@@ -104,18 +104,7 @@ li {
     position: relative;
 
 }
-#price, .price-title {
-    position: absolute;
-    left: 45%;
-}
-#service_name, .service_name-title {
-    margin-left: 8%;
-}
-#service-button {
-    position: absolute;
-    right: 8%;
 
-}
 #description, #duration, .duration-title, .description-title {
     display: none;
 }
@@ -182,215 +171,7 @@ li {
         margin-right: 3%;
         font-size: 3.5rem;
         /* margin-bottom: 2%; */
-        font-family: fantasy;
-    }
-    .prices-service-container {
-        display: flex;
-    }
-    .profile-main-container {
-        top: 55%;
-
-    }
-    .profile-menu{ 
-        cursor: pointer;
-    height: 60px;
-    }
-    
-    .search-icon {
-        height: 60px;
-        margin-top: 3%;
-    }
-    img.profile-search-icon {
-        margin-top: 15px;
-    }
-    .profile-link-container {
-        display: none;
-    }
-    .search-icon {
-        position: absolute;
-        right: 3%;
-        top: 28%;
-    }
-    .reviews {
-        font-size: 1rem;
-        margin-left: 5px;
-    
-    }
-    img.star {
-        margin-top: 20px;
-    }
-    img.profile-pic {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 60px;
-        position: absolute;
-        left: 8vw;
-        top: 45vh;
-        z-index: 10;
-    }
-    .profile-fullname {
-        font-size: 36px;
-        left: 25%;
-        top: 50vh;
-    }
-
-
-.name-title, .business_hours{
-    display: none;
-}
-.business-address-box {
-    width:100%; 
-    height: 30%;
-    justify-content: center;
-    padding-bottom: 5%;
-    font-size: 18px;
-    
-
-}
-.service-menu-title {
-    height: 20px;
-    width: 100%;
-    font-size: 32px;
-    letter-spacing: 1px;
-    font-family: impact;
-    text-align: center;
-    margin-top: 5%;
-}
-.business-hours-text, li {
-    font-size: 16px;
-    text-align: center;
-}
-#number {
-    font-size: 14px;
-}
-ul.business_hours {
-    height: 50px;
-    display: flex;
-
-}
-#prices-container {
-    display: flex;
-}
-.right-profile-box {
-    width: 40%;
-    top: 0%;
-}
-.service-container {
-    font-size: 13px;
-    width: 90vw;
-    height: 40vh;
-    text-align: left;
-
-    
-    padding-top: 5px;
-    background-color: white;
-
-
-}
-.availability-list {
-    display: flex;
-    height: 300px;
-    padding-bottom: 50px;
-    justify-content: center;
-    overflow: scroll;
-
-}
-#service-button {
-    height: 30px;
-    width: 100px;
-    font-size: 15px;
-}
-#timeList {
-    border: rgb(87, 221, 187) solid thin;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 80%;
-    height: 120px;
-    text-align: center;
-    align-items: center;
-
-}
-
-.day-box {
-    position: absolute;
-}
-.current-month {
-    font-size: 26px;
-    font-family: fantasy;
-    margin-top: 3%;
-    align-self: center;
-}
-.services {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    position: relative;
-    padding-bottom: 5%;
-    
-}
-.wrapper {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    width: 90%;
-    height:300px;
-
-    margin-top: 3%;
-    text-align: center;
-}
-.service-labels {
-    font-weight: bold;
-    font-size: 14px;
-}
-#service_name, #price, #duration, #description, .service_name-title, .price-title, .duration-title, .description-title, .duration-title {
-    text-align: left;
-}
-
-#service_name, .service_name-title {
-    left: 5%;
-    width: 130px;
-    overflow-wrap: break-word;
-    text-align: left;
-    
-}
-#service_name, #price, #available {
-    font-size: 20px;
-    display: flex;
-}
-.review-container {
-    margin-right: 42%;
-}
-#available-services {
-    height: 300px;
-}
-#price, .price-title {
-    left: 55%
-}
-#duration, #time, .duration-title {
-    left: 67%;
-}
-.duration-title, .service_name-title, .price-title, .description-title {
-    text-decoration-line: underline;
-    font-size: 18px;
-    font-weight: bold;
-}
-#time-ul{
-    display: flex;
-    flex-direction: column;
-    
-    overflow-wrap: break-word;
-    
-}
-#day-name, #day-number, #time{
-    font-size: 14px;
-
-}
-}
+       
  /* @media screen and (min-width: 900px) and (max-width: 1200){ 
    .profile-head {
        height: 160px;
@@ -426,4 +207,4 @@ ul.business_hours {
        top: -10%;
     }
 }
- */
+ */ 

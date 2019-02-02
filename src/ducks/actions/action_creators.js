@@ -1,4 +1,4 @@
-import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION,ADD_FIRST_NAME, ADD_STYLIST_NAME, ADD_LAST_NAME, ADD_PHONE, ADD_ZIP, GET_USER, ADD_TIMES, ADD_APPOINTMENT, ADD_EMAIL, ADD_PORTFOLIO, ADD_PASSWORD, ADD_PROFESSION, ADD_FULLNAME, SHOW_SERVICES, GET_INPUT, ADD_STYLIST} from '../constants'
+import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION, ADD_STYLIST_NAME, ADD_PHONE, ADD_ZIP, GET_USER, ADD_TIMES, ADD_APPOINTMENT, ADD_PORTFOLIO, ADD_PROFESSION, ADD_FULLNAME, SHOW_SERVICES, GET_INPUT, ADD_STYLISTS} from '../constants'
 
 export const getInputValue = keyword => ({type:GET_INPUT, payload: keyword})
 
@@ -35,4 +35,4 @@ export const addTimes = time => ({type: ADD_TIMES, payload: time})
 
 export const addAppointment = appointment => ({type: ADD_APPOINTMENT, payload: appointment})
 
-export const addStylist = stylist => ({type: ADD_STYLIST, payload: stylist})
+export const addStylists = stylists => ({type: ADD_STYLISTS, payload: stylists})

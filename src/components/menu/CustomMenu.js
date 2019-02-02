@@ -18,8 +18,8 @@ const StyledWell = styled(Well)`
   }
 `
  const Dropdown = styled.div`
- width: 140px;
-  height: 250px;
+ width: 120px;
+  height: 220px;
   position: absolute;
   right: 5%;
   top: 32px;
@@ -30,6 +30,7 @@ const StyledWell = styled(Well)`
   border-radius: 4px;
   box-shadow: 1px 1px 3px 1px rgba(190, 199, 198);
   text-indent: 25px;
+  z-index: 50;
  `
 
 class CustomMenu extends React.Component {

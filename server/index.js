@@ -7,8 +7,7 @@ const session = require('express-session')
 const massive = require('massive')
 const ctrl = require('./controller')
 const bcrypt = require('bcryptjs')
-const nodemailer = require('nodemailer')
-
+const emailCtrl = require('./nodemon')
 
 const {
 
@@ -37,20 +36,6 @@ app.use(session({
 }))
 
 
-
-
-// app.post('/emails', (req, res) => {
-  
-//   var data = {
-//     from: `Kimberly Guyton ${EMAIL}`,
-//     to: `kimguyton@gmail.com, ${EMAIL}`,
-//     subject: 'Hello',
-//     text: 'Testing some Mailgun awesomness!'
-//   };
-//   mailgun.messages().send(data, function (err, body) {
-//     console.log(err, body, 'whats up');
-//   })
-// })
 
 
 const stripe = require("stripe")("sk_test_WidQ87DFISivzhHHZIYyZX0p");
@@ -107,41 +92,8 @@ app.post('/auth/login', async (req, res) => {
   }
 })
 
-app.get('/checkSession', (req, res) => {
-  if (req.session.user) {
-    res.status(200).send(req.session.user)
-  }
-})
 
-  app.post('/sendEmail', (req, res, next) => {
-      const { stylist_name, full_name, month_name, day, time, email } = req.body
-    
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'kimguyton@gmail.com',
-          pass: 'Haley12112006@'
-        },
-      })
-      const mailOptions = {
-        from: `"Kim Guyton" <kimguyton@gmail.com>`,
-        to: `${email}`,
-        subject: `Appointment Confirmation from PrivyChic`,
-        text: `${full_name}, Thank you for using PrivyChic, your appointment is scheduled with ${stylist_name} on ${month_name} ${day}, at ${time}.`,
-         replyTo: `kimguyton@gmail.com`,
-         html: '<b>From PrivyChic</b>'
-      }
-      console.log(mailOptions)
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-          console.error('there was an error: ', err);
-        } else {
-          console.log('Message Sent: %s ', info.response)
-        }
-      })
-    })
-  
-
+app.post('/api/appointments/:id', ctrl.create_booking, emailCtrl.sendMail)
 
   app.get('/api/getuser', ctrl.get_user)
   app.get('/api/logout', ctrl.logout)
@@ -156,7 +108,6 @@ app.get('/checkSession', (req, res) => {
   app.get('/api/payments', ctrl.accept_payments)
   app.post('/auth/signup/business', ctrl.create_business)
   app.post('/auth/login/business', ctrl.business_login)
-  app.post('/api/appointments/:id', ctrl.create_booking)
   app.delete('/api/delete/:id', ctrl.delete_user)
   app.delete('/api/delete/business/:id', ctrl.delete_business)
   app.delete('/api/delete/appointment/:id', ctrl.delete_appointment)

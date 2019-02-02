@@ -5,10 +5,9 @@ import { Link, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import axios from "axios";
 import { connect } from "react-redux";
-import Login from "./modal/login/Login";
 import Banner from "./Banner";
 import Button, {BusinessButton, StyledBtn} from "./buttons/Button";
-import Input from "./Input";
+import Input, {SearchInput} from "./Input";
 import {
   getUserInfo,
   addStylistName,
@@ -16,19 +15,8 @@ import {
 } from "../ducks/actions/action_creators";
 import Header from "./Header";
 import styled from "styled-components";
-import NavBar from "./NavBar";
 import menu from "./assets/menu.png";
-import search from "./assets/search.png";
 import LinkBox from './LinkBox'
-
-
-const MenuButton = styled.button`
-  display: none;
-  @media (max-width: 900px) {
-    background-image: url(${menu});
-    width: 60px;
-  }
-`;
 
 const Box = styled.div`
 background-image: url(${props => props.image});
@@ -74,6 +62,15 @@ background-size: ${props => props.size || '100%'};
     width: 65%;
     transition-duration: .25s;
   }
+  @media(max-width: 1200px){
+    width: 250px;
+    height: 300px;
+  }
+  @media(max-width: 900px){
+    h2{font-size: 20px;}
+    span{font-size: 10px;}
+    .inner-box{ font-size: 10px;}
+  }
 
 `;
 const RightBox = styled.div`
@@ -87,24 +84,37 @@ const RightBox = styled.div`
   justify-content: space-evenly;
   align-items: center;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-
   h1 {
     font-size: 26px;
-
   }
   h4 {
     font-size: 20px;
     font-weight: lighter;
   }
 
-  button {
+  /* button {
     width: 200px;
     font-size: 16px;
-  }
+  } */
 
   h6 {
     font-size: 16px;
   }
+  @media(max-width: 1200px){
+    h1 {font-size: 20px;}
+    h4 {font-size: 16px;}
+    h6 {font-size: 12px;}
+  }
+  @media(max-width: 768px){
+    width: 80%;
+    h1, h4, h6 {
+      margin: 10px;
+    }
+  @media(max-width: 500px){
+    h1, h4, h6{display: none;}
+  }
+  }
+
   
 `;
 
@@ -113,30 +123,33 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
-  width: 80%;
+  width: 90%;
+  padding: 20px;
+
 `;
 const H1 = styled.h1`
   font-size: 48px;
   text-align: center;
   font-family: 'Work Sans', sans-serif;
-
   margin-top: 3%;
+  @media(max-width: 950px){
+    font-size: 38px;
+  }
 `;
 const Container = styled.div`
   position: relative;
-  margin-bottom: 5%;
+  /* margin-bottom: 5%; */
   border: solid transparent;
 
   button {
     margin-top: 10px;
   }
 `;
-const styledDiv = {
-  display: "flex",
-  alignItems: "center",
-  width: "40%"
-};
-
+const StyledInput = styled(Input)`
+  @media (max-width: 900px){
+    display: none;
+  }
+`
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -178,11 +191,15 @@ class Home extends Component {
       <div>
          <Header
           Button={<Link to='/business'><BusinessButton backgroundColor='#353737'>For Business</BusinessButton></Link>}>
-         <Input
-          onSubmit={this.handleSearch} 
+         <StyledInput
          onChange={(e) => this.setState({input: e.target.value})}
          placeholder="Search" 
         />
+        <SearchInput 
+         onSubmit={(e) => this.handleSearch(e)} 
+         onChange={(e) => this.setState({input: e.target.value})}
+         placeholder="Search" 
+        /> 
         </Header>
         <div style={{ display: "flex", justifyContent: "center", flexWrap:'wrap' }}>
           <Banner>

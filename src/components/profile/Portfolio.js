@@ -4,44 +4,46 @@ import styled from 'styled-components'
 var Banner = styled.div`
     background-image: url(${props => props.background});
     width: 100vw;
-    height: 65vh;
+    height: 450px;
     background-size: 100%;
-    background-position-y: -600px;
-    position: absolute;
+    background-position-y: -500px;
     background-repeat: no-repeat;
-    left: 0;
-    top: 0;
     z-index: -100;
     color: white;
-
-   .stars {
-       position: absolute;
-       left: 25%;
-        top: 60vh;
-        color: white;
-   }
-`
-const Div = styled.div`
+    margin-bottom: 10%;
+    position: relative;
 
     h1 {
-        font-size: 38px;
+        font-size: 36px;
         color: white;
         position: absolute;
         left: 20%;
-        top: 55vh;
+        bottom: 20px;
     }
+    @media(max-width: 900px){
+        background-position-y: -300px;
+        h1{font-size: 28px; left: 22%;}
+}
+@media(max-width: 768px){
+        background-position-y: -300px;
+        height: 350px;
+}
+@media(max-width: 500px){
+        background-position-y: -100px;
+        height: 300px;
+        h1 {font-size: 20px; left: 32%;}
+}
 `
-
 
 const Portfolio = props => {
     const {background} = props
     return (
         <>
         <Banner background={background} >
-        </Banner>
-           <Div>
+        <h1 style={{textTransform: 'uppercase'}}>{props.name}</h1> 
             {props.children}
-            </Div>
+
+        </Banner>
         </>
     )
 }

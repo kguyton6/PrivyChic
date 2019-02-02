@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import businessLogo from "../assets/Artboard3.png";
-
-import { getUserInfo } from "../../ducks/actions/action_creators";
+import './business.css'
 import { connect } from "react-redux";
 import {StyledBtn as Button} from "../buttons/Button";
-import CustomMenu from "../dropdown/CustomMenu";
 import Header from "../Header";
 import Banner from "../Banner";
 import styled from 'styled-components'
@@ -28,10 +25,10 @@ line-height: 42px;
 `
 const Boxes = styled.div`
   width: 100%;
+  padding: 3%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 3%;
 
   div {
     margin: 3%;
@@ -40,6 +37,11 @@ const Boxes = styled.div`
     font-weight: 700;
     font-size: 15px;
   }
+  @media (max-width: 900px){
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  
 
 `
 const Container = styled.div`
@@ -108,10 +110,8 @@ class Business extends Component {
         {this.showModal()}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Banner
-            backgroundImage="https://s3.us-east-2.amazonaws.com/styleseat/attractive-beautiful-diversity-247204.jpg"
-            size="1600px"
-            width="80%"
-            positionY="-100px"
+            business
+            
           >
             <h1 >
               Be Independent.

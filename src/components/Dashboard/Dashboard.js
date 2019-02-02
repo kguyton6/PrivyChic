@@ -1,17 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { getUserInfo, addAppointment } from '../../ducks/actions/action_creators'
+import { addAppointment } from '../../ducks/actions/action_creators'
 import { connect } from 'react-redux'
 import './dashboard.css'
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { addZip } from '../../ducks/actions/action_creators'
-import logo from '../assets/Artboard1.png'
-import menu from '../assets/menu.png'
-import search from '../assets/search.png'
-import icon from '../assets/icon.svg'
-import CustomMenu from '../dropdown/CustomMenu';
-import Login from '../modal/login/Login'
 import Header from '../Header'
 import { withRouter} from 'react-router'
 import styled from 'styled-components'
@@ -68,19 +59,7 @@ class Dashboard extends Component {
             })
     }
 
-    logout = () => {
-        axios.get('/api/logout')
-            .then(() => {
-            return this.props.history.push('/')
-            })
-    }
-    menu = () => {
-        this.setState(prevState => {
-            return {
-                open: !prevState.open
-            }
-        })
-    }
+   
     appointments = () => {
         if (this.state.time) {
             let appointment = this.state.time
@@ -107,10 +86,11 @@ class Dashboard extends Component {
 
    
     render() {
+        console.log(this.props)
         return (
 
             <div  >
-               <Header color='black'/>
+               <Header />
                 <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
                 <Main >
                     <span className='user-title'>{`${this.props.user.full_name}'s Appointments`}</span>
@@ -123,11 +103,7 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {
     const { user, appointment } = state
-    return {
-        user,
-        appointment
-    }
+    return {user,  appointment }
 }
-const bindActionCreators = { getUserInfo, addAppointment }
 
-export default withRouter(connect(mapStateToProps, bindActionCreators)(Dashboard))
+export default withRouter(connect(mapStateToProps,{ addAppointment })(Dashboard))

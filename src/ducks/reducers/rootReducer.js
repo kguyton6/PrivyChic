@@ -1,4 +1,4 @@
-import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION, ADD_STYLIST_NAME, ADD_PHONE, ADD_ZIP, GET_USER, ADD_TIMES, ADD_APPOINTMENT, ADD_PORTFOLIO,  SHOW_SERVICES, GET_INPUT, ADD_STYLIST} from '../constants'
+import {ADD_ADDRESS, ADD_BUSINESS_NAME, ADD_STATE, ADD_CITY, ADD_PICTURE, ADD_DATE, ADD_DESCRIPTION, ADD_STYLIST_NAME, ADD_PHONE, ADD_ZIP, GET_USER, ADD_TIMES, ADD_APPOINTMENT, ADD_PORTFOLIO,  SHOW_SERVICES, GET_INPUT, ADD_STYLISTS} from '../constants'
 
 import '../actions/action_creators'
 
@@ -17,7 +17,7 @@ const initialState = {
     appointment: {},
     portfolio: '',
     stylist_name: '',
-    stylist: {}
+    stylists: []
     // displayServices: false
 }
 
@@ -79,8 +79,8 @@ const initialState = {
             case GET_INPUT:
             return Object.assign({}, state, {keyword: action.payload})
 
-            case ADD_STYLIST:
-            return Object.assign({}, state, {stylist: action.payload})
+            case ADD_STYLISTS:
+            return Object.assign({}, state, {stylists: action.payload})
             default: return state
         }
     }

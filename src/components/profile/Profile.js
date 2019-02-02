@@ -6,45 +6,58 @@ import "../../reset.css";
 import { connect } from "react-redux";
 import {
   addStylistName,
-  addStylist
+  // addStylist
 } from "../../ducks/actions/action_creators";
 import styled from "styled-components";
 import Portfolio from "./Portfolio";
 import Header from "../Header";
 import logo from '../assets/whiteLogo.png'
+import {Link} from 'react-router-dom'
 
-const ServiceBox = styled.div`
-  width: 60vw;
-  height: 30vh;
-  padding-bottom: 10%;
-  border: solid #06d8cc thin;
-  padding-top: 5%;
-  margin-bottom: 5%;
-  margin-top: 10%;
-  z-index: 100;
-  position: relative;
-  line-height: 40px;
-  content: contain;
-
-  h1 {
-    text-align: center;
-    font-size: 40px;
-  }
-  li {
-    font-size: 22px;
-  }
-
-  button {
-    width: 100px;
-    height: 30px;
-  }
-`;
 
 const Main = styled.div`
-  margin-top: 20%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-evenly;
+  p > span {
+    font-size: 16px;
+    font-weight: lighter;
+    color: rgb(9, 173, 165);
+    text-align: center;
+  }
+  p {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+  }
+  ul {
+    line-height: 20px;
+    margin: 20px;
+    color: gray;
+  }
+  ul > h1 {
+    font-size: 16px;
+    text-align: center;
+    color: black;
+  }
+  @media(max-width: 768px){
+    flex-direction: column;
+    ul{line-height: 15px;}
+    ul > h1 {font-size: 14px;}
+    li {font-size: 12px;}
+    p > span {font-size: 14px; }
+    section {flex-direction: row; align-items: center;}
+  }
+  @media(max-width: 500px){
+   
+  }
+
+  
 `;
 const Pic = styled.img`
   border-radius: 50%;
@@ -52,14 +65,22 @@ const Pic = styled.img`
   width: 200px;
   position: absolute;
   left: 5%;
-  top: 45vh;
-`;
-const StyledPortfolio = styled(Portfolio)`
-  .stars {
-    position: absolute;
-    left: 25%;
+  bottom: -30px;
+  z-index: 1;
+  @media(max-width: 1200px){
+    height: 130px;
+    width: 130px;
+  }
+  @media(max-width: 768px){
+    height: 110px;
+    width: 110px;
+  }
+  @media(max-width: 500px){
+    height: 90px;
+    width: 90px;
   }
 `;
+
 
 class Profile extends Component {
   constructor(props) {
@@ -73,7 +94,8 @@ class Profile extends Component {
       calendar: [],
       showTitles: true,
       open: false,
-      showLogin: false
+      showLogin: false,
+      hours: []
     };
   }
 
@@ -82,83 +104,57 @@ class Profile extends Component {
     let services = await axios.get(
       `/api/services/${this.props.match.params.id}`
     );
-    this.props.addStylist(profile.data.profile);
+    // this.props.addStylist(profile.data.profile);
     this.setState({
-      profile: profile.data.profile,
+      profile: profile.data.profile[0],
       stylist_name: profile.data.profile[0].full_name,
-      hours: profile.data.hours,
+      hours: profile.data.hours[0],
       services: services.data.service,
       calendar: services.data.calendar
     });
   };
 
   showProfile = () => {
-    let profile = this.state.profile;
-    let stylist = [];
-    for (let i in profile) {
-      console.log(profile, profile[i]);
-      stylist.push(
-        <StyledPortfolio key={i} background={profile[i].portfolio}>
-          <Pic src={profile[i].picture} alt="profile-pic" />
-          <h1>{profile[i].full_name.toUpperCase()}</h1> 
-
-           {/* <div className='stars' key={profile[i].id} >
-                       {`${profile[i].full_name} - Hair Stylist`}<br/>
-                       <span> {profile[i].profession}</span>
-               
-
-                    </div> */}
-        </StyledPortfolio>
+    const { profile } = this.state;
+    return (
+        <Portfolio background={profile.portfolio} name={profile.full_name}>
+          <Pic src={profile.picture} alt="profile-pic" />
+        </Portfolio>
       );
-    }
-    return stylist;
   };
   showAddress = () => {
-    let address = this.state.profile;
-    let business_address = [];
-    for (let i in address) {
-      business_address.push(
-        <div key={i} className="business-address-box">
-          <ul>
-            <span id="business-name-title">
-              {address[i].full_name.toUpperCase()}
-            </span>
-            <li>{address[i].streetaddress}</li>
-            <li>{address[i].business_name}</li>
-            <li>{`${address[i].city}, ${address[i].state} ${
-              address[i].zipcode
-            }`}</li>
-            {/* <li>{address[i].zipcode}</li> */}
-            <span id="number">{address[i].phone_number}</span>
-          </ul>
-        </div>
+  const {profile} = this.state
+      return (
+          <p >
+            <h1 style={{textTransform: 'uppercase', color: 'black'}}>
+              {profile.full_name}
+            </h1>
+            <span>{profile.streetaddress}</span>
+            <span>{profile.business_name}</span>
+            <span>{`${profile.city}, ${profile.state} ${
+              profile.zipcode
+            }`}</span>
+            <h5 >{profile.phone_number}</h5>
+          </p>
       );
-    }
-    return business_address;
   };
 
   businessHours = () => {
     let { hours } = this.state;
-    let newHours = [];
-
-    for (let i in hours) {
-      newHours.push(
-        <div key={i} className="business_hours">
-          <span className="business-hours-text">BUSINESS HOURS</span>
-          <ul>
-            <li>{` Sunday: ${hours[i].sunday}`}</li>
-            <li>{` Monday: ${hours[i].monday}`}</li>
-            <li>{` Tuesday: ${hours[i].tuesday}`}</li>
-            <li>{` Wednesday: ${hours[i].wednesday}`}</li>
-            <li>{` Thursday: ${hours[i].thursday}`}</li>
-            <li>{` Friday: ${hours[i].friday}`}</li>
-            <li>{` Saturday: ${hours[i].saturday}`}</li>
+      return (
+          <ul key={hours.id}>
+            <h1 >BUSINESS HOURS</h1>
+            <li>{` Sunday: ${hours.sunday}`}</li>
+            <li>{` Monday: ${hours.monday}`}</li>
+            <li>{` Tuesday: ${hours.tuesday}`}</li>
+            <li>{` Wednesday: ${hours.wednesday}`}</li>
+            <li>{` Thursday: ${hours.thursday}`}</li>
+            <li>{` Friday: ${hours.friday}`}</li>
+            <li>{` Saturday: ${hours.saturday}`}</li>
           </ul>
-        </div>
       );
     }
-    return newHours;
-  };
+  
 
   toggleModal = showLogin => {
     let loginModal = showLogin;
@@ -178,53 +174,39 @@ class Profile extends Component {
   };
 
   render() {
+
+    const {full_name} = this.state.profile
+    console.log(full_name)
     return (
       <div>
-        <Header newLogo={logo} height='120px' color="white" />
+        <Header background='transparent' backgroundColor='white' title={<Link to='/search' style={{color: 'white'}} className='title'>PrivyChic</Link>} position='fixed'  />
 
         {this.showProfile()}
         <Main>
-          <ServiceBox>
-          {this.state.showTitles ?
-          <>
-            <h1 className="service-menu-title">{`${
-              this.state.stylist_name
-            }'s Service Menu`}</h1>
-
-            <div className="labels">
-              <label className="service_name-title">Service </label>
-              <label className="description-title">Description</label>
-              <label className="price-title">Price</label>
-              <label className="duration-title">Duration</label>
-            </div>
-            </>
-            : null }
-              <Services
-                title={this.showServiceTitles}
-                services={this.state.services}
-                calendar={this.state.calendar}
-                showAvailability={this.showAvailability}
-                name={this.state.stylist_name}
-              />
-
-          </ServiceBox>
+          <Services 
+          title={this.showServiceTitles}
+          services={this.state.services}
+          calendar={this.state.calendar}
+          showAvailability={this.showAvailability}
+          name={full_name}/>
+          <section>
           {this.showAddress()}
-
           {this.businessHours()}
+          </section>
         </Main>
       </div>
     );
   }
 }
 const mapStateToProps = state => {
-  const { stylist, stylist_name } = state;
+  const { stylists, stylist_name } = state;
   return {
-    stylist,
+    stylists,
     stylist_name
   };
 };
 
-const bindActionCreators = { addStylistName, addStylist };
+const bindActionCreators = { addStylistName };
 export default connect(
   mapStateToProps,
   bindActionCreators

@@ -131,21 +131,22 @@ module.exports = {
 
 
     },
-    create_booking: async (req, res) => {
+    create_booking: async (req, res, next) => {
         const dbInstance = req.app.get('db')
         const { service_id, calendar_id, token, client_id } = req.body
         console.log(service_id, calendar_id, token, client_id )
 
             let booking = await dbInstance.create_booking(service_id, req.params.id, client_id, calendar_id, token)
             if (booking) {
-                let appointment = await dbInstance.user_appointment(calendar_id, client_id)
+                let appointment = await dbInstance.user_appointment(client_id, calendar_id)
 
-                let responseUser = { user: req.session.user, appointment }
-                res.status(200).send(responseUser)
+
+                res.status(200).send(appointment)
             
         } else {
             res.sendStatus(401)
         }
+        next()
     },
 
 

@@ -1,26 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import location from "../assets/location.png";
+import {Link} from 'react-router-dom'
 import axios from "axios";
-import Input from "../Input";
+import Input, { SearchInput } from "../Input";
 import Header from "../Header";
-import CustomMenu from "../dropdown/CustomMenu";
+import CustomMenu from "../menu/CustomMenu";
 import {
   addTimes,
   addZip,
   addStylistName,
   getUserInfo,
-  addStylist
+  addStylists
 } from "../../ducks/actions/action_creators";
 import { StyledBtn as Button } from "../buttons/Button";
-import Schedule from "../dropdown/Schedule";
+import Schedule from "../menu/Schedule";
 import styled from "styled-components";
 import StylistCard from "./StylistCard";
-
+import moment from 'moment'
 
 const StyledHeader = styled(Header)`
-  input {
-    width: 20%;
+  div > input {
+    width: 180px;
     height: 35px;
     border: solid 0.1px rgb(230, 230, 230);
     background-position-y: 5px;
@@ -31,7 +32,7 @@ const StyledHeader = styled(Header)`
     }
   }
   button {
-    width: 10%;
+    width: 80px;
     height:35px;
     text-transform: uppercase;
   }
@@ -43,6 +44,38 @@ const NoResults = styled.h1`
 
 const InputWrapper = styled.div`
   width: 60%;
+  @media screen and (max-width: 768px){
+    display: none;
+  }
+`
+const StyledInput = styled(SearchInput)`
+  display: none;
+  @media(max-width: 768px){
+    display: inline;
+  }
+  @media(max-width: 600px){
+    display: none;
+  }
+`
+const ResponsiveInput = styled(Input)`
+  display:none;
+  @media(max-width: 600px){
+    display: inline;
+    width: 60%;
+
+  }
+
+`
+const SearchContainer = styled.div `
+      @media(max-width: 600px){
+        header + div {
+          justify-content: space-between;
+        }
+        div > span {
+          font-size: 12px;
+
+        }
+      }
 `
 
 class Search extends Component {
@@ -63,92 +96,104 @@ class Search extends Component {
       zip: this.props.zipcode,
       keyword: '',
       date:  '',
-      results: 'No Results'
+      results: 'No Results',
+      disabled: true,
+      error: 'Invalid Zipcode'
     };
   }
 
   componentDidMount = () => {
     const {zipcode, stylist_name} = this.props
     if(zipcode){
-    return this.findByZip(zipcode)
+    return this.searchByZip(zipcode)
 
+  } else if(stylist_name) {
+    return this.searchByName(stylist_name)
   } else {
-    return this.findStylist(stylist_name)
+    return null
   }
 }
 findMethod = () => {
   if(this.state.zip){
-    return this.findByZip(this.state.zip)
+    return this.searchByZip(this.state.zip)
   } else if(this.state.stylist_name){
-    return this.findStylist(this.state.stylist_name)
+    return this.searchByName(this.state.stylist_name)
   } else {
-    return this.getAvailability(this.state.date)
+    return this.isValidDate(this.state.date)
   }
 }
   
-  findByZip = (val) => {
+  searchByZip = (val) => {
+    if(val.length < 5){
+     return alert(this.state.error)
+    } else {
       axios
         .get(`/api/zipcode/${val}`)
         .then(res => {
+          this.props.addStylists(res.data)
           this.setState({
-            stylists: res.data,
-            profileImage: res.data[0].picture,
-            full_name: res.data[0].full_name,
-            zipcode: null,
+            zip: '',
+            disabled: true
           });
-          this.props.addZip(null)
+          return this.props.addZip('')
         }).catch(err => console.log(err))
   };
+}
 
 
-findStylist = (value) => {
-  console.log(value)
+searchByName = (value) => {
+  value = value.toLowerCase()
   axios
     .get(`/api/availability/${value}`)
     .then(res => {
+      this.props.addStylists(res.data)
       this.setState({
-        stylists: res.data,
-        profileImage: res.data[0].picture,
-        full_name: res.data[0].full_name,
-        stylist_name: ''
+        stylist_name: '',
+        disabled: true
       });
       this.props.addStylistName('')
     }).catch(err => console.log(err))
   }
 
-getAvailability = () => {
+  isValidDate = (val) => {
+    var day = moment(val).format('YYYY-MM-DD')
+    if(day === 'Invalid Date'){
+      return this.state.error
+    } else {
+    return this.searchByDate();
+    }
+  }
+
+searchByDate = () => {
   axios.get(`/api/date/${this.state.date}`)
   .then((res) => {
     if(res.data.length > 0){
     this.setState({
-      stylists: res.data,
-      // profileImage: res.data[0].picture,
-      // full_name: res.data[0].full_name,
-      date: ''
+      date: '',
+      disabled: true
     });
+
   } else {
     this.setState({results: 'Sorry, no availibility', stylists: []})
   }
 })
+  
 }
 
   handleChange = (e) => {
-    this.setState({[e.target.name]:e.target.value})
+    this.setState({[e.target.name]:e.target.value,
+    disabled: false})
      
   }
 
   showStylist = () => {
-    if (this.state.stylists && this.state.stylists.length) {
-      let stylists = this.state.stylists;
-      let stylist = [];
-      for (let i in stylists) {
-        stylist.push(
-          <StylistCard key={stylists[i].business_id} stylist={stylists[i]} id={stylists[i].business_id} />
+    return this.props.stylists.map((stylist, i) =>  {
+       return (
+        this.setTimer(),
+        <StylistCard key={i} stylist={stylist} id={stylist.business_id} />
         );
-      }
-      return stylist;
-    }
-  };
+      })
+}
   
 
 
@@ -158,7 +203,7 @@ getAvailability = () => {
 
   showPaymentFilter = () => {
     axios.get(`/api/payments`).then(res => {
-      this.setState({ stylists: res.data });
+      this.props.addStylists(res.data);
     });
   };
 
@@ -173,11 +218,16 @@ getAvailability = () => {
       return <Schedule onClose={this.showAvailability} />;
     }
   };
+  setTimer = () => {
+    setTimeout(() => {
+        this.props.addStylists([])
+    }, 100000);
+  }
   render() {
-
+console.log(this.props, this.state)
     return (
-      <div>
-        <StyledHeader title={<h1 aria-label='Home'className='title'>PrivyChic</h1>} links={<span>Features</span>}>
+      <SearchContainer>
+        <StyledHeader title={<Link to='/' className='title' >PrivyChic</Link>} links={<span>Features</span>}>
         <InputWrapper>
           <Input
             name='stylist_name'
@@ -203,12 +253,29 @@ getAvailability = () => {
           onChange={this.handleChange}
           style={{color: 'grey', fontWeight: 'lighter'}}
           type="Date" image="none" indent="10px" />
-          <Button onClick={this.findMethod} fontWeight="bolder" fontSize="14px" name="Search"
+          <Button disabled={this.state.disabled} onClick={this.findMethod} fontWeight="bolder" fontSize="14px" name="Search"
            />
            </InputWrapper>
+           <StyledInput 
+           onChange={this.handleChange} 
+           value={this.state.zip}
+           name='zip'
+           placeholder='Search'/>
         </StyledHeader>
 
-        <div style={{ display: "flex", flexDirection: "column", margin: "3%" }}>
+        <div style={{ display: "flex",  margin: "3%" }}>
+        <ResponsiveInput
+           color='lightgrey'
+            y='30px'
+            type="text"
+            placeholder="Search by zipcode"
+            image={location}
+            size="20px"
+            positionX="5px"
+            name='zip'
+            value={this.state.zip}
+            onChange={this.handleChange}
+          />
           <span>
             Accepts Payment
             <input
@@ -219,12 +286,12 @@ getAvailability = () => {
             />
           </span>
         </div>
-        {this.state.stylists.length > 0 ? ( 
+        {this.props.stylists.length > 0 ? ( 
         <div>{this.showStylist()}</div>
         ) : (
         <NoResults>{this.state.results}</NoResults>
         )}
-      </div>
+      </SearchContainer>
     );
   }
 }
@@ -234,11 +301,12 @@ const mapStateToProps = state => {
     zipcode: state.zipcode,
     stylist_name: state.stylist_name,
     date: state.date,
-    keyword: ''
+    keyword: '',
+    stylists: state.stylists
   };
 };
 
-const bindActionCreators = { addStylist, addTimes, addZip, addStylistName, getUserInfo };
+const bindActionCreators = { addStylists, addTimes, addZip, addStylistName, getUserInfo };
 
 export default connect(
   mapStateToProps,
