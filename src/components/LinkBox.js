@@ -43,15 +43,16 @@ const Container = styled.div `
       }
       font-size: 10px;     
     }
-    @media(max-width: 768px){
+    @media(max-width: 900px){
       display: none;
+    
     }  
 
 
     
     
 `
-const InputWrapper = styled.div `
+const InputWrapper = styled.form `
   display: flex;
   @media (max-width: 500px ){
       #button {display: none;}
@@ -75,7 +76,7 @@ const LinkBox = (props) => {
     return (
         <>
           <h1> {`Discover & book beauty and barber appointments.`}</h1>
-            <InputWrapper onSubmit={(e) => submit(e)}>
+            <InputWrapper onSubmit={submit}>
               <Input
                 border='none'
                 onChange={e => addStylistName(e.target.value)}

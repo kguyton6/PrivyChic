@@ -15,6 +15,7 @@ text-align: center;
   }
   h2 {
     font-size: 18px;
+    margin-bottom: 15px;
   }
   h1, h2{
 font-family: sans-serif;

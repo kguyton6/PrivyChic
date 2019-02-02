@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-// import "./profile.css";
-import { getUserInfo } from "../../ducks/actions/action_creators";
-import { connect } from "react-redux";
 import Availability from "./Availability";
 import styled from "styled-components";
 import moment from 'moment'
+import StyledBtn from '../buttons/Button'
+
 const ServiceBox = styled.div`
   width: 40%;
   height: auto;
@@ -32,15 +31,6 @@ const ServiceBox = styled.div`
   }
   li {
     font-size: 24px;
-  }
-
-  button {
-    width: 100px;
-    height: 30px;
-    position: absolute;
-    right: 8%;
-    background-color: rgb(9,173,165);
-    color: white;
   }
   #price, .price-title {
     position: absolute;
@@ -80,6 +70,15 @@ div > span {
 }
 } 
 `;
+const Button = styled(StyledBtn)`
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    right: 8%;
+    background-color: rgb(9,173,165);
+    color: white;
+  
+`
 const Wrapper = styled.div`
     display: flex;
     padding: 5%;
@@ -97,18 +96,16 @@ class Services extends Component {
       showAvailable: false
     };
   }
-  componentDidMount = () => {
-      let month = moment().format('MMMM')
-  }
+
 
   showTimes = id => {
+      console.log('something')
     this.setState(prevState => {
       return {
         showAvailable: !prevState.showAvailable,
         service_id: id
       };
     });
-    return this.props.title();
   };
 
 
@@ -120,12 +117,11 @@ class Services extends Component {
             <span >{service.service_name} <br/>
             <p>{service.description}</p></span>
             <span id='price' >{service.price}</span>
-
-            <button
+            <Button
+              name='Select'
+              type='button'
               onClick={() => this.showTimes(service.service_id)}
-            >
-              Select
-            </button>
+            />
           </Wrapper>
       );
     })
@@ -133,8 +129,6 @@ class Services extends Component {
   
 
   render() {
-    console.log(this.props);
-
     return (
       <ServiceBox>
         {!this.state.showAvailable && this.props.name? (

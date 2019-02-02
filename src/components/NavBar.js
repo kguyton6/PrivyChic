@@ -8,12 +8,8 @@ import {connect} from 'react-redux'
 import CustomMenu from "./menu/CustomMenu";
 import {getUserInfo} from '../ducks/actions/action_creators'
 import menu from './assets/menu.png'
-const Menu = styled.img `
-display: none;
-  @media(max-width: 900px){
-    display: block;
-  }
-`
+
+
 export const Nav = styled.nav`
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
@@ -24,11 +20,9 @@ export const Nav = styled.nav`
   justify-content: space-evenly;
   position: absolute;
   z-index: 100;
-  color: white;
   right: 0;
   letter-spacing: 1.5px;
-
-
+  .full_name i {color: black; font-size: 18px;}
   a > span {
     color: ${props => props.color || "black"};
   }
@@ -36,16 +30,16 @@ export const Nav = styled.nav`
     font-size: 1rem;
     a > span {display: none;}
   }
-  i {
-      margin: 10px;
+  @media (max-width: 900px) {
+    position: unset;
+    width: auto;
+    span, a {display: none;}
+    .full_name i {display: none;}
+
   }
+
 `;
-const Link = styled(NavLink)`
-  background-image: url(${search});
-  @media(max-width: 900px){
-    display: none;
-  }
-`;
+
 const Circle = styled.div`
     width: 60px;
     height: 60px;
@@ -62,6 +56,15 @@ const Circle = styled.div`
       height: 40px;
     }
 ` 
+const MenuButton = styled.img`
+  display: none;
+  @media (max-width: 900px) {
+    display: block;
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+  }
+`;
 
 class NavBar extends Component { 
     state = {initials: ''}
@@ -81,52 +84,37 @@ class NavBar extends Component {
     }
     
    
-    logout = () => {
-        axios.get("/api/logout").then(res => {
-          if (res.status === 200) {
-            this.props.getUserInfo({})
-            return this.props.toggleMenu();
-          }
-        });
-      };
-   dropdown = () => {
-        if (this.props.open) {
-          return (
-            <CustomMenu
-             user={this.props.user}  
-              user_type={this.props.user.is_business}        
-              open={this.props.open}
-              logout={this.logout}
-              login={this.props.toggleModal}
-              toggleMenu={this.props.toggleMenu}
-            />
-          )}
+      renderClientType = () => {
+        var { backgroundColor } = this.props         
+        return this.props.user.user_type === 'client' ? (
+          <Circle
+          {...this.props}
+           backgroundColor={backgroundColor}
+           onClick={this.props.toggleMenu}>
+           {this.initials()}
+           </Circle>
+            ):( 
+        <div className='full_name' onClick={this.props.toggleMenu}>{this.props.user.full_name}<i className="fas fa-chevron-down arrow"></i></div> 
+        )
       }
-      render(){       
-          console.log(this.props)
+   
 
-           var { background } = this.props
-          
-    return this.props.user ? (
-
+     render(){       
+       return this.props.user.full_name ? (
         <Nav style={{justifyContent: 'flex-end', marginRight: '3%'}}>
-        {this.props.user.user_type === 'client' ? 
-      <Circle backgroundColor={background}{...this.props} onClick={this.props.toggleMenu}>{this.initials()}</Circle>
-    :
-    <span onClick={this.props.toggleMenu}>{this.props.user.full_name}<i className="fas fa-chevron-down"></i></span> }
-       {this.dropdown()}
+        {this.renderClientType()}
         </Nav>
     ) : (
-        <Nav {...this.props}>
+      <Nav {...this.props}>
       {this.props.links}
       <span onClick={() => this.props.toggle("signup")}>Sign Up</span>
       <span onClick={() => this.props.toggle("login")}>Login</span>
       {this.props.render}
       <NavLink to="/help">Help</NavLink>
-
-    </Nav>
+      <MenuButton src={menu} onClick={this.props.toggleMenu}/>
+     </Nav>
   );
-    }
+   }
 };
 const mapStateToProps = state => {
     return {

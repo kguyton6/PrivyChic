@@ -6,23 +6,23 @@ import styled from 'styled-components'
 
 const StyledWell = styled(Well)`
   color: black;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 
   a:hover, span:hover {
-    font-size: 18px;
+    font-size: 20px;
     background-color: #F2F5F5;
   }
 `
  const Dropdown = styled.div`
  width: 120px;
-  height: 220px;
+  height: auto;
   position: absolute;
-  right: 5%;
-  top: 32px;
+  right: 6%;
+  top: 50px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,11 @@ const StyledWell = styled(Well)`
   box-shadow: 1px 1px 3px 1px rgba(190, 199, 198);
   text-indent: 25px;
   z-index: 50;
+  color: black;
+  @media (max-width: 900px){
+    top: 60px;
+    right: 7%;
+  }
  `
 
 class CustomMenu extends React.Component {
@@ -41,11 +46,11 @@ class CustomMenu extends React.Component {
       <Dropdown>
         <Fade in={this.props.open} >
           <div>
-            <StyledWell>
-              <Link  to='/'>Home</Link>
-              <Link to={`/dashboard/${this.props.user.user_type}/${this.props.user.user_id}`}>Account</Link>
-              <span  onClick={this.props.logout}>Log Out</span>
-              <Link to='/business'>Business</Link>
+            <StyledWell onClick={this.props.toggleMenu}>
+              <Link to='/' style={{color: 'black'}}>Home</Link>
+              <Link to={`/dashboard/${this.props.user.user_type}/${this.props.user.user_id}`} style={{color: 'black'}}>Account</Link>
+              <span  onClick={this.props.logout} style={{color: 'black'}}>Log Out</span>
+              <Link to='/business'style={{color: 'black'}} >Business</Link>
 
             </StyledWell>
           </div>
@@ -56,9 +61,9 @@ class CustomMenu extends React.Component {
       <Fade in={this.props.open} >
       <div>
         <StyledWell >
-          <Link to='/'>Home</Link>
-          <span onClick={this.props.login}>Login</span>
-          <Link to={`/dashboard/${this.props.user.user_type}`}>Business</Link>
+          <Link to='/' style={{color: 'black'}}>Home</Link>
+          <span onClick={this.props.login} style={{color: 'black'}}>Login</span>
+          <Link to={`/dashboard/${this.props.user.user_type}`} style={{color: 'black'}}>Business</Link>
 
         </StyledWell>
       </div>

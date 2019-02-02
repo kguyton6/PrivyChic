@@ -94,16 +94,22 @@ background-repeat:  no-repeat;
     color: white;
   }
   @media (max-width: 1200px) {
-    height: 350px;
     background-position-x: 20px;
     background-position-y: -40px;
     h1 {font-size: 30px;}
     h3 {font-size: 16px;}
     h4 {font-size: 12px;}
 }
-    @media (max-width: 750px) {
+    @media (max-width: 768px) {
+     
       width: 80%;
       flex-wrap: wrap;
+    }
+    @media(max-width: 500px){
+        height: 300px;
+        width: 90%;
+        h1 {font-size: 24px; line-height: 30px; }
+        h3, h4 {display: none;}
     }
    
 `

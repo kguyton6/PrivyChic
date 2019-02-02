@@ -55,7 +55,7 @@ export const SearchInput = styled.input `
   }
   }
   @media(max-width: 750px){
-    display: ${props => props.display || 'none'};
+    display: ${props => props.display || 'unset'};
   }
 
 `

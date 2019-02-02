@@ -1,59 +1,55 @@
 import React from "react";
 import styled from "styled-components";
-import menu from "./assets/menu.png";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import Login from "./modal/login/Login";
 import Logo from "./utils/Logo";
-import { BusinessButton } from "./buttons/Button";
+import axios from 'axios'
 import NavBar from "./NavBar";
-
-
-const MenuButton = styled.button`
-  display: none;
-  @media (max-width: 900px) {
-    background-image: url(${menu});
-    width: 60px;
-  }
-`;
+import CustomMenu from './menu/CustomMenu'
+import {connect} from 'react-redux'
+import {getUserInfo}from '../ducks/actions/action_creators'
 const StyledHeader = styled.header`
   height: 90px;
   display: flex;
   align-items: center;
-  color: #393B3A;
+  color: #393b3a;
   position: ${props => props.position};
   width: 100%;
 
   .title {
-    font-size: ${props => props.fontSize || '27px'};
-    font-family: 'Abril Fatface', cursive;
-    color: ${props => props.color || '#393B3A'};
+    font-size: ${props => props.fontSize || "27px"};
+    font-family: "Abril Fatface", cursive;
+    color: ${props => props.color || "#393B3A"};
     margin-left: 30px;
     font-weight: 300;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     padding-right: 30px;
     z-index: 100;
-
   }
   .title:hover {
-    color: #5CD3CA;
+    color: #5cd3ca;
     font-size: 30px;
   }
   a,
   span {
     color: ${props => props.color || "black"};
   }
-  @media(max-width: 900px){
-    background-color: ${props => props.background || 'hsl(0, 0%, 14%)'};
+  i.search {display: none;}
+  @media (max-width: 900px) {
+    background-color: ${props => props.background || "hsl(0, 0%, 14%)"};
     margin-bottom: 3%;
-    .title {
+    justify-content: space-between;
+    padding: 10px;
     color: white;
-    padding-right: 10px;
-    margin-left: 20px;
+    .title {
+      color: white;
+      font-size: 34px;
+      margin-left: unset;
     }
+    i.search {display: block; color: white; font-size: 60px; }
+
   }
 `;
-
 
 class Header extends React.Component {
   state = {
@@ -74,7 +70,8 @@ class Header extends React.Component {
 
   toggleModal = () => {
     this.setState(prevState => {
-      return { showLogin: !prevState.showLogin };
+      return { showLogin: !prevState.showLogin,
+               open: false };
     });
   };
 
@@ -82,7 +79,8 @@ class Header extends React.Component {
     this.setState(prevState => {
       return {
         showLogin: !prevState.showLogin,
-        disabled: false
+        disabled: false,
+        open: false
       };
     });
   };
@@ -101,26 +99,51 @@ class Header extends React.Component {
     }
   };
 
+  logout = () => {
+    axios.get("/api/logout").then(res => {
+      if (res.status === 200) {
+        this.props.getUserInfo({})
+        return this.menu();
+      }
+    });
+  };
+
+  dropdown = () => {
+    if (this.state.open) {
+      return (
+        <CustomMenu
+         user={this.props.user}  
+          user_type={this.props.user.is_business}        
+          open={this.state.open}
+          logout={this.logout}
+          login={this.toggleModal}
+          toggleMenu={this.toggleMenu}
+        />
+      )}
+  }
   menu = () => {
     this.setState(prevState => {
       return { open: !prevState.open };
     });
   };
-    
 
   handleClick = () => {
-    return this.props.history.push('/');
+    return this.props.history.push("/");
   };
-
+  handleSearch = () => {
+    return this.props.history.push('/search')
+  }
   render() {
     return (
-      <StyledHeader {...this.props} >
-        <MenuButton onClick={this.menu} />
-        {this.props.title ?
-            this.props.title
-        :
-        <Logo newLogo={this.props.newLogo} onClick={this.handleClick} />
-        }
+      <StyledHeader {...this.props}>
+        <i className="material-icons search" onClick={this.handleSearch}>
+          search
+        </i>
+        {this.props.title ? (
+          this.props.title
+        ) : (
+          <Logo newLogo={this.props.newLogo} onClick={this.handleClick} />
+        )}
         {this.props.children}
         <NavBar
           open={this.state.open}
@@ -128,14 +151,20 @@ class Header extends React.Component {
           toggleMenu={this.menu}
           toggle={this.modalHandler}
           render={this.props.Button}
-          background={this.props.backgroundColor ? true : false}
+          backgroundColor={this.props.backgroundColor ? true : false}
           {...this.props}
         />
+       {this.dropdown()}
 
         {this.showModal()}
       </StyledHeader>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-export default withRouter(Header);
+export default withRouter(connect(mapStateToProps, {getUserInfo})(Header));

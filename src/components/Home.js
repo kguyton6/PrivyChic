@@ -91,18 +91,14 @@ const RightBox = styled.div`
     font-size: 20px;
     font-weight: lighter;
   }
-
-  /* button {
-    width: 200px;
-    font-size: 16px;
-  } */
-
   h6 {
     font-size: 16px;
   }
   @media(max-width: 1200px){
+    padding: 20px;
+    letter-spacing: 1.5px; 
     h1 {font-size: 20px;}
-    h4 {font-size: 16px;}
+    h4 {font-size: 14px; line-height: 15px;}
     h6 {font-size: 12px;}
   }
   @media(max-width: 768px){
@@ -195,11 +191,6 @@ class Home extends Component {
          onChange={(e) => this.setState({input: e.target.value})}
          placeholder="Search" 
         />
-        <SearchInput 
-         onSubmit={(e) => this.handleSearch(e)} 
-         onChange={(e) => this.setState({input: e.target.value})}
-         placeholder="Search" 
-        /> 
         </Header>
         <div style={{ display: "flex", justifyContent: "center", flexWrap:'wrap' }}>
           <Banner>

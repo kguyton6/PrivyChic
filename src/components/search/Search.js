@@ -42,32 +42,25 @@ const NoResults = styled.h1`
   margin-top: 10%;
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.form`
   width: 60%;
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 900px){
     display: none;
   }
 `
-const StyledInput = styled(SearchInput)`
-  display: none;
-  @media(max-width: 768px){
-    display: inline;
-  }
-  @media(max-width: 600px){
-    display: none;
-  }
-`
+
 const ResponsiveInput = styled(Input)`
   display:none;
-  @media(max-width: 600px){
+  @media(max-width: 900px){
     display: inline;
-    width: 60%;
+    border-radius: 20px;
+    width: 100%;
 
   }
 
 `
 const SearchContainer = styled.div `
-      @media(max-width: 600px){
+      @media(max-width: 900px){
         header + div {
           justify-content: space-between;
         }
@@ -163,6 +156,10 @@ searchByName = (value) => {
     return this.searchByDate();
     }
   }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    return this.searchByZip(this.state.zip)
+  }
 
 searchByDate = () => {
   axios.get(`/api/date/${this.state.date}`)
@@ -253,17 +250,15 @@ console.log(this.props, this.state)
           onChange={this.handleChange}
           style={{color: 'grey', fontWeight: 'lighter'}}
           type="Date" image="none" indent="10px" />
-          <Button disabled={this.state.disabled} onClick={this.findMethod} fontWeight="bolder" fontSize="14px" name="Search"
+          <Button type='submit' disabled={this.state.disabled} onClick={this.findMethod} fontWeight="bolder" fontSize="14px" name="Search"
            />
            </InputWrapper>
-           <StyledInput 
-           onChange={this.handleChange} 
-           value={this.state.zip}
-           name='zip'
-           placeholder='Search'/>
         </StyledHeader>
 
         <div style={{ display: "flex",  margin: "3%" }}>
+        <form 
+        style={{width: '60%'}}
+        onSubmit={this.handleSubmit}>
         <ResponsiveInput
            color='lightgrey'
             y='30px'
@@ -276,6 +271,7 @@ console.log(this.props, this.state)
             value={this.state.zip}
             onChange={this.handleChange}
           />
+          </form>
           <span>
             Accepts Payment
             <input

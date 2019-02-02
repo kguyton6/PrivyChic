@@ -11,7 +11,6 @@ import {
 import styled from "styled-components";
 import Portfolio from "./Portfolio";
 import Header from "../Header";
-import logo from '../assets/whiteLogo.png'
 import {Link} from 'react-router-dom'
 
 
@@ -89,12 +88,9 @@ class Profile extends Component {
     this.state = {
       profile: [],
       stylist_name: "",
-      loginModal: false,
       services: [],
       calendar: [],
-      showTitles: true,
       open: false,
-      showLogin: false,
       hours: []
     };
   }
@@ -156,22 +152,7 @@ class Profile extends Component {
     }
   
 
-  toggleModal = showLogin => {
-    let loginModal = showLogin;
-    loginModal = this.state.loginModal;
-    this.setState(prevState => {
-      return {
-        loginModal: !prevState.loginModal
-      };
-    });
-  };
-  showServiceTitles = () => {
-    this.setState(prevState => {
-      return {
-        showTitles: !prevState.showTitles
-      };
-    });
-  };
+
 
   render() {
 
@@ -179,12 +160,11 @@ class Profile extends Component {
     console.log(full_name)
     return (
       <div>
-        <Header background='transparent' backgroundColor='white' title={<Link to='/search' style={{color: 'white'}} className='title'>PrivyChic</Link>} position='fixed'  />
+        <Header backgroundColor='white' title={<Link to='/search' style={{color: 'white'}} className='title'>PrivyChic</Link>} position='fixed'  />
 
         {this.showProfile()}
         <Main>
           <Services 
-          title={this.showServiceTitles}
           services={this.state.services}
           calendar={this.state.calendar}
           showAvailability={this.showAvailability}

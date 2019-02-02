@@ -60,9 +60,9 @@ class Login extends Component {
       .post("/auth/signup", { full_name, email, password: password })
       .then(res => {
         if (res.status === 200) {
-          return this.props.getUserInfo(res.data);
+          this.props.getUserInfo(res.data);
+          return this.props.onClose();
         }
-        return this.props.onClose();
       });
   };
 
@@ -108,6 +108,7 @@ class Login extends Component {
             <form> 
             {!this.props.disabled ? (
               <Input
+                display='inline'
                 placeholder="Full Name"
                 type="text"
                 image="none"
@@ -116,6 +117,7 @@ class Login extends Component {
               />
             ) : null }
             <Input
+             display='inline'
               placeholder="Email"
               type="text"
               image="none"
@@ -123,6 +125,7 @@ class Login extends Component {
               onChange={this.handleChange}
             />
             <Input
+             display='inline'
               placeholder="Password"
               image="none"
               type="password"
