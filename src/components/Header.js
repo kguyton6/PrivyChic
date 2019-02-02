@@ -49,6 +49,9 @@ const StyledHeader = styled.header`
     i.search {display: block; color: white; font-size: 60px; }
 
   }
+  @media (max-width: 500px){
+    i.search {font-size: 40px;}
+  }
 `;
 
 class Header extends React.Component {

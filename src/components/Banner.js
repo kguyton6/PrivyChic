@@ -100,15 +100,15 @@ background-repeat:  no-repeat;
     h3 {font-size: 16px;}
     h4 {font-size: 12px;}
 }
-    @media (max-width: 768px) {
-     
+    @media (max-width: 768px) {  
       width: 80%;
       flex-wrap: wrap;
     }
     @media(max-width: 500px){
+        background-position-x: 0;
         height: 300px;
         width: 90%;
-        h1 {font-size: 24px; line-height: 30px; }
+        h1 {font-size: 21px; line-height: 25px; }
         h3, h4 {display: none;}
     }
    

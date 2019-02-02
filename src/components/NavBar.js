@@ -34,7 +34,7 @@ export const Nav = styled.nav`
     position: unset;
     width: auto;
     span, a {display: none;}
-    .full_name i {display: none;}
+    div.full_name  {display:none;}
 
   }
 
@@ -62,7 +62,12 @@ const MenuButton = styled.img`
     display: block;
     height: 40px;
     width: auto;
-    margin-right: 10px;
+    margin-right: 5px;
+  }
+  @media (max-width: 500px){
+    height: 25px;
+    margin-right: unset;
+
   }
 `;
 
@@ -94,7 +99,10 @@ class NavBar extends Component {
            {this.initials()}
            </Circle>
             ):( 
+              <>
         <div className='full_name' onClick={this.props.toggleMenu}>{this.props.user.full_name}<i className="fas fa-chevron-down arrow"></i></div> 
+        <MenuButton src={menu} onClick={this.props.toggleMenu}/>
+        </>
         )
       }
    
@@ -103,6 +111,7 @@ class NavBar extends Component {
        return this.props.user.full_name ? (
         <Nav style={{justifyContent: 'flex-end', marginRight: '3%'}}>
         {this.renderClientType()}
+       
         </Nav>
     ) : (
       <Nav {...this.props}>
