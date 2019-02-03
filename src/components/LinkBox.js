@@ -64,6 +64,12 @@ const InputWrapper = styled.form `
 const StyledInput = styled(Input)`
  @media(max-width: 768px){
    width: 100%;
+   border-radius: unset;
+  
+ }
+ @media(max-width: 450px){
+  background-size: 18px;
+  background-position-y: 9px;
  }
 `
 

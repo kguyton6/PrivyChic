@@ -18,7 +18,7 @@ export const StyledInput = styled.input`
   ::placeholder {
     color: ${props => props.color || "rgb(190, 190, 190)"};
     font-family: "Abel", sans-serif;
-    font-size: 17px;
+    font-size: 16px;
     letter-spacing: 1px;
     font-weight: lighter;
   }
@@ -30,6 +30,9 @@ export const StyledInput = styled.input`
 
   @media (max-width: 900px) {
     display: ${props => props.display || 'none'};
+    ::placeholder{
+      font-size: 12px;
+    }
   }
 `;
 export const SearchInput = styled.input `
