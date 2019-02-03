@@ -218,7 +218,7 @@ searchByDate = () => {
   setTimer = () => {
     setTimeout(() => {
         this.props.addStylists([])
-    }, 100000);
+    }, 90000);
   }
   render() {
 console.log(this.props, this.state)

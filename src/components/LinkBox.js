@@ -76,7 +76,7 @@ const LinkBox = (props) => {
     return (
         <>
           <h1> {`Discover & book beauty and barber appointments.`}</h1>
-            <InputWrapper onSubmit={submit}>
+            <InputWrapper onSubmit={(e) => submit(e)}>
               <Input
                 border='none'
                 onChange={e => addStylistName(e.target.value)}

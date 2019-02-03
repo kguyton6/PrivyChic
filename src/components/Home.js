@@ -131,6 +131,9 @@ const H1 = styled.h1`
   @media(max-width: 950px){
     font-size: 38px;
   }
+  @media(max-width: 600px){
+    font-size: 30px;
+  }
 `;
 const Container = styled.div`
   position: relative;
