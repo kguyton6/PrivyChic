@@ -56,14 +56,21 @@ class Login extends Component {
   }
   signup = () => {
     let { full_name, email, password } = this.state;
+    email = email.toLowerCase()
     axios
-      .post("/auth/signup", { full_name, email, password: password })
+      .post("/auth/signup", { full_name, email, password })
       .then(res => {
         if (res.status === 200) {
           this.props.getUserInfo(res.data);
           return this.props.onClose();
         }
-      });
+      }).catch(err => {
+        if(err){
+        this.setState({error: err.response.data})
+        } else {
+          return
+        }
+      }) 
   };
 
   login = () => {
@@ -71,13 +78,20 @@ class Login extends Component {
       return this.signup()
     } else {
     let { email, password } = this.state;
+    email = email.toLowerCase()
     axios
       .post("/auth/login", { email: email, password: password })
       .then(res => {
         this.props.getUserInfo(res.data);
         this.props.onClose();
-      }).catch(err => console.log(err)) 
-  };
+      }).catch(err => {
+        if(err){
+          this.setState({error: err.response.data})
+          } else {
+            return   
+      }
+    })
+  }
 }
 
 

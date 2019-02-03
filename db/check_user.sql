@@ -1,2 +1,2 @@
 select * from priv_users
-where email = $1 
+where lower(email) = $1 

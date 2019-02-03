@@ -54,6 +54,8 @@ const Circle = styled.div`
     @media(max-width:500px){
       width: 40px;
       height: 40px;
+     
+
     }
 ` 
 const MenuButton = styled.img`
@@ -66,7 +68,6 @@ const MenuButton = styled.img`
   }
   @media (max-width: 500px){
     height: 25px;
-
 
   }
 `;
