@@ -55,7 +55,7 @@ const Container = styled.div `
 const InputWrapper = styled.form `
   display: flex;
   @media (max-width: 500px ){
-      #button {display: none;}
+      #button {width: 50px; font-size: 9px;}
       width: 90%;
     }
 
