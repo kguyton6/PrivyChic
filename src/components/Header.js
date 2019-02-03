@@ -44,13 +44,14 @@ const StyledHeader = styled.header`
     .title {
       color: white;
       font-size: 34px;
-      margin-left: unset;
+      /* margin-left: unset; */
     }
     i.search {display: block; color: white; font-size: 60px; }
 
   }
   @media (max-width: 500px){
     i.search {font-size: 40px;}
+    .title {font-size: 30px;}
   }
 `;
 

@@ -62,11 +62,11 @@ const MenuButton = styled.img`
     display: block;
     height: 40px;
     width: auto;
-    margin-right: 5px;
+    margin-right: 8px;
   }
   @media (max-width: 500px){
     height: 25px;
-    margin-right: unset;
+
 
   }
 `;
