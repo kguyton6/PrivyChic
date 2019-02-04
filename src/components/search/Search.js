@@ -21,8 +21,6 @@ import moment from 'moment'
 
 const StyledHeader = styled(Header)`
   div > input {
-    width: 180px;
-    height: 35px;
     border: solid 0.1px rgb(230, 230, 230);
     background-position-y: 5px;
     ::placeholder{
@@ -33,7 +31,7 @@ const StyledHeader = styled(Header)`
   }
   button {
     width: 80px;
-    height:35px;
+    height:45px;
     text-transform: uppercase;
   }
 `;
@@ -43,7 +41,8 @@ const NoResults = styled.h1`
 `;
 
 const InputWrapper = styled.form`
-  width: 60%;
+  width: 50%;
+  input {width: 165px;}
   @media screen and (max-width: 900px){
     display: none;
   }

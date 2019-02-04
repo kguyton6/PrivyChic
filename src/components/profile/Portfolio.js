@@ -5,7 +5,7 @@ var Banner = styled.div`
     background-image: url(${props => props.background});
     width: 100vw;
     height: 450px;
-    background-size: 100%;
+    background-size: cover;
     background-position-y: -500px;
     background-repeat: no-repeat;
     z-index: -100;
