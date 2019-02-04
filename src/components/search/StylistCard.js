@@ -126,6 +126,7 @@ const Card = styled.div`
     align-items: center;
     justify-content: center;
     margin-left: unset;
+    border-bottom: unset;
   }
   h4 {
     margin-bottom: 10px;

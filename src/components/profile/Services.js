@@ -99,7 +99,6 @@ class Services extends Component {
 
 
   showTimes = id => {
-      console.log('something')
     this.setState(prevState => {
       return {
         showAvailable: !prevState.showAvailable,
@@ -119,16 +118,17 @@ class Services extends Component {
             <span id='price' >{service.price}</span>
             <Button
               name='Select'
-              type='button'
-              onClick={() => this.showTimes(service.service_id)}
+              onClick={() => this.setState({showAvailable: !this.state.showAvailable})}
             />
-          </Wrapper>
+
+      </Wrapper>
       );
     })
     }
   
 
   render() {
+      console.log(this.props)
     return (
       <ServiceBox>
         {!this.state.showAvailable && this.props.name? (
@@ -142,17 +142,18 @@ class Services extends Component {
             </div>
             {this.showServices()}
           </>
-        ) : (
+         ) : (
             <>
             <i onClick={this.showTimes}>{`< Go Back `}</i>
             <h1 style={{ borderBottom: 'darkgrey thin solid'}}>{moment().format('MMMM')}</h1>
+           
             <Availability
           service_id={this.state.service_id}
           goBack={this.showTimes}
           calendar={this.props.calendar}
         />
           </>
-        )}
+        )} 
       </ServiceBox>
     );
   }

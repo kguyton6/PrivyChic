@@ -14,16 +14,16 @@ import Header from "../Header";
 import {Link} from 'react-router-dom'
 
 
-const Main = styled.div`
+const Main = styled.main`
   display: flex;
   justify-content: space-evenly;
-  p > span {
+  address > span {
     font-size: 16px;
     font-weight: lighter;
     color: rgb(9, 173, 165);
     text-align: center;
   }
-  p {
+  address {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -121,7 +121,7 @@ class Profile extends Component {
   showAddress = () => {
   const {profile} = this.state
       return (
-          <p >
+          <address >
             <h1 style={{textTransform: 'uppercase', color: 'black'}}>
               {profile.full_name}
             </h1>
@@ -131,7 +131,7 @@ class Profile extends Component {
               profile.zipcode
             }`}</span>
             <h5 >{profile.phone_number}</h5>
-          </p>
+          </address>
       );
   };
 
@@ -157,7 +157,7 @@ class Profile extends Component {
   render() {
 
     const {full_name} = this.state.profile
-    console.log(full_name)
+
     return (
       <div>
         <Header backgroundColor='white' title={<Link to='/search' style={{color: 'white'}} className='title'>PrivyChic</Link>} position='fixed'  />
@@ -169,6 +169,7 @@ class Profile extends Component {
           calendar={this.state.calendar}
           showAvailability={this.showAvailability}
           name={full_name}/>
+          
           <section>
           {this.showAddress()}
           {this.businessHours()}

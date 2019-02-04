@@ -60,6 +60,8 @@ const ResponsiveInput = styled(Input)`
 
 `
 const SearchContainer = styled.div `
+        div > form {display: none;}
+
       @media(max-width: 900px){
         header + div {
           justify-content: space-between;
@@ -234,7 +236,7 @@ console.log(this.props, this.state)
            onChange={this.handleChange}/>
           <Input
            color='lightgrey'
-            y='30px'
+            // y='30px'
             type="text"
             placeholder="Search by zipcode"
             image={location}

@@ -65,10 +65,10 @@ class date extends Component {
       console.log(date)
       time.push(
         <Time key={i}>
-          <ul>
+           <ul>
             <li id="day-name">{date}</li>
             <li id="time">{dates[i].time}</li>
-          </ul>
+          </ul> 
           <TakeMoney
             stylist_name={this.props.stylist_name}
             business_id={dates[i].business_id}
