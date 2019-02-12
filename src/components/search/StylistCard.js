@@ -98,24 +98,25 @@ const Card = styled.div`
   display: flex;
   position: relative;
   margin: 2%;
+  padding: 10px;
   box-shadow: .5px .5px .5px .5px rgba(195, 195, 195);
   div + span {
     display: flex;
     border-bottom: thin solid #E9ECEB;
-    width: 80%;
+    width: 95%;
     height: 50%;
     padding: 10px;
     font-size: 20px;
     align-items: center;
+    margin-left: 10px;
     justify-content: space-evenly;
   }
   @media (max-width: 768px){
-    width: 90%;
     height: 220px;
+    width: 70%;
     margin-left: 5%;
   }
 @media(max-width: 500px){
-  width: 90%;
   margin-left: 5%;
   height: 200px;
   div + span {

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import location from "../assets/location.png";
 import {Link} from 'react-router-dom'
 import axios from "axios";
-import Input, { SearchInput } from "../Input";
+import Input from "../Input";
 import Header from "../Header";
 import CustomMenu from "../menu/CustomMenu";
 import {
@@ -17,7 +17,7 @@ import { StyledBtn as Button } from "../buttons/Button";
 import Schedule from "../menu/Schedule";
 import styled from "styled-components";
 import StylistCard from "./StylistCard";
-import moment from 'moment'
+
 
 const StyledHeader = styled(Header)`
   div > input {
@@ -48,15 +48,27 @@ const InputWrapper = styled.form`
   }
 `
 
-const ResponsiveInput = styled(Input)`
+const ZipInput = styled(Input)`
   display:none;
   @media(max-width: 900px){
     display: inline;
-    border-radius: 20px;
+    border-radius: 2px;
     width: 100%;
-
+    color: grey;
   }
 
+`
+const NameInput = styled(Input)`
+  display: none;
+  @media (max-width: 900px){
+    display: inline;
+    border-radius: 2px;
+    width: 100%;
+    color: grey; 
+  }
+  @media(max-width: 450px){
+    display: none;
+  }
 `
 const SearchContainer = styled.div `
         div > form {display: none;}
@@ -69,6 +81,13 @@ const SearchContainer = styled.div `
           font-size: 12px;
 
         }
+        div > form {
+          display: flex;
+          width: 60%;
+          button{
+            display: hidden;
+          }
+        }
       }
 `
 
@@ -79,12 +98,10 @@ class Search extends Component {
     this.state = {
       stylists: [],
       acceptsPayment: false,
-      showLogin: false,
       appointments: false,
       availability: [],
       calendar: [],
       open: false,
-      stylistSchedule: false,
       service_id: null,
       stylist_name: this.props.stylist_name,
       zip: this.props.zipcode,
@@ -149,19 +166,6 @@ searchByName = (value) => {
     }).catch(err => console.log(err))
   }
 
-  isValidDate = (val) => {
-    var day = moment(val).format('YYYY-MM-DD')
-    if(day === 'Invalid Date'){
-      return this.state.error
-    } else {
-    return this.searchByDate();
-    }
-  }
-  handleSubmit = (e) => {
-    e.preventDefault()
-    return this.searchByZip(this.state.zip)
-  }
-
 searchByDate = () => {
   axios.get(`/api/date/${this.state.date}`)
   .then((res) => {
@@ -182,6 +186,10 @@ searchByDate = () => {
     this.setState({[e.target.name]:e.target.value,
     disabled: false})
      
+  }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    return this.findMethod()
   }
 
   showStylist = () => {
@@ -211,22 +219,16 @@ searchByDate = () => {
     }
   };
 
-  showSchedule = () => {
-    if (this.state.showAvailability) {
-      return <Schedule onClose={this.showAvailability} />;
-    }
-  };
   setTimer = () => {
     setTimeout(() => {
         this.props.addStylists([])
-    }, 90000);
+    }, 80000);
   }
   render() {
-console.log(this.props, this.state)
     return (
       <SearchContainer>
         <StyledHeader title={<Link to='/' className='title' >PrivyChic</Link>} links={<span>Features</span>}>
-        <InputWrapper>
+        <InputWrapper onSubmit={this.findMethod}>
           <Input
             name='stylist_name'
             value={this.state.stylist_name}
@@ -235,7 +237,6 @@ console.log(this.props, this.state)
            onChange={this.handleChange}/>
           <Input
            color='lightgrey'
-            // y='30px'
             type="text"
             placeholder="Search by zipcode"
             image={location}
@@ -258,20 +259,24 @@ console.log(this.props, this.state)
 
         <div style={{ display: "flex",  margin: "3%" }}>
         <form 
-        style={{width: '60%'}}
         onSubmit={this.handleSubmit}>
-        <ResponsiveInput
-           color='lightgrey'
-            y='30px'
-            type="text"
+        <ZipInput
+            type="integer"
             placeholder="Search by zipcode"
             image={location}
             size="20px"
-            positionX="5px"
+            right='none'
             name='zip'
             value={this.state.zip}
             onChange={this.handleChange}
           />
+          <NameInput 
+           placeholder='Search by name'
+           name='stylist_name'
+           onChange={this.handleChange}
+           value={this.state.stylist_name}
+          />
+          <button onClick={this.findMethod} />
           </form>
           <span>
             Accepts Payment

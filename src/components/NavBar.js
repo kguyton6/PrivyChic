@@ -54,8 +54,6 @@ const Circle = styled.div`
     @media(max-width:500px){
       width: 40px;
       height: 40px;
-     
-
     }
 ` 
 const MenuButton = styled.img`
@@ -91,11 +89,11 @@ class NavBar extends Component {
     
    
       renderClientType = () => {
-        var { backgroundColor } = this.props         
+        var { color } = this.props         
         return this.props.user.user_type === 'client' ? (
           <Circle
           {...this.props}
-           backgroundColor={backgroundColor}
+           backgroundColor={color}
            onClick={this.props.toggleMenu}>
            {this.initials()}
            </Circle>

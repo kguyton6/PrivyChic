@@ -85,7 +85,6 @@ background-repeat:  no-repeat;
     font-weight: 700;
     line-height: 48px;
     margin-bottom: 4%;
-    /* margin-top: ${props => props.marginTop || "6%"}; */
   }
   h3 {
     font-size: 14px;
@@ -96,19 +95,20 @@ background-repeat:  no-repeat;
   @media (max-width: 1200px) {
     background-position-x: 20px;
     background-position-y: -40px;
-    h1 {font-size: 30px;}
+    h1 {font-size: 30px; }
     h3 {font-size: 16px;}
     h4 {font-size: 12px;}
 }
     @media (max-width: 768px) {  
       width: 80%;
       flex-wrap: wrap;
+      h1 {line-height: 32px; }
     }
     @media(max-width: 500px){
         background-position-x: 0;
         height: 300px;
         width: 90%;
-        h1 {font-size: 21px; line-height: 25px; }
+        h1 {font-size: 21px; }
         h3, h4 {display: none;}
     }
    

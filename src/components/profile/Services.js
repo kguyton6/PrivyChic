@@ -7,15 +7,10 @@ import StyledBtn from '../buttons/Button'
 const ServiceBox = styled.div`
   width: 40%;
   height: auto;
-  padding-bottom: 10%;
   border: solid #06d8cc thin;
   padding: 3%;
   position: relative;
-  content: contain;
-  color: black;
-  z-index: -1;
-
-  
+  color: black;  
     i {
         position: absolute;
         left: 10px;
@@ -56,7 +51,7 @@ div > span {
     width: 80%;
     margin-left: 10%;
     span > p { display: inline; }
-
+}
 @media(max-width: 450px){
     span>p {display: none;}
     div > label {font-size: 13px; line-height: 25px;}
@@ -68,7 +63,7 @@ div > span {
     div > span {font-size: 12px; }
 
 }
-} 
+ 
 `;
 const Button = styled(StyledBtn)`
     width: 100px;

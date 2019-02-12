@@ -160,7 +160,7 @@ class Profile extends Component {
 
     return (
       <div>
-        <Header backgroundColor='white' title={<Link to='/search' style={{color: 'white'}} className='title'>PrivyChic</Link>} position='fixed'  />
+        <Header color='white' title={<Link to='/search' className='title'>PrivyChic</Link>} position='fixed'  />
 
         {this.showProfile()}
         <Main>

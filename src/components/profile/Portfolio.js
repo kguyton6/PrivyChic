@@ -42,7 +42,6 @@ const Portfolio = props => {
         <Banner background={background} >
         <h1 style={{textTransform: 'uppercase'}}>{props.name}</h1> 
             {props.children}
-
         </Banner>
         </>
     )

@@ -44,7 +44,6 @@ const StyledHeader = styled.header`
     .title {
       color: white;
       font-size: 34px;
-      /* margin-left: unset; */
     }
     i.search {display: block; color: white; font-size: 60px; }
 
@@ -155,7 +154,6 @@ class Header extends React.Component {
           toggleMenu={this.menu}
           toggle={this.modalHandler}
           render={this.props.Button}
-          backgroundColor={this.props.backgroundColor ? true : false}
           {...this.props}
         />
        {this.dropdown()}

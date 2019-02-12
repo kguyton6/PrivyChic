@@ -6,6 +6,7 @@ import Header from "../Header";
 import Banner from "../Banner";
 import styled from 'styled-components'
 import Login from "../modal/login/Login";
+
 const Title = styled.div`
 margin-top: 3%;
 text-align: center;
@@ -42,31 +43,8 @@ const Boxes = styled.div`
     padding-left: 80px;
     padding-right: 80px;
   }
-  
-
 `
-const Container = styled.div`
-  position: relative;
-  border: solid transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
 
-  button {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 200px;
-    font-weight: bold;
-  }
-
-  h4 {
-      font-size: 1em;
-      color: white;
-      font-weight: lighter;
-  }
-`;
 
 class Business extends Component {
   constructor(props) {
